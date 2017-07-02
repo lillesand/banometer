@@ -2,7 +2,7 @@ package ruter.realtime
 
 class RealTimeRequest(val stopId: String = "3012130",
                       val wantedDirection: Int? = null,
-                      val wantedLine: Int? = null) {
+                      val wantedLines: List<Int> = emptyList()) {
 
     fun acceptsDirection(actualDirection: String?): Boolean {
         if (actualDirection == null || wantedDirection == null) return true
@@ -11,9 +11,9 @@ class RealTimeRequest(val stopId: String = "3012130",
     }
 
     fun acceptsLine(actualLine: String?): Boolean {
-        if (actualLine == null || wantedLine == null) return true
+        if (actualLine == null || wantedLines.isEmpty()) return true
 
-        return actualLine == wantedLine.toString();
+        return wantedLines.contains(Integer.parseInt(actualLine));
     }
 
 }
