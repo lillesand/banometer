@@ -7,16 +7,16 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatterBuilder;
 
 @JsonIgnoreProperties({"Extensions", "FramedVehicleJourneyRef"})
-class BusDepartureDto {
+public class BusDepartureDto {
 
     /**
      * retarded date strings
      */
     private String ExpectedDepartureTime;
 
-    private String DestinationName, // Bygdøy
-            DirectionName, // 2
-            PublishedLineName; // 30
+    private String DestinationName, // E.g. "Bygdøy"
+            DirectionName, // E.g. "2"
+            PublishedLineName; // E.g. "30"
 
     public Instant getExpectedDepartureTime() {
         return dateTime(ExpectedDepartureTime);
