@@ -1,6 +1,5 @@
 package ruter.realtime
 
-import org.junit.Assert
 import org.junit.Test
 
 
