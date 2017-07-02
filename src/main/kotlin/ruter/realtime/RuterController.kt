@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 class RuterController {
 
-    init {
-        println("RuterController!!!")
-    }
-
     var ruterService: RuterService = RuterService()
 
     @RequestMapping(path = arrayOf("/ruter"), produces = arrayOf("application/json"))
