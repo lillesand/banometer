@@ -1,0 +1,11 @@
+body {
+    background-color: white;
+}
+
+#main {
+    width: 800px;
+    height: 600px;
+    border: black 1px;
+    background-color: grey;
+    margin: auto;
+}
