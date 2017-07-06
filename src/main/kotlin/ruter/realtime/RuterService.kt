@@ -23,9 +23,8 @@ class RuterService {
                 .build()
     }
 
-    fun fetchRealtimeInformation(): UpcomingDeparture {
-        return fetchRealtime(RealTimeRequest()).departures.findFirst()
-                .orElseThrow({ throw RuterException("No realtime data found :(") })
+    fun fetchRealtimeInformation(): UpcomingDeparture? {
+        return fetchRealtime(RealTimeRequest()).departures.firstOrNull()
     }
 
     fun fetchRealtime(request: RealTimeRequest): UpcomingDepartures {

@@ -11,8 +11,8 @@ class RuterController {
 
     @RequestMapping(path = arrayOf("/ruter"), produces = arrayOf("application/json"))
     @ResponseBody
-    fun ruter(): UpcomingDeparture? {
-        val realtimeInformation = ruterService.fetchRealtimeInformation()
+    fun ruter(): UpcomingDepartures {
+        val realtimeInformation = ruterService.fetchRealtime(RealTimeRequest(wantedDirection = 2, wantedLines =  listOf(5)))
         return realtimeInformation
     }
 }
