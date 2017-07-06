@@ -1,11 +1,31 @@
-body {
-    background-color: white;
-}
-
 #main {
     width: 800px;
     height: 600px;
     border: black 1px;
-    background-color: grey;
     margin: auto;
+    background-color: #111111;
+    color: #FFFFFF;
+
+}
+
+.departures {
+    display: flex;
+    flex-direction: row;
+
+    padding: 230px 10px 0 10px;
+    font-size: 26px;
+}
+
+.departure {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.departure .time {
+    font-size: 3em;
+}
+
+.departure .line {
+    display: block;
+    font-size: 16px;
 }
