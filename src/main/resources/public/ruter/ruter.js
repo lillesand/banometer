@@ -1,30 +1,51 @@
-(function() {
 
     const departuresContainer = document.querySelector('#departures');
+    const sleepyContainer = document.querySelector('#zzz');
+    const waker = document.querySelector('#sleeper');
+    const minutesBeforeSleeping = 30;
+    const secondsRefreshInterval = 30;
 
-    const departureConfig = {
-        times: {
-            tooLate: 3,
-            lower: 5,
-            upper: 30
-        },
-        max: 5
-    };
+    let refreshInterval;
 
-    fetch('/ruter', {
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(function(response) {
-        return response.json();
-    }).then(function(json) {
+    waker.addEventListener('click', function() {
+        enableRefresh();
 
-        let html = `<div class="departures">`;
-        html += json.departures.map(departureToHtml).join('');
-        html += `</div>`;
-
-        departuresContainer.innerHTML = html;
+        setTimeout(disableRefresh, minutesBeforeSleeping * 60 * 1000);
     });
+
+
+    function enableRefresh() {
+        refreshTimes();
+        refreshInterval = setInterval(refreshTimes, secondsRefreshInterval * 1000);
+
+        sleepyContainer.style['display'] = 'none';
+        departuresContainer.style['display'] = 'block';
+    }
+
+    function disableRefresh() {
+        clearInterval(refreshInterval);
+
+        sleepyContainer.style['display'] = 'block';
+        departuresContainer.style['display'] = 'none';
+    }
+
+    function refreshTimes() {
+        fetch('/ruter', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+
+            let html = `<div class="departures">`;
+            html += json.departures.map(departureToHtml).join('');
+            html += `</div>`;
+
+            departuresContainer.innerHTML = html;
+        });
+    }
+
 
     function departureToHtml(departure) {
         return `<div class="departure">
@@ -33,5 +54,4 @@
 </div>`;
     }
 
-})();
 
