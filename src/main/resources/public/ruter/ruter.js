@@ -50,6 +50,9 @@
 
             departuresContainer.innerHTML = html;
             lastUpdated.innerText = dateString(new Date());
+        }).catch(function (error) {
+            networkIndicator.innerText = '☠☠☠';
+            lastUpdated.innerText = 'Oppdatering 💥😩';
         });
     }
 
