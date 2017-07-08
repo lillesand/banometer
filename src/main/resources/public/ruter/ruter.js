@@ -2,6 +2,8 @@
     const departuresContainer = document.querySelector('#departures');
     const sleepyContainer = document.querySelector('#zzz');
     const waker = document.querySelector('#sleeper');
+    const networkIndicator = document.querySelector('#status .networkIndicator');
+    const lastUpdated = document.querySelector('#status .lastUpdated');
     const minutesBeforeSleeping = 30;
     const secondsRefreshInterval = 30;
 
@@ -30,10 +32,14 @@
     }
 
     function refreshTimes() {
+        networkIndicator.innerText = '🤖 ⚡️ ☁️';
         fetch('/ruter', {
             headers: {
                 'Accept': 'application/json'
             }
+        }).then(function(response) {
+            networkIndicator.innerText = '';
+            return response;
         }).then(function (response) {
             return response.json();
         }).then(function (json) {
@@ -43,6 +49,7 @@
             html += `</div>`;
 
             departuresContainer.innerHTML = html;
+            lastUpdated.innerText = dateString(new Date());
         });
     }
 
@@ -54,4 +61,6 @@
 </div>`;
     }
 
-
+    function dateString(date) {
+        return `${date.getFullYear()}-${date.getMonth().toString().padStart(2, '0')}-${date.getUTCDay().toString().padStart(2, '0')} ${date.toLocaleTimeString()}`;
+    }
