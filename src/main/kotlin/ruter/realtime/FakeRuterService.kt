@@ -23,6 +23,7 @@ class FakeRuterService : RuterService() {
     }
 
     override fun fetchRealtime(request: RealTimeRequest): UpcomingDepartures {
+        Thread.sleep((Math.random() * 5000).toLong());
         return UpcomingDepartures(RealTimeRequest(), listOf(
                 departsIn(5, ChronoUnit.MINUTES),
                 departsIn(16, ChronoUnit.MINUTES),
