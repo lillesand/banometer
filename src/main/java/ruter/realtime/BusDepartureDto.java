@@ -12,18 +12,22 @@ public class BusDepartureDto {
     /**
      * retarded date strings
      */
-    private String ExpectedDepartureTime;
+    private Instant expectedDepartureTime;
 
     private String DestinationName, // E.g. "Bygdøy"
             DirectionName, // E.g. "2"
             PublishedLineName; // E.g. "30"
 
     public Instant getExpectedDepartureTime() {
-        return dateTime(ExpectedDepartureTime);
+        return expectedDepartureTime;
     }
 
     public void setExpectedDepartureTime(String expectedDepartureTime) {
-        ExpectedDepartureTime = expectedDepartureTime;
+        setExpectedDepartureTime(instant(expectedDepartureTime));
+    }
+
+    public void setExpectedDepartureTime(Instant expectedDepartureTime) {
+        this.expectedDepartureTime = expectedDepartureTime;
     }
 
     public String getDestinationName() {
@@ -50,7 +54,7 @@ public class BusDepartureDto {
         PublishedLineName = publishedLineName;
     }
 
-    private Instant dateTime(String aimedDepartureTime) {
+    private Instant instant(String aimedDepartureTime) {
         String millisString = StringUtils.substringBetween(aimedDepartureTime, "(", "+");
         long millisLong = Long.parseLong(millisString);
         return Instant.ofEpochMilli(millisLong);

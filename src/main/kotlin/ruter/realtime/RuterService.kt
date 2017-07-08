@@ -10,7 +10,7 @@ import org.apache.http.impl.client.HttpClientBuilder
 
 import java.io.IOException
 
-class RuterService {
+open class RuterService {
 
     private val mapper: ObjectMapper = ObjectMapper()
     private val httpClient: HttpClient
@@ -27,7 +27,7 @@ class RuterService {
         return fetchRealtime(RealTimeRequest()).departures.firstOrNull()
     }
 
-    fun fetchRealtime(request: RealTimeRequest): UpcomingDepartures {
+    open fun fetchRealtime(request: RealTimeRequest): UpcomingDepartures {
         try {
             val response = httpClient.execute(HttpGet("http://reis.trafikanten.no/reisrest/realtime/getrealtimedata/${request.stopId}"))
 
