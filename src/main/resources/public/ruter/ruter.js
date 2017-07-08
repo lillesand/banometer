@@ -45,19 +45,26 @@
         }).then(function (json) {
             const directions = {
                 '1': {
-                    name: '👈 Vest'
+                    name: '👈 Vest',
+                    lines: ['4', '5']
                 },
                 '2': {
-                    name: 'Øst 👉'
+                    name: 'Øst 👉',
+                    lines: ['5']
                 }
             };
 
             let html = ``;
 
             Object.keys(directions).forEach(function(direction) {
-                const departuresInDirection = json.departures.filter(function(departure) { return departure.directionName === direction });
+                let directionConfig = directions[direction];
+
+                const departuresInDirection = json.departures
+                    .filter(function(departure) { return departure.directionName === direction })
+                    .filter(function(departure) { return directionConfig.lines.includes(departure.lineName) });
+
                 if (departuresInDirection.length > 0) {
-                    html += `<div class="direction"><h2 class="direction-heading">${directions[direction].name}</h2>`;
+                    html += `<div class="direction"><h2 class="direction-heading">${directionConfig.name}</h2>`;
                         html += `<div class="departures">`;
                             html += departuresInDirection.map(departureToHtml).join('');
                         html += `</div>`;
