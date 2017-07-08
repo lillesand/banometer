@@ -45,10 +45,12 @@
         }).then(function (json) {
             const directions = {
                 '1': {
+                    minTime: 4,
                     name: '👈 Vest',
                     lines: ['4', '5']
                 },
                 '2': {
+                    minTime: 4,
                     name: 'Øst 👉',
                     lines: ['5']
                 }
@@ -61,15 +63,18 @@
 
                 const departuresInDirection = json.departures
                     .filter(function(departure) { return departure.directionName === direction })
-                    .filter(function(departure) { return directionConfig.lines.includes(departure.lineName) });
+                    .filter(function(departure) { return directionConfig.lines.includes(departure.lineName) })
+                    .filter(function(departure) { return departure.waitingTimeInMinutes >= directionConfig.minTime })
 
+                html += `<div class="direction"><h2 class="direction-heading">${directionConfig.name}</h2>`;
                 if (departuresInDirection.length > 0) {
-                    html += `<div class="direction"><h2 class="direction-heading">${directionConfig.name}</h2>`;
-                        html += `<div class="departures">`;
-                            html += departuresInDirection.map(departureToHtml).join('');
-                        html += `</div>`;
+                    html += `<div class="departures">`;
+                        html += departuresInDirection.map(departureToHtml).join('');
                     html += `</div>`;
+                } else {
+                    html += '<div class="error">Fant ingenting! 😚</div>';
                 }
+                html += `</div>`;
             });
 
             departuresContainer.innerHTML = html;

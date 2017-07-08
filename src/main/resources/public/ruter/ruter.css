@@ -1,3 +1,5 @@
+h2 { margin: 0; }
+
 body {
     background-color: #111111;
     color: #FFFFFF;
@@ -65,7 +67,17 @@ body {
     font-size: 16px;
 }
 
+.direction + .direction {
+    /* All `.direction`s with a preceeding `.direction` (i.e. all expect the first) */
+    margin-top: 40px;
+}
+
 .direction-heading {
     font-size: 26px;
+    text-align: center;
+}
+
+.direction .error {
+    font-size: 16px;
     text-align: center;
 }
