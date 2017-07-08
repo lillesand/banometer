@@ -43,14 +43,32 @@
         }).then(function (response) {
             return response.json();
         }).then(function (json) {
+            const directions = {
+                '1': {
+                    name: '👈 Vest'
+                },
+                '2': {
+                    name: 'Øst 👉'
+                }
+            };
 
-            let html = `<div class="departures">`;
-            html += json.departures.map(departureToHtml).join('');
-            html += `</div>`;
+            let html = ``;
+
+            Object.keys(directions).forEach(function(direction) {
+                const departuresInDirection = json.departures.filter(function(departure) { return departure.directionName === direction });
+                if (departuresInDirection.length > 0) {
+                    html += `<div class="direction"><h2 class="direction-heading">${directions[direction].name}</h2>`;
+                        html += `<div class="departures">`;
+                            html += departuresInDirection.map(departureToHtml).join('');
+                        html += `</div>`;
+                    html += `</div>`;
+                }
+            });
 
             departuresContainer.innerHTML = html;
             lastUpdated.innerText = dateString(new Date());
         }).catch(function (error) {
+            console.error('Klikk bæng i henting fra ruter', error);
             networkIndicator.innerText = '☠☠☠';
             lastUpdated.innerText = 'Oppdatering 💥😩';
         });

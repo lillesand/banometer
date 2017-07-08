@@ -12,6 +12,7 @@ class UpcomingDeparture(departure: BusDepartureDto) {
     var destinationName: String = departure.destinationName
     var lineName: String = departure.publishedLineName
     var expectedDepartureTime: Instant = departure.expectedDepartureTime
+    var directionName: String = departure.directionName;
 
     override fun toString(): String {
         return "Departure to $destinationName ($lineName) in $waitingTimeInMinutes minutes, at ${LocalTime.from(expectedDepartureTime.atZone(systemDefault()))}"

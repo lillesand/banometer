@@ -25,17 +25,21 @@ class FakeRuterService : RuterService() {
     override fun fetchRealtime(request: RealTimeRequest): UpcomingDepartures {
         Thread.sleep((Math.random() * 5000).toLong());
         return UpcomingDepartures(RealTimeRequest(), listOf(
-                departsIn(5, ChronoUnit.MINUTES),
-                departsIn(16, ChronoUnit.MINUTES),
-                departsIn(28, ChronoUnit.MINUTES),
-                departsIn(34, ChronoUnit.MINUTES)
+                departsIn("1", 3, ChronoUnit.MINUTES),
+                departsIn("1", 11, ChronoUnit.MINUTES),
+                departsIn("1", 32, ChronoUnit.MINUTES),
+                departsIn("1", 48, ChronoUnit.MINUTES),
+                departsIn("2", 5, ChronoUnit.MINUTES),
+                departsIn("2", 16, ChronoUnit.MINUTES),
+                departsIn("2", 28, ChronoUnit.MINUTES),
+                departsIn("2", 34, ChronoUnit.MINUTES)
             )
         )
     }
 
-    private fun departsIn(time: Long, unit: ChronoUnit): BusDepartureDto {
+    private fun departsIn(directionName: String, time: Long, unit: ChronoUnit): BusDepartureDto {
         val busDepartureDto = BusDepartureDto()
-        busDepartureDto.directionName = "2"
+        busDepartureDto.directionName = directionName
         busDepartureDto.publishedLineName = "5"
         busDepartureDto.destinationName = "Ringen Fake"
         busDepartureDto.expectedDepartureTime = Instant.now().plus(time, unit)
