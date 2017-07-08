@@ -1,6 +1,8 @@
 body {
     background-color: #111111;
     color: #FFFFFF;
+
+    overflow: hidden; /* Scrollbar: no thanks*/
 }
 
 #zzz {
