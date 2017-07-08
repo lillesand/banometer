@@ -46,11 +46,13 @@
             const directions = {
                 '1': {
                     minTime: 4,
+                    maxDepartures: 4,
                     name: '👈 Vest',
                     lines: ['4', '5']
                 },
                 '2': {
                     minTime: 4,
+                    maxDepartures: 4,
                     name: 'Øst 👉',
                     lines: ['5']
                 }
@@ -65,6 +67,7 @@
                     .filter(function(departure) { return departure.directionName === direction })
                     .filter(function(departure) { return directionConfig.lines.includes(departure.lineName) })
                     .filter(function(departure) { return departure.waitingTimeInMinutes >= directionConfig.minTime })
+                    .filter(function(departure, index) { return index < directionConfig.maxDepartures });
 
                 html += `<div class="direction"><h2 class="direction-heading">${directionConfig.name}</h2>`;
                 if (departuresInDirection.length > 0) {
