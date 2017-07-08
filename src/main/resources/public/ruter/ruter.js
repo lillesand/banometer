@@ -98,5 +98,5 @@
     }
 
     function dateString(date) {
-        return `${date.getFullYear()}-${date.getMonth().toString().padStart(2, '0')}-${date.getUTCDay().toString().padStart(2, '0')} ${date.toLocaleTimeString()}`;
+        return `${date.toLocaleTimeString()} (${date.getDay()}.${date.getMonth()}.${date.getFullYear()})`;
     }
