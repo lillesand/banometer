@@ -1,40 +1,10 @@
-# kotlin-getting-started
+# Banometer!
 
-A barebones Kotlin app, which can easily be deployed to Heroku.
+Banometeret er den frekke arvtageren til [busometeret](https://github.com/lillesand/busometer). 
+Det kjører på Heroku, og vises på en Raspberry Pi med en tilhørende [Waveshare-skjerm](https://www.digitalimpuls.no/pc-komponenter/enkortsdata/arduino/skjerm/waveshare-7-touch-skjerm-pi-stand-800480-for-raspberry-pi-3-2-b-140893-p0000153040).
+  
+Noen ting jeg har gjort som det kan være nyttig å huske til senere:
 
-This application supports the [Getting Started with Kotlin on Heroku](https://devcenter.heroku.com/articles/getting-started-with-kotlin) article - check it out.
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Running Locally
-
-Make sure you have Java and Maven installed.  Also, install the [Heroku CLI](https://cli.heroku.com/).
-
-```sh
-$ git clone https://github.com/heroku/kotlin-getting-started.git
-$ cd kotlin-getting-started
-$ mvn install
-$ heroku local:start
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-If you're going to use a database, ensure you have a local `.env` file that reads something like this:
-
-```
-JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/java_database_name
-```
-
-## Deploying to Heroku
-
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-
-## Documentation
-
-For more information about using Java and Kotlin on Heroku, see these Dev Center articles:
-
-- [Java on Heroku](https://devcenter.heroku.com/categories/java)
+* Skrudd på innstillingene for [screen blanking](https://www.raspberrypi.org/documentation/configuration/screensaver.md) med xscreensaver for å unngå at skjermen skrur seg av så kjapt.
+* Installert [EmojiOne som font](https://github.com/eosrei/emojione-color-font#manual-install-on-any-linux) for å slippe de kjipe svart-hvitt emojiene på Raspbian.
+* Installert Firefox, for å bruke SVG-emojis med farger fra EmojiOne. Bruk Firefox ESR som ikke er helt tilfredstillende, men det funker.
