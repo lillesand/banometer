@@ -59,8 +59,7 @@
                 }
             };
 
-            let html = ``;
-
+            let html = '';
             Object.keys(directions).forEach(function(direction) {
                 let directionConfig = directions[direction];
 
@@ -69,16 +68,7 @@
                     .filter(function(departure) { return directionConfig.lines.includes(departure.lineName) })
                     .filter(function(departure) { return departure.waitingTimeInMinutes >= directionConfig.minTime })
                     .filter(function(departure, index) { return index < directionConfig.maxDepartures });
-
-                html += `<div class="direction"><h2 class="direction-heading">${directionConfig.name}</h2>`;
-                if (departuresInDirection.length > 0) {
-                    html += `<div class="departures">`;
-                        html += departuresInDirection.map(departureToHtml).join('');
-                    html += `</div>`;
-                } else {
-                    html += '<div class="error">Fant ingenting! 😚</div>';
-                }
-                html += `</div>`;
+                html += departuresToHtml(departuresInDirection, directionConfig);
             });
 
             departuresContainer.innerHTML = html;
@@ -90,6 +80,19 @@
         });
     }
 
+
+    function departuresToHtml(departures, config) {
+        let html = `<div class="direction"><h2 class="direction-heading">${config.name}</h2>`;
+        if (departures.length > 0) {
+            html += `<div class="departures">`;
+            html += departures.map(departureToHtml).join('');
+            html += `</div>`;
+        } else {
+            html += '<div class="error">Fant ingenting! 😚</div>';
+        }
+        html += `</div>`;
+        return html;
+    }
 
     function departureToHtml(departure) {
         return `<div class="departure">
