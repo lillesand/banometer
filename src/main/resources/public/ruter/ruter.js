@@ -19,6 +19,19 @@
                     }
                 }
             },
+        { name: 'BI',
+                symbol: '🏫',
+                id: '3012131',
+                directions: {
+                    '1': {
+                        minTime: 4,
+                        maxDepartures: 4,
+                        name: 'Byen 🌃',
+                        lines: ['37']
+                    }
+                }
+            },
+
             { name: 'Gullhaugveien',
                 symbol: '🚌',
                 id: '3012134',
