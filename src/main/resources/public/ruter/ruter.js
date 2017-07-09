@@ -1,5 +1,24 @@
 (function() {
 
+    const config = {
+        name: 'Nydalen T',
+        id: '3012130',
+        directions: {
+            '1': {
+                minTime: 4,
+                maxDepartures: 4,
+                name: '👈 Vest',
+                lines: ['4', '5']
+            },
+            '2': {
+                minTime: 4,
+                maxDepartures: 4,
+                name: 'Øst 👉',
+                lines: ['5']
+            }
+        }
+    };
+
     const departuresContainer = document.querySelector('#departures');
     const sleepyContainer = document.querySelector('#zzz');
     const waker = document.querySelector('#sleeper');
@@ -34,7 +53,7 @@
 
     function refreshTimes() {
         networkIndicator.innerText = '🤖 ⚡️ ☁️';
-        fetch('/ruter', {
+        fetch('/ruter?stopId=' + config.id, {
             headers: {
                 'Accept': 'application/json'
             }
@@ -44,24 +63,9 @@
         }).then(function (response) {
             return response.json();
         }).then(function (json) {
-            const directions = {
-                '1': {
-                    minTime: 4,
-                    maxDepartures: 4,
-                    name: '👈 Vest',
-                    lines: ['4', '5']
-                },
-                '2': {
-                    minTime: 4,
-                    maxDepartures: 4,
-                    name: 'Øst 👉',
-                    lines: ['5']
-                }
-            };
-
             let html = '';
-            Object.keys(directions).forEach(function(direction) {
-                let directionConfig = directions[direction];
+            Object.keys(config.directions).forEach(function(direction) {
+                let directionConfig = config.directions[direction];
 
                 const departuresInDirection = json.departures
                     .filter(function(departure) { return departure.directionName === direction })
