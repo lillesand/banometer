@@ -68,17 +68,26 @@ a {
 
 #status > * {
     position: absolute;
-    bottom: 5px;
+    bottom: 0;
 }
 
 #status .lastUpdated {
-    left: 10px;
+    left: 0;
+
+    padding: 10px;
     font-size: 20px;
 }
 
 #status .networkIndicator {
-    right: 20px;
+    right: 0;
+
+    padding: 10px 20px;
     font-size: 30px;
+}
+
+#status .networkIndicator.error {
+    font-size: 36px;
+    background-color: #FF4136;
 }
 
 .departures {

@@ -97,6 +97,7 @@
 
     function refreshTimes() {
         networkIndicator.innerText = '🤖 ⚡️ ☁️';
+        networkIndicator.classList.remove('error');
         fetch('/ruter?stopId=' + currentStopConfig.id, {
             headers: {
                 'Accept': 'application/json'
@@ -123,8 +124,8 @@
             lastUpdated.innerText = dateString(new Date());
         }).catch(function (error) {
             console.error('Klikk bæng i henting fra ruter', error);
-            networkIndicator.innerText = '☠☠☠';
-            lastUpdated.innerText = 'Oppdatering 💥😩';
+            networkIndicator.innerText = 'Siste oppdatering feilet ☠☠☠';
+            networkIndicator.classList.add('error');
         });
     }
 
