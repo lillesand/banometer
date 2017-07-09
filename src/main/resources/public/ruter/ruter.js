@@ -98,5 +98,5 @@
     }
 
     function dateString(date) {
-        return `${date.toLocaleTimeString()} (${date.getDay()}.${date.getMonth()}.${date.getFullYear()})`;
+        return `${date.toLocaleTimeString()} (${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()})`;
     }
