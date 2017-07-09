@@ -1,3 +1,4 @@
+(function() {
 
     const departuresContainer = document.querySelector('#departures');
     const sleepyContainer = document.querySelector('#zzz');
@@ -100,3 +101,5 @@
     function dateString(date) {
         return `${date.toLocaleTimeString()} (${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()})`;
     }
+
+})();
