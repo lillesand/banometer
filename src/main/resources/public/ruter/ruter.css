@@ -8,6 +8,10 @@ body {
     overflow: hidden; /* Scrollbar: no thanks*/
 }
 
+a {
+    text-decoration: none;
+}
+
 #main {
     height: 100vh;
 
@@ -27,7 +31,6 @@ body {
     text-align: center;
     padding: 10px;
 
-    text-decoration: none;
     color: #FFFFFF;
 }
 
@@ -35,6 +38,16 @@ body {
     font-size: 30px;
     display: block;
     padding: 5px;
+}
+
+#reload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+
+    font-size: 50px;
+    padding: 10px;
 }
 
 #zzz {
