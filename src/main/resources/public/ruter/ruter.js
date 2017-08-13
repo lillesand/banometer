@@ -54,7 +54,7 @@
     };
 
     const departuresContainer = document.querySelector('#departures');
-    const navigationContainer = document.querySelector('#navigation');
+    const navigationContainer = document.querySelector('#ruter-navigation');
     const sleepyContainer = document.querySelector('#zzz');
     const waker = document.querySelector('#sleeper');
     const networkIndicator = document.querySelector('#status .networkIndicator');
@@ -67,8 +67,8 @@
 
     waker.addEventListener('click', wake);
     window.addEventListener("hashchange", function (e) {
-        const hashPortion = e.newURL.split('#')[1];
-        currentStopConfig = findStopConfigFromHash(hashPortion, currentStopConfig, config, defaultStop);
+        const url = e.newURL.split('#')[1];
+        currentStopConfig = findStopConfigFromHash(url, currentStopConfig, config, defaultStop);
         wake();
     });
     navigationContainer.innerHTML = stopsToHtml(config.stops);
@@ -153,7 +153,7 @@
 
     function stopsToHtml(stops) {
         return stops.map(function(stop) {
-            return `<a class="stop" href="#/stop/${stop.id}"><span class="emoji">${stop.symbol}</span><span class="name">${stop.name}</span></a>`;
+            return `<a class="nav-item" href="#/stop/${stop.id}"><span class="icon">${stop.symbol}</span><span class="name">${stop.name}</span></a>`;
         }).join('');
     }
 
