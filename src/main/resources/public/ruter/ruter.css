@@ -12,7 +12,7 @@ a {
     text-decoration: none;
 }
 
-#main {
+body {
     height: 100vh;
 
     display: flex;
@@ -50,12 +50,9 @@ a {
     padding: 10px;
 }
 
-#zzz {
-    text-align: center;
-}
-
 #zzz #sleeper {
     font-size: 30vh;
+    text-align: center;
     cursor: pointer;
 }
 

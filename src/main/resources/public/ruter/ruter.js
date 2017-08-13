@@ -1,5 +1,8 @@
 (function() {
-    const config = {
+
+    const modules = window.modules;
+
+    const stopConfig = {
         stops: [
             { name: 'Nydalen T',
                 symbol: '🚇',
@@ -54,45 +57,54 @@
     };
 
     const departuresContainer = document.querySelector('#departures');
-    const navigationContainer = document.querySelector('#ruter-navigation');
     const sleepyContainer = document.querySelector('#zzz');
+    const weatherContainer = document.querySelector('#weather');
+
+
+    const navigationContainer = document.querySelector('#ruter-navigation');
     const waker = document.querySelector('#sleeper');
     const networkIndicator = document.querySelector('#status .networkIndicator');
     const lastUpdated = document.querySelector('#status .lastUpdated');
     const minutesBeforeSleeping = 30;
-    const secondsRefreshInterval = 30;
-    const defaultStop = config.stops[0];
-
-    let currentStopConfig = defaultStop;
+    const ruterRefreshIntervalSeconds = 30;
+    const weatherRefreshIntervalMinutes = 15;
+    let currentStopConfig = stopConfig.stops[0];
 
     waker.addEventListener('click', wake);
+
     window.addEventListener("hashchange", function (e) {
         const url = e.newURL.split('#')[1];
-        currentStopConfig = findStopConfigFromHash(url, currentStopConfig, config, defaultStop);
-        wake();
-    });
-    navigationContainer.innerHTML = stopsToHtml(config.stops);
 
-    let refreshInterval;
+        wake();
+        modules.utils.clearIntervals();
+
+        if (url.startsWith("/weather")) {
+            showOnly(weatherContainer);
+            let location = findWeatherConfigFromHash(url);
+            modules.utils.enableInterval(() => showWeather(location), weatherRefreshIntervalMinutes * 60 * 1000);
+        } else {
+            showOnly(departuresContainer);
+            currentStopConfig = findStopConfigFromHash(url);
+            modules.utils.enableInterval(refreshTimes, ruterRefreshIntervalSeconds * 1000);
+        }
+    });
+    navigationContainer.innerHTML = stopsToHtml(stopConfig.stops);
+
     let sleepTimerId;
     function wake() {
-        refreshTimes();
-
-        clearInterval(refreshInterval); // Always clear existing before setting up new interval, to avoid multiple concurrent intervals.
-        refreshInterval = setInterval(refreshTimes, secondsRefreshInterval * 1000);
-
-        sleepyContainer.style['display'] = 'none';
-        departuresContainer.style['display'] = 'block';
-
         clearTimeout(sleepTimerId); // Always clear existing before setting up new timeout, to avoid old survivors messing stuff up.
         sleepTimerId = setTimeout(sleep, minutesBeforeSleeping * 60 * 1000);
     }
 
-    function sleep() {
-        clearInterval(refreshInterval);
 
-        sleepyContainer.style['display'] = 'block';
-        departuresContainer.style['display'] = 'none';
+    function sleep() {
+        modules.utils.clearIntervals();
+        showOnly(sleepyContainer);
+    }
+
+    function showOnly(container) {
+        document.querySelectorAll('#main > *').forEach(e => e.style['display'] = 'none');
+        container.style['display'] = 'block';
     }
 
     function refreshTimes() {
@@ -131,6 +143,7 @@
 
     function findStopConfigFromHash(hash) {
         let match = hash.match(/\/stop\/(\d+)/);
+        const defaultStop = stopConfig.stops[0];
 
         if (match === null) {
             alert(`Fikk en rar URL: ${hash}. Den er det lite å bruke til! 😩`);
@@ -138,16 +151,34 @@
         }
 
         const stopId = match[1];
-        const stopConfig = config.stops.find(function (stop) {
+        const stop = stopConfig.stops.find(function (stop) {
             return stop.id === stopId;
         });
 
-        if (stopConfig === undefined) {
+        if (stop === undefined) {
             alert(`Fant ikke konfigurasjon for stopID ${stopId} 😰`);
             return defaultStop;
         }
 
-        return stopConfig;
+        return stop;
+    }
+
+    function findWeatherConfigFromHash(hash) {
+        let match = hash.match(/\/weather\/(.*)/);
+
+        if (match === null) {
+            alert(`Klarte ikke hente lokasjon fra vær-URL: ${hash}. Da blir det Oslo!`);
+            return 'Oslo/Oslo/Oslo';
+        }
+
+        return match[1];
+    }
+
+    /**
+     * @param location Location as used by yrs Meteograf API, e.g. `Norway/Oslo/Oslo/Nydalen`.
+     */
+    function showWeather(location) {
+        weatherContainer.innerHTML = `<img src="https://www.yr.no/place/${location}/meteogram.svg">`;
     }
 
 
