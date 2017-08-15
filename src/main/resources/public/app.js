@@ -56,6 +56,8 @@
         ]
     };
 
+    const timeAwake = [30, 'minutes'];
+
     const lastUpdatedView = new LastUpdatedView(document.querySelector('#status .lastUpdated'));
     const networkIndicator = new NetworkIndicatorView(document.querySelector('#status .networkIndicator'));
     const sleepyView = new SleepyView(document.querySelector('#zzz'));
@@ -72,16 +74,19 @@
     const mainViews = [ weatherView, ruterView, sleepyView ];
 
     const navigationContainer = document.querySelector('#ruter-navigation');
-    const waker = document.querySelector('#sleeper');
-    const minutesBeforeSleeping = 30;
-
-    waker.addEventListener('click', wake);
 
     window.addEventListener("hashchange", function (e) {
         const url = e.newURL.split('#')[1];
 
-        wake();
         modules.utils.clearIntervals();
+
+        if (url.startsWith("/sleep")) {
+            showOnly(sleepyView);
+            return;
+        }
+
+        sleepyView.setPreviousUrl(url);
+        sleepyView.sleepIn(timeAwake, { onSleep: () => window.location.hash = '/sleep' });
 
         if (url.startsWith("/weather")) {
             weatherView.setLocationFromPath(url);
@@ -93,17 +98,6 @@
     });
 
     navigationContainer.innerHTML = stopsToHtml(stopConfig.stops);
-
-    let sleepTimerId;
-    function wake() {
-        clearTimeout(sleepTimerId); // Always clear existing before setting up new timeout, to avoid old survivors messing stuff up.
-        sleepTimerId = setTimeout(sleep, minutesBeforeSleeping * 60 * 1000);
-    }
-
-    function sleep() {
-        modules.utils.clearIntervals();
-        showOnly(sleepyView);
-    }
 
     function showOnly(view) {
         mainViews.forEach(view => view.hide());
