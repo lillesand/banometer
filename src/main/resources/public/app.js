@@ -23,6 +23,8 @@
     const mainViews = [ weatherView, ruterView, sleepyView ];
     ruterMenuView.show();
 
+    document.querySelector('#reload').addEventListener('click', () => window.location.reload());
+
     window.addEventListener("hashchange", function (e) {
         render(e.newURL.split('#')[1]);
     });
