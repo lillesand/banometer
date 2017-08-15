@@ -58,8 +58,9 @@
 
     const departuresContainer = document.querySelector('#departures');
     const sleepyContainer = document.querySelector('#zzz');
-    const weatherContainer = document.querySelector('#weather');
+    const weatherView = new WeatherView(document.querySelector('#weather'));
 
+    const mainViews = [ weatherView ];
 
     const navigationContainer = document.querySelector('#ruter-navigation');
     const waker = document.querySelector('#sleeper');
@@ -67,7 +68,6 @@
     const lastUpdated = document.querySelector('#status .lastUpdated');
     const minutesBeforeSleeping = 30;
     const ruterRefreshIntervalSeconds = 30;
-    const weatherRefreshIntervalMinutes = 15;
     let currentStopConfig = stopConfig.stops[0];
 
     waker.addEventListener('click', wake);
@@ -79,9 +79,8 @@
         modules.utils.clearIntervals();
 
         if (url.startsWith("/weather")) {
-            showOnly(weatherContainer);
-            let location = findWeatherConfigFromHash(url);
-            modules.utils.enableInterval(() => showWeather(location), weatherRefreshIntervalMinutes * 60 * 1000);
+            weatherView.setLocationFromPath(url);
+            showOnly(weatherView);
         } else {
             showOnly(departuresContainer);
             currentStopConfig = findStopConfigFromHash(url);
@@ -96,15 +95,21 @@
         sleepTimerId = setTimeout(sleep, minutesBeforeSleeping * 60 * 1000);
     }
 
-
     function sleep() {
         modules.utils.clearIntervals();
         showOnly(sleepyContainer);
     }
 
-    function showOnly(container) {
+    function showOnly(view) {
+        // TODO: Tiny legacy hack while moving stuff to views
         document.querySelectorAll('#main > *').forEach(e => e.style['display'] = 'none');
-        container.style['display'] = 'block';
+        mainViews.forEach(view => { if(view.stop) view.stop() });
+
+        if (view instanceof WeatherView) {
+            view.show();
+        } else {
+            view.style['display'] = 'block';
+        }
     }
 
     function refreshTimes() {
@@ -161,25 +166,6 @@
 
         return stop;
     }
-
-    function findWeatherConfigFromHash(hash) {
-        let match = hash.match(/\/weather\/(.*)/);
-
-        if (match === null) {
-            alert(`Klarte ikke hente lokasjon fra vær-URL: ${hash}. Da blir det Oslo!`);
-            return 'Oslo/Oslo/Oslo';
-        }
-
-        return match[1];
-    }
-
-    /**
-     * @param location Location as used by yrs Meteograf API, e.g. `Norway/Oslo/Oslo/Nydalen`.
-     */
-    function showWeather(location) {
-        weatherContainer.innerHTML = `<img src="https://www.yr.no/place/${location}/meteogram.svg">`;
-    }
-
 
     function stopsToHtml(stops) {
         return stops.map(function(stop) {
