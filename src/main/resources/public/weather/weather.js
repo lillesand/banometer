@@ -29,6 +29,10 @@ class WeatherView {
         modules.utils.enableInterval(() => this.refresh(), this.refreshInterval * 60 * 1000);
     }
 
+    hide() {
+        this.el.style['display'] = 'none';
+    }
+
     refresh() {
         this.el.innerHTML = `<img src="https://www.yr.no/place/${this.location}/meteogram.svg">`;
     }
