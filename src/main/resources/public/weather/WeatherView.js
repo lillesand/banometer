@@ -30,6 +30,7 @@ class WeatherView {
     }
 
     hide() {
+        this.el.innerHTML = '';
         this.el.style['display'] = 'none';
     }
 
