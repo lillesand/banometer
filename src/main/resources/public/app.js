@@ -57,10 +57,9 @@
     };
 
     const lastUpdatedView = new LastUpdatedView(document.querySelector('#status .lastUpdated'));
-
     const networkIndicator = new NetworkIndicatorView(document.querySelector('#status .networkIndicator'));
-
-    const sleepyContainer = document.querySelector('#zzz');
+    const sleepyView = new SleepyView(document.querySelector('#zzz'));
+    const weatherView = new WeatherView(document.querySelector('#weather'));
     const ruterView = new RuterView({
         el: document.querySelector('#departures'),
         stopConfig: stopConfig,
@@ -68,9 +67,9 @@
         networkIndicator: networkIndicator,
         config: stopConfig
     });
-    const weatherView = new WeatherView(document.querySelector('#weather'));
 
-    const mainViews = [ weatherView, ruterView ];
+
+    const mainViews = [ weatherView, ruterView, sleepyView ];
 
     const navigationContainer = document.querySelector('#ruter-navigation');
     const waker = document.querySelector('#sleeper');
@@ -103,7 +102,7 @@
 
     function sleep() {
         modules.utils.clearIntervals();
-        showOnly(sleepyContainer);
+        showOnly(sleepyView);
     }
 
     function showOnly(view) {
