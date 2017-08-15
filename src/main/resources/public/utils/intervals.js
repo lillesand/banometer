@@ -11,8 +11,8 @@
     }
 
     function clearIntervals() {
-        refreshIntervals = [];
         refreshIntervals.forEach(clearInterval);
+        refreshIntervals = [];
     }
 
 })();
