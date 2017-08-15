@@ -63,7 +63,7 @@
 
     const navigationContainer = document.querySelector('#ruter-navigation');
     const waker = document.querySelector('#sleeper');
-    const networkIndicator = document.querySelector('#status .networkIndicator');
+    const networkIndicator = new NetworkIndicatorView(document.querySelector('#status .networkIndicator'));
     const lastUpdated = document.querySelector('#status .lastUpdated');
     const minutesBeforeSleeping = 30;
     const ruterRefreshIntervalSeconds = 30;
@@ -108,14 +108,14 @@
     }
 
     function refreshTimes() {
-        networkIndicator.innerText = '🤖 ⚡️ ☁️';
-        networkIndicator.classList.remove('error');
+        networkIndicator.loading();
+
         fetch('/ruter?stopId=' + currentStopConfig.id, {
             headers: {
                 'Accept': 'application/json'
             }
         }).then(function(response) {
-            networkIndicator.innerText = '';
+            networkIndicator.done();
             return response;
         }).then(function (response) {
             return response.json();
@@ -136,8 +136,7 @@
             lastUpdated.innerText = dateString(new Date());
         }).catch(function (error) {
             console.error('Klikk bæng i henting fra ruter', error);
-            networkIndicator.innerText = 'Siste oppdatering feilet ☠☠☠';
-            networkIndicator.classList.add('error');
+            networkIndicator.failed('Siste oppdatering feilet ☠☠☠');
         });
     }
 
