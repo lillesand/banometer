@@ -2,11 +2,15 @@ class RuterMenuView {
 
     constructor(opts) {
         this.el = opts.el;
-        this.stopConfig = opts.stopConfig;
+        this.stops = opts.stopConfig;
     }
 
     show() {
-        this.el.innerHTML = RuterMenuView.stopsToHtml(this.stopConfig);
+        this.el.innerHTML = RuterMenuView.stopsToHtml(this.stops);
+    }
+
+    pathToFirstStop() {
+        return `/stop/${this.stops[0].id}`;
     }
 
     static stopsToHtml(stops) {

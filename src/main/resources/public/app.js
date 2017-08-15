@@ -23,11 +23,19 @@
     const mainViews = [ weatherView, ruterView, sleepyView ];
     ruterMenuView.show();
 
-
     window.addEventListener("hashchange", function (e) {
-        const url = e.newURL.split('#')[1];
+        render(e.newURL.split('#')[1]);
+    });
 
+    render(window.location.hash.substring(1)); // Render initial path, omitting leading #
+
+    function render(url) {
         modules.utils.clearIntervals();
+
+        if (url === '' || url === '/') {
+            // Default to first stop
+            url = ruterMenuView.pathToFirstStop();
+        }
 
         if (url.startsWith("/sleep")) {
             showOnly(sleepyView);
@@ -35,16 +43,18 @@
         }
 
         sleepyView.setPreviousUrl(url);
-        sleepyView.sleepIn(timeAwake, { onSleep: () => window.location.hash = '/sleep' });
+        sleepyView.sleepIn(timeAwake, {onSleep: () => window.location.hash = '/sleep'});
 
         if (url.startsWith("/weather")) {
             weatherView.setLocationFromPath(url);
             showOnly(weatherView);
-        } else {
+        } else if (url.startsWith('/stop')) {
             ruterView.setLocationFromPath(url);
             showOnly(ruterView);
+        } else {
+            alert(`Jøss, '${url}' var jammen en pussig URL. Den vet ikke jeg hva jeg skal gjøre med! 😬`);
         }
-    });
+    }
 
     function showOnly(view) {
         mainViews.forEach(view => view.hide());
