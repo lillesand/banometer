@@ -56,6 +56,14 @@ body {
     display: block;
 }
 
+#weather {
+    text-align: center;
+}
+
+#weather .meteogram {
+    width: 90%;
+}
+
 #status {
     position: absolute;
 

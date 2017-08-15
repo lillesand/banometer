@@ -36,7 +36,7 @@ class WeatherView {
 
     refresh() {
         // TODO: Dette funker strengt tatt ikke, siden browseren cacher bildet. For å gjøre det enda verre fønker ikke cache-busting mot Yr siden de ikke tillater arbitrære request-parametre 🙄
-        this.el.innerHTML = `<img src="https://www.yr.no/place/${this.location}/meteogram.svg">`;
+        this.el.innerHTML = `<img class="meteogram" src="https://www.yr.no/place/${this.location}/meteogram.svg">`;
     }
 
 }
