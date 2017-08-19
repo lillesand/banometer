@@ -2,7 +2,7 @@ class RuterMenuView {
 
     constructor(opts) {
         this.el = opts.el;
-        this.stops = opts.stopConfig;
+        this.stops = opts.stops;
     }
 
     show() {

@@ -11,7 +11,7 @@
 
     const ruterMenuView = new RuterMenuView({
         el: document.querySelector('#ruter-navigation'),
-        stopConfig: window.modules.ruter.config.stops
+        stops: window.modules.ruter.config.stops
     });
     const ruterView = new RuterView({
         el: document.querySelector('#departures'),
