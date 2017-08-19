@@ -1,9 +1,10 @@
 class WeatherView {
 
 
-    constructor(el) {
-        this.el = el;
-        this.refreshInterval = [15, 'minutes'];
+    constructor(opts) {
+        this.el = opts.el;
+        this.networkIndicator = opts.networkIndicator;
+        this.refreshInterval = [10, 'minutes'];
     }
 
     /**
@@ -35,8 +36,17 @@ class WeatherView {
     }
 
     refresh() {
-        // TODO: Dette funker strengt tatt ikke, siden browseren cacher bildet. For å gjøre det enda verre fønker ikke cache-busting mot Yr siden de ikke tillater arbitrære request-parametre 🙄
+        this.networkIndicator.loading();
         this.el.innerHTML = `<img class="meteogram" src="https://www.yr.no/place/${this.location}/meteogram.svg">`;
+
+        let img = this.el.querySelector('img');
+        img.addEventListener('load', () => {
+            this.networkIndicator.done();
+        });
+
+        img.addEventListener('error', () => {
+            this.networkIndicator.failed('Fikk feil fra Yr ☁️😭');
+        });
     }
 
 }

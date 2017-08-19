@@ -2,7 +2,6 @@ class RuterView {
 
     constructor(opts) {
         this.el = opts.el;
-        this.lastUpdatedView = opts.lastUpdatedView;
         this.networkIndicator = opts.networkIndicator;
         this.stopConfig = opts.stopConfig;
         this.refreshInterval = [30, 'seconds'];
@@ -49,7 +48,6 @@ class RuterView {
             });
 
             this.el.innerHTML = html;
-            this.lastUpdatedView.update();
         }).catch((error) => {
             console.error('Klikk bæng i henting fra ruter', error);
             this.networkIndicator.failed('Siste oppdatering feilet ☠☠☠');

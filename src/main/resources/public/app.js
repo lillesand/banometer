@@ -4,10 +4,13 @@
 
     const timeAwake = [30, 'minutes'];
 
-    const lastUpdatedView = new LastUpdatedView(document.querySelector('#status .lastUpdated'));
-    const networkIndicator = new NetworkIndicatorView(document.querySelector('#status .networkIndicator'));
+    const networkIndicator = new NetworkIndicatorView(document.querySelector('#status'));
     const sleepyView = new SleepyView(document.querySelector('#zzz'));
-    const weatherView = new WeatherView(document.querySelector('#weather'));
+
+    const weatherView = new WeatherView({
+        el: document.querySelector('#weather'),
+        networkIndicator: networkIndicator,
+    });
 
     const ruterMenuView = new RuterMenuView({
         el: document.querySelector('#ruter-navigation'),
@@ -16,7 +19,6 @@
     const ruterView = new RuterView({
         el: document.querySelector('#departures'),
         stopConfig: window.modules.ruter.config,
-        lastUpdatedView: lastUpdatedView,
         networkIndicator: networkIndicator
     });
 
