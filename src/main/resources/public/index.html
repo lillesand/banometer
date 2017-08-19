@@ -1,1 +1,53 @@
-hallo
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Banometer!</title>
+
+    <link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body>
+    <nav id="navigation">
+        <span id="ruter-navigation"></span>
+        <span id="weather-navigation">
+            <a class="nav-item" href="#/weather/Norway/Oslo/Oslo/Oslo"><span class="icon">🌦</span><span class="name">Vær (Oslo)</span></a>
+        </span>
+    </nav>
+    <a id="reload">♻️</a>
+
+    <section id="main">
+        <section id="departures"></section>
+
+        <section id="weather"></section>
+
+        <section id="zzz"></section>
+    </section>
+
+
+    <section id="status">
+        <div class="networkIndicator"></div>
+        <div class="lastUpdated"></div>
+    </section>
+</body>
+
+<script>
+    window.modules = {
+        utils: {},
+        ruter: {}
+    };
+</script>
+
+<script src="utils/intervals.js"></script>
+<script src="utils/time.js"></script>
+<script src="network/NetworkIndicatorView.js"></script>
+
+<script src="sleepy/SleepyView.js"></script>
+
+<script src="ruter/config.js"></script>
+<script src="ruter/RuterMenuView.js"></script>
+<script src="ruter/RuterView.js"></script>
+
+<script src="weather/WeatherView.js"></script>
+<script src="app.js"></script>
+</html>
