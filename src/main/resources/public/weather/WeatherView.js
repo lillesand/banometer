@@ -3,7 +3,7 @@ class WeatherView {
 
     constructor(el) {
         this.el = el;
-        this.refreshInterval = 15;
+        this.refreshInterval = [15, 'minutes'];
     }
 
     /**
@@ -26,7 +26,7 @@ class WeatherView {
 
     show() {
         this.el.style['display'] = 'block';
-        modules.utils.enableInterval(() => this.refresh(), this.refreshInterval * 60 * 1000);
+        modules.utils.enableInterval(() => this.refresh(), modules.utils.toMillis(this.refreshInterval));
     }
 
     hide() {

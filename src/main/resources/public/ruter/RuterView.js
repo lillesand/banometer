@@ -5,7 +5,7 @@ class RuterView {
         this.lastUpdatedView = opts.lastUpdatedView;
         this.networkIndicator = opts.networkIndicator;
         this.stopConfig = opts.stopConfig;
-        this.refreshInterval = 30;
+        this.refreshInterval = [30, 'seconds'];
     }
 
     setLocationFromPath(path) {
@@ -14,7 +14,7 @@ class RuterView {
 
     show() {
         this.el.style['display'] = 'block';
-        modules.utils.enableInterval(() => this.refreshTimes(), this.refreshInterval * 1000);
+        modules.utils.enableInterval(() => this.refreshTimes(), modules.utils.toMillis(this.refreshInterval));
     }
 
     hide() {
