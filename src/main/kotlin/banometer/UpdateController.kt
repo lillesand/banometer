@@ -10,13 +10,13 @@ class UpdateController {
     @RequestMapping(path = arrayOf("/update"), method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun update(): String {
-        Runtime.getRuntime().exec(arrayOf("./scripts/start.sh", "5"))
-
         thread {
-            // Allow request to return before restarting.
+            // Allow some time for the request to return first
             Thread.sleep(100);
+
+            Runtime.getRuntime().exec(arrayOf("./scripts/start.sh", "5"))
             System.exit(0);
-        }.start()
+        }
 
         return "Okay, restarting.";
     }
