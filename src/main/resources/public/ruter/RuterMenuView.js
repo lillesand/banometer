@@ -9,13 +9,13 @@ class RuterMenuView {
         this.el.innerHTML = RuterMenuView.stopsToHtml(this.stops);
     }
 
-    pathToFirstStop() {
-        return `/stop/${this.stops[0].id}`;
+    static pathToFirstStop() {
+        return `/stop/0`;
     }
 
     static stopsToHtml(stops) {
-        return stops.map(function(stop) {
-            return `<a class="nav-item" href="#/stop/${stop.id}"><span class="icon">${stop.symbol}</span><span class="name">${stop.name}</span></a>`;
+        return stops.map(function(stop, index) {
+            return `<a class="nav-item" href="#/stop/${index}"><span class="icon">${stop.symbol}</span><span class="name">${stop.name}</span></a>`;
         }).join('');
     }
 

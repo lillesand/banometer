@@ -84,13 +84,11 @@ class RuterView {
             return defaultStop;
         }
 
-        const stopId = match[1];
-        const stop = this.stopConfig.stops.find(function (stop) {
-            return stop.id === stopId;
-        });
+        const stopIndex = match[1];
+        const stop = this.stopConfig.stops[stopIndex];
 
         if (stop === undefined) {
-            alert(`Fant ikke konfigurasjon for stopID ${stopId} 😰`);
+            alert(`Fant ikke konfigurasjon med indeks ${stopIndex} 😰`);
             return defaultStop;
         }
 

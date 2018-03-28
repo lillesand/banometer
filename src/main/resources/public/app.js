@@ -46,7 +46,7 @@
 
         if (url === '' || url === '/') {
             // Default to first stop
-            url = ruterMenuView.pathToFirstStop();
+            url = RuterMenuView.pathToFirstStop();
         }
 
         if (url.startsWith("/sleep")) {
