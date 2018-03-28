@@ -25,7 +25,15 @@
     const mainViews = [ weatherView, ruterView, sleepyView ];
     ruterMenuView.show();
 
-    document.querySelector('#reload').addEventListener('click', () => window.location.reload());
+    document.querySelector('#reload').addEventListener('click', () => {
+        fetch('/update', {
+            method: 'POST',
+        }).then(() => {
+            const RELOAD_TIME_SECONDS = 15;
+            setTimeout(() => window.location.reload(), RELOAD_TIME_SECONDS * 1000);
+            alert(`Waiting ${RELOAD_TIME_SECONDS} seconds for server to come back up 🤞`);
+        });
+    });
 
     window.addEventListener("hashchange", function (e) {
         render(e.newURL.split('#')[1]);
