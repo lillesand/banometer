@@ -36,4 +36,11 @@ class RuterServiceTest {
         println(upcomingDepartures)
     }
 
+    @Test
+    fun godalsvei() {
+        val upcomingDepartures = sut.fetchRealtime(RealTimeRequest(stopId = "3012237", wantedDirection = 2, wantedLines = listOf(51, 54)))
+
+        println(upcomingDepartures)
+    }
+
 }

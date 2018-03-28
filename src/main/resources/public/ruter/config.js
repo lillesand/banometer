@@ -50,7 +50,7 @@ window.modules.ruter.config = {
                     minTime: 2,
                     maxDepartures: 4,
                     name: 'Brekkekrysset and beyond 🌲',
-                    lines: ['54, 51']
+                    lines: ['54', '51']
                 }
             }
         },
