@@ -1,7 +1,11 @@
 # Banometer!
 
-Banometeret er den frekke arvtageren til [busometeret](https://github.com/lillesand/busometer). 
-Det kjører på Heroku, og vises på en Raspberry Pi med en tilhørende [Waveshare-skjerm](https://www.digitalimpuls.no/pc-komponenter/enkortsdata/arduino/skjerm/waveshare-7-touch-skjerm-pi-stand-800480-for-raspberry-pi-3-2-b-140893-p0000153040).
+Banometeret er den frekke arvtageren til [busometeret](https://github.com/lillesand/busometer).
+ 
+Det kan kjøre på enhver webserver, og vises på en Raspberry Pi med en tilhørende [Waveshare-skjerm](https://www.digitalimpuls.no/pc-komponenter/enkortsdata/arduino/skjerm/waveshare-7-touch-skjerm-pi-stand-800480-for-raspberry-pi-3-2-b-140893-p0000153040).
+
+Denne versjonen kjører lokalt på Raspberry Pien, og har en pussig innebygd oppdateringsmekanisme der den bygger lokalt på Pien…så får vi se hvor smart det er.
+
   
 Noen ting jeg har gjort som det kan være nyttig å huske til senere:
 

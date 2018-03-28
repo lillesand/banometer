@@ -1,1 +1,0 @@
-web: java -jar build/libs/banometer-1.0.jar
