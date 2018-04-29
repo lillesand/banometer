@@ -37,7 +37,8 @@ class WeatherView {
 
     refresh() {
         this.networkIndicator.loading();
-        this.el.innerHTML = `<img class="meteogram" src="https://www.yr.no/place/${this.location}/meteogram.svg">`;
+
+        this.el.innerHTML = `<img class="meteogram" src="/place/${this.location}/meteogram.svg?cachebust=${new Date().getTime()}">`;
 
         let img = this.el.querySelector('img');
         img.addEventListener('load', () => {
