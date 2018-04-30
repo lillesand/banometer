@@ -16,6 +16,10 @@ class NetworkIndicatorView {
         this.networkIndicator.innerText = '';
     }
 
+    status(statusText) {
+        this.networkIndicator.innerText = statusText;
+    }
+
     failed(error) {
         this.networkIndicator.innerText = error;
         this.networkIndicator.classList.add('error');

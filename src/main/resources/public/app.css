@@ -130,3 +130,8 @@ body {
     font-size: 16px;
     text-align: center;
 }
+
+#maintenance ul {
+    list-style: none;
+    font-size: 2em;
+}

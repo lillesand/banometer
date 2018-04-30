@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import ruter.realtime.RuterController
 import weather.YrProxyController
 
-@SpringBootApplication(scanBasePackageClasses = arrayOf(RuterController::class, UpdateController::class, YrProxyController::class))
+@SpringBootApplication(scanBasePackageClasses = arrayOf(RuterController::class, MaintenanceController::class, YrProxyController::class))
 open class Application {
 
     companion object {

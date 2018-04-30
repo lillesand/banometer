@@ -16,24 +16,22 @@
         el: document.querySelector('#ruter-navigation'),
         stops: window.modules.ruter.config.stops
     });
+
     const ruterView = new RuterView({
         el: document.querySelector('#departures'),
         stopConfig: window.modules.ruter.config,
         networkIndicator: networkIndicator
     });
 
-    const mainViews = [ weatherView, ruterView, sleepyView ];
-    ruterMenuView.show();
+    const maintenanceView = new MaintenanceView({
+        el: document.querySelector('#maintenance'),
+        networkIndicator: networkIndicator
+    })
 
-    document.querySelector('#reload').addEventListener('click', () => {
-        fetch('/update', {
-            method: 'POST',
-        }).then(() => {
-            const RELOAD_TIME_SECONDS = 15;
-            setTimeout(() => window.location.reload(), RELOAD_TIME_SECONDS * 1000);
-            alert(`Waiting ${RELOAD_TIME_SECONDS} seconds for server to come back up 🤞`);
-        });
-    });
+
+
+    const mainViews = [ weatherView, ruterView, sleepyView, maintenanceView ];
+    ruterMenuView.show();
 
     window.addEventListener("hashchange", function (e) {
         render(e.newURL.split('#')[1]);
@@ -63,6 +61,8 @@
         } else if (url.startsWith('/stop')) {
             ruterView.setLocationFromPath(url);
             showOnly(ruterView);
+        } else if (url.startsWith('/maintenance')) {
+            showOnly(maintenanceView);
         } else {
             alert(`Jøss, '${url}' var jammen en pussig URL. Den vet ikke jeg hva jeg skal gjøre med! 😬`);
         }
