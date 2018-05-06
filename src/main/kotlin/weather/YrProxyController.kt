@@ -1,6 +1,7 @@
 package weather
 
 import org.apache.http.client.HttpClient
+import org.apache.http.client.config.RequestConfig
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.HttpClientBuilder
 import org.springframework.http.MediaType
@@ -16,7 +17,14 @@ class YrProxyController {
     private val httpClient: HttpClient
 
     init {
-        httpClient = HttpClientBuilder.create().build()
+        val requestConfig = RequestConfig.custom()
+                .setConnectTimeout(2500)
+                .setSocketTimeout(5000)
+                .build()
+
+        httpClient = HttpClientBuilder.create()
+                .setDefaultRequestConfig(requestConfig)
+                .build()
     }
 
     @RequestMapping(path = arrayOf("/place/{country}/{fylke}/{by}/{sted}/meteogram.svg"), produces = arrayOf("image/svg+xml"))
