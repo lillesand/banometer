@@ -2,15 +2,14 @@ package ruter.realtime
 
 import java.util.Comparator
 import java.util.stream.Collectors
-import java.util.stream.Stream
 
-class UpcomingDepartures(request: RealTimeRequest, departureDtos: List<BusDepartureDto>) {
+class UpcomingDepartures(request: RealTimeRequest, departureDtos: List<DepartureDto>) {
 
     val departures : List<UpcomingDeparture> = departureDtos.stream()
-            .filter { busDepartureDto -> request.acceptsDirection(busDepartureDto.directionName) }
-            .filter { busDepartureDto -> request.acceptsLine(busDepartureDto.publishedLineName) }
+            .filter { busDepartureDto -> request.acceptsDirection(busDepartureDto.monitoredVehicleJourney.directionName) }
+            .filter { busDepartureDto -> request.acceptsLine(busDepartureDto.monitoredVehicleJourney.publishedLineName) }
             // Minimum expected departing time is the closest bus to leaving
-            .sorted(Comparator.comparing(BusDepartureDto::getExpectedDepartureTime))
+            .sorted(Comparator.comparing { departure: DepartureDto -> departure.monitoredVehicleJourney.monitoredCall.expectedDepartureTime })
             .map { departure -> UpcomingDeparture(departure) }
             .collect(Collectors.toList())
 

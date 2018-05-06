@@ -7,6 +7,7 @@ import org.apache.http.client.HttpClient
 import org.apache.http.impl.client.HttpClientBuilder
 
 import java.time.Instant
+import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 
 class FakeRuterService : RuterService() {
@@ -37,13 +38,11 @@ class FakeRuterService : RuterService() {
         )
     }
 
-    private fun departsIn(directionName: String, time: Long, unit: ChronoUnit): BusDepartureDto {
-        val busDepartureDto = BusDepartureDto()
-        busDepartureDto.directionName = directionName
-        busDepartureDto.publishedLineName = "5"
-        busDepartureDto.destinationName = "Ringen Fake"
-        busDepartureDto.expectedDepartureTime = Instant.now().plus(time, unit)
-        return busDepartureDto
+    private fun departsIn(directionName: String, time: Long, unit: ChronoUnit): DepartureDto {
+        return DepartureDto(
+                MonitoredVehicleJourneyDto("Ringen Fake", directionName, "5",
+                        MonitoredCall(ZonedDateTime.now().plus(time, unit)))
+        )
     }
 
 }
