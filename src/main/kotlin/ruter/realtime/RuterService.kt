@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.apache.http.client.HttpClient
+import org.apache.http.client.config.RequestConfig
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.HttpClientBuilder
 
@@ -25,7 +26,13 @@ open class RuterService {
 
         mapper.propertyNamingStrategy = PropertyNamingStrategy.UpperCamelCaseStrategy()
 
+        val requestConfig = RequestConfig.custom()
+                .setConnectTimeout(2500)
+                .setSocketTimeout(5000)
+                .build()
+
         httpClient = HttpClientBuilder.create()
+                .setDefaultRequestConfig(requestConfig)
                 .build()
     }
 
