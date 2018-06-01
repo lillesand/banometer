@@ -6,13 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import exceptions.BanometerIOException
 import org.apache.http.client.HttpClient
 import org.apache.http.client.config.RequestConfig
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.HttpClientBuilder
 
 import java.io.IOException
-import java.util.stream.Collectors
 
 open class RuterService {
 
@@ -50,7 +50,7 @@ open class RuterService {
                 return UpcomingDepartures(request, departureDtos)
             }
         } catch (e: IOException) {
-            throw RuterIOException(e)
+            throw BanometerIOException(e)
         }
 
     }
