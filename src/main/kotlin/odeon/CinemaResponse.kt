@@ -58,29 +58,7 @@ data class CinemaResponse(
             val remoteSystemAlias: String,
             val remoteEntityId: String,
             val title: String,
-            val slug: String,
-            val attributes: List<Attribute>,
-            val audioLanguageInfo: AudioLanguageInfo,
-            val rating: Rating
-        ) {
-            data class Attribute(
-                val alias: String,
-                val displayName: String
-            )
-
-            data class Rating(
-                val displayName: String,
-                val alias: String,
-                val age: Int,
-                val ageAccompanied: Int
-            )
-
-            data class AudioLanguageInfo(
-                val displayName: String,
-                val alias: String,
-                val name: String,
-                val threeLetterISOLanguageName: String
-            )
-        }
+            val slug: String
+        )
     }
 }
