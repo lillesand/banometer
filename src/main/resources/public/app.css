@@ -64,6 +64,38 @@ body {
     width: 100%;
 }
 
+#cinema {
+    margin: auto;
+}
+
+#cinema .time {
+    margin-right: 10px;
+
+}
+
+#cinema .time:after {
+    content: ':';
+}
+
+#cinema .title {
+    margin-right: 5px;
+}
+
+
+#cinema .free-seats:before {
+    content: '(';
+}
+
+#cinema .free-seats:after {
+    content: ')';
+}
+
+#cinema li {
+    list-style: none;
+    margin-left: 0;
+}
+
+
 #status {
     position: absolute;
 

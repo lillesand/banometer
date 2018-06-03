@@ -19,14 +19,16 @@ class CinemaController {
     @ResponseBody
     fun ruter(): Movies {
         val movies = odeonApi.fetchMovies()
-        val moviesByDate = movies.map { Movies.Movie(it.time, it.title, it.bookableSeats) }.groupBy { it.time.toLocalDate() }
+        val moviesByDate = movies.map { Movies.Movie(it.time, it.title, it.bookableSeats) }.groupBy { it.time.toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM")) }
         return Movies(moviesByDate)
     }
 }
 
-data class Movies(val movies: Map<LocalDate, List<Movie>>) {
+data class Movies(val movies: Map<String, List<Movie>>) {
 
-    data class Movie(@JsonIgnore val time: ZonedDateTime, val show: String, val freeSeats: String) {
+    data class Movie(@JsonIgnore val time: ZonedDateTime,
+                     val show: String,
+                     val freeSeats: String) {
 
         @JsonGetter
         fun getDisplayTime(): String {

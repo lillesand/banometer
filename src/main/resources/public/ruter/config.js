@@ -54,23 +54,5 @@ window.modules.ruter.config = {
                 }
             }
         },
-        { name: 'Gullhaugveien',
-            symbol: '🚌',
-            id: '3012134',
-            directions: {
-                '1': {
-                    minTime: 4,
-                    maxDepartures: 4,
-                    name: 'Grefsenkollen ⛰',
-                    lines: ['56B', '56']
-                },
-                '2': {
-                    minTime: 4,
-                    maxDepartures: 4,
-                    name: 'Sentrum 🏙',
-                    lines: ['30']
-                }
-            }
-        },
     ]
 };

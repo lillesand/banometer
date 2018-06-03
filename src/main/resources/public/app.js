@@ -26,11 +26,16 @@
     const maintenanceView = new MaintenanceView({
         el: document.querySelector('#maintenance'),
         networkIndicator: networkIndicator
-    })
+    });
+
+    const cinemaView = new CinemaView({
+        el: document.querySelector('#cinema'),
+        networkIndicator: networkIndicator
+    });
 
 
 
-    const mainViews = [ weatherView, ruterView, sleepyView, maintenanceView ];
+    const mainViews = [ weatherView, ruterView, sleepyView, maintenanceView, cinemaView ];
     ruterMenuView.show();
 
     window.addEventListener("hashchange", function (e) {
@@ -63,6 +68,8 @@
             showOnly(ruterView);
         } else if (url.startsWith('/maintenance')) {
             showOnly(maintenanceView);
+        } else if (url.startsWith('/cinema')) {
+            showOnly(cinemaView);
         } else {
             alert(`Jøss, '${url}' var jammen en pussig URL. Den vet ikke jeg hva jeg skal gjøre med! 😬`);
         }
