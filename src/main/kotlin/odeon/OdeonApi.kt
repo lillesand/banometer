@@ -53,7 +53,7 @@ open class OdeonApi {
                 }
 
                 val bookings = fetchBookings(luxeMovies)
-                val shows = luxeMovies.map { Show(it.time, it.movie.title, bookings.freeSeatsForId(it.remoteEntityId)) }
+                val shows = luxeMovies.map { Show(it.time, it.movie.title, it.screen.title, bookings.freeSeatsForId(it.remoteEntityId)) }
 
                 return shows
             }
@@ -90,6 +90,7 @@ open class OdeonApi {
     data class Show(
             val time: ZonedDateTime,
             val title: String,
+            val screen: String,
             val bookableSeats: String
     )
 
