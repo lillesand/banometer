@@ -33,7 +33,6 @@ class CinemaView {
             let movies = json['movies'];
             let days = Object.keys(movies);
 
-            console.log(typeof days, days.forEach);
             let html = '';
             days.forEach((day) => {
                 html += `<h2>${day}</h2>`;
