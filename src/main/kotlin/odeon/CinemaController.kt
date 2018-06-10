@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -18,7 +19,7 @@ class CinemaController {
     @RequestMapping(path = arrayOf("/movies"), produces = arrayOf("application/json"))
     @ResponseBody
     fun ruter(): Movies {
-        val movies = odeonApi.fetchMovies()
+        val movies = odeonApi.fetchMovies(LocalDateTime.now(), LocalDate.now().plusDays(3), listOf("LUXE"))
         val moviesByDate = movies.map { Movies.Movie(it.time, it.title, it.bookableSeats) }.groupBy { it.time.toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM")) }
         return Movies(moviesByDate)
     }

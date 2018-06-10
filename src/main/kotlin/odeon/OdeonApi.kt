@@ -38,15 +38,15 @@ open class OdeonApi {
                 .build()
     }
 
-    open fun fetchMovies(): List<Show> {
+    open fun fetchMovies(fromDate: LocalDateTime, toDate: LocalDate, rooms: List<String>): List<Show> {
         try {
-            val from = LocalDateTime.now().withMinute(0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            val to = LocalDate.now().plusDays(3).format(DateTimeFormatter.ISO_DATE)
-            val response = httpClient.execute(HttpGet("https://www.odeonkino.no/api/v2/show/no/1/100?filter.countryAlias=no&filter.cityAlias=OS&filter.timeUtc.greaterThanOrEqualTo=$from&filter.timeUtc.lessThanOrEqualTo=$to&filter.cinemaNcgId=NCG88462&filter.attributeAliasOperator=And"))
+            val from = fromDate.withMinute(0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            val to = toDate.format(DateTimeFormatter.ISO_DATE)
+            val response = httpClient.execute(HttpGet("https://www.odeonkino.no/api/v2/show/no/1/250?filter.countryAlias=no&filter.cityAlias=OS&filter.timeUtc.greaterThanOrEqualTo=$from&filter.timeUtc.lessThanOrEqualTo=$to&filter.cinemaNcgId=NCG88462&filter.attributeAliasOperator=And"))
 
             response.entity.content.use {
                 val movies = mapper.readValue<CinemaResponse>(it, object : TypeReference<CinemaResponse>() {})
-                val luxeMovies = movies.items.filter { it.screen.title == "LUXE" }
+                val luxeMovies = movies.items.filter { rooms.contains(it.screen.title) }
 
                 if (luxeMovies.isEmpty()) {
                     return emptyList();
