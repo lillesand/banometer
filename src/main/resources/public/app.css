@@ -64,8 +64,10 @@ body {
     width: 100%;
 }
 
-#cinema {
-    margin: auto;
+#cinema .screen {
+    width: 45%;
+    float: left;
+    padding: 10px;
 }
 
 #cinema .time {

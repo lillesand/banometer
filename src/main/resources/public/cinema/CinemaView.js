@@ -30,19 +30,27 @@ class CinemaView {
             return response.json();
         }).then((json) => {
             window.response = json;
+
             let movies = json['movies'];
-            let days = Object.keys(movies);
+            let screens = Object.keys(movies);
 
             let html = '';
-            days.forEach((day) => {
-                html += `<h2>${day}</h2>`;
-                html += `<ul>`;
+            screens.forEach(screen => {
+                html += '<div class="screen">';
+                html += `<h2>${screen}</h2>`;
+                let days = Object.keys(movies[screen]);
 
-                movies[day].forEach((movie) => {
-                    html += `<li><span class="time">${movie['displayTime']}</span><span class="title">${movie['show']}</span><span class="free-seats">${movie['freeSeats']}</span></li>`;
+                days.forEach((day) => {
+                    html += `<h3>${day}</h3>`;
+                    html += `<ul>`;
+
+                    movies[screen][day].forEach((movie) => {
+                        html += `<li><span class="time">${movie['displayTime']}</span><span class="title">${movie['show']}</span><span class="free-seats">${movie['freeSeats']}</span></li>`;
+                    });
+
+                    html += `</ul>`;
                 });
-
-                html += `</ul>`;
+                html += '</div>';
             });
 
             this.el.innerHTML = html;
