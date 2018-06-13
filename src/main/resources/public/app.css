@@ -40,6 +40,10 @@ body {
     padding: 5px;
 }
 
+#main {
+    margin-top: 35px; /* Make room for header! */
+}
+
 #reload {
     position: absolute;
     top: 0;
@@ -90,6 +94,10 @@ body {
 
 #cinema .free-seats:after {
     content: ')';
+}
+
+#cinema ul {
+    -webkit-padding-start: 0;
 }
 
 #cinema li {
