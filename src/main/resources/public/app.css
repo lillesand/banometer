@@ -1,19 +1,17 @@
 h2 { margin: 0; }
 
+a {
+    text-decoration: none;
+}
+
 body {
     background-color: #111111;
     color: #FFFFFF;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 
     overflow: hidden; /* Scrollbar: no thanks*/
-}
-
-a {
-    text-decoration: none;
-}
-
-body {
-    height: 100vh;
+    min-height: 100vh;
+    margin: 0;
 
     display: flex;
     flex-direction: column;
@@ -21,9 +19,9 @@ body {
 }
 
 #navigation {
-    position: absolute;
-    top: 0;
-    height: 30px;
+    width: 100%;
+    flex-grow: 1;
+    align-self: flex-start;
 }
 
 #navigation .nav-item {
@@ -38,10 +36,13 @@ body {
     font-size: 30px;
     display: block;
     padding: 5px;
+    width: 100%;
 }
 
 #main {
-    margin-top: 35px; /* Make room for header! */
+    align-self: stretch;
+    flex-grow: 1;
+    justify-content: center;
 }
 
 #reload {
