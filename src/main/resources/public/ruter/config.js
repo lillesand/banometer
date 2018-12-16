@@ -1,17 +1,5 @@
 window.modules.ruter.config = {
     stops: [
-        { name: 'Fagdag buss',
-            symbol: '😍',
-            id: '3012161',
-            directions: {
-                '1': {
-                    minTime: 2,
-                    maxDepartures: 4,
-                    name: 'Kjelsås stasjon 🚌',
-                    lines: ['25', '54']
-                }
-            }
-        },
         { name: 'T-bane sentrum',
             symbol: '🚇',
             id: '3012130',
