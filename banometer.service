@@ -1,0 +1,5 @@
+[Unit]
+Description=Banometer app service
+
+[Service]
+ExecStart=./scripts/start.sh
