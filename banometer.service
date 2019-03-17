@@ -1,0 +1,10 @@
+[Unit]
+Description=Banometer web serrver
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/java -jar /home/pi/Desktop/banometer/build/libs/banometer-1.0.jar
+
+[Install]
+WantedBy=multi-user.target
