@@ -8,6 +8,9 @@ data class NumberOfSeatsResponse(
     val isReservable: Boolean
 ) {
     data class Status(
-        val available: Int
+        val free: Int,
+        val sold: Int,
+        val reserved: Int,
+        val locked: Int
     )
 }

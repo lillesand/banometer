@@ -46,14 +46,14 @@ open class OdeonApi {
 
             response.entity.content.use {
                 val movies = mapper.readValue<CinemaResponse>(it, object : TypeReference<CinemaResponse>() {})
-                val luxeMovies = movies.items.filter { rooms.contains(it.screen.title) }
+                val movieOnScreen = movies.items.filter { rooms.contains(it.screen.title) }
 
-                if (luxeMovies.isEmpty()) {
+                if (movieOnScreen.isEmpty()) {
                     return emptyList();
                 }
 
-                val bookings = fetchBookings(luxeMovies)
-                val shows = luxeMovies.map { Show(it.time, it.movie.title, it.screen.title, bookings.freeSeatsForId(it.remoteEntityId)) }
+                val bookings = fetchBookings(movieOnScreen)
+                val shows = movieOnScreen.map { Show(it.time, it.movie.title, it.screen.title, bookings.freeSeatsForId(it.remoteEntityId)) }
 
                 return shows
             }
@@ -104,7 +104,7 @@ open class OdeonApi {
                 println(bookings)
                 return "🤷‍♂️";
             }
-            return seats.status.available.toString()
+            return seats.status.free.toString()
         }
     }
 
