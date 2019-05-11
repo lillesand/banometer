@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import ruter.realtime.RuterController
 import weather.YrProxyController
 
-@SpringBootApplication(scanBasePackageClasses = arrayOf(RuterController::class, MaintenanceController::class, YrProxyController::class, CinemaController::class))
+@SpringBootApplication(scanBasePackageClasses = [ RuterController::class, MaintenanceController::class, YrProxyController::class, CinemaController::class ])
 open class Application {
 
     companion object {
