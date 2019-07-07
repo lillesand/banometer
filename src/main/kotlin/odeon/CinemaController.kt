@@ -18,7 +18,7 @@ class CinemaController {
 
     @RequestMapping(path = arrayOf("/movies"), produces = arrayOf("application/json"))
     @ResponseBody
-    fun ruter(): Movies {
+    fun movies(): Movies {
         val allMovies = odeonApi.fetchMovies(LocalDateTime.now(), LocalDate.now().plusDays(3), listOf("LUXE", "IMAX®"))
         val moviesByScreen = allMovies.groupBy { it.screen }
 
@@ -28,7 +28,7 @@ class CinemaController {
             val screen = it.key
             val moviesByDate = it.value.map { Movies.Movie(it.time, it.title, it.bookableSeats) }
                     .groupBy { it.time.toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM")) }
-            moviesByScreenAndDate.put(screen, moviesByDate)
+            moviesByScreenAndDate[screen] = moviesByDate
         }
 
 

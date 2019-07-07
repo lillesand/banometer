@@ -1,4 +1,4 @@
-class RuterView {
+class RealtimeView {
 
     constructor(opts) {
         this.el = opts.el;
@@ -25,7 +25,7 @@ class RuterView {
     refreshTimes() {
         this.networkIndicator.loading();
 
-        fetch('/ruter?stopId=' + this.currentStopConfig.id, {
+        fetch('/realtime?stopId=' + this.currentStopConfig.id, {
             headers: {
                 'Accept': 'application/json'
             }
@@ -36,20 +36,20 @@ class RuterView {
             return response.json();
         }).then((json) => {
             let html = '';
-            Object.keys(this.currentStopConfig.directions).forEach((direction) => {
-                let directionConfig = this.currentStopConfig.directions[direction];
+            Object.keys(this.currentStopConfig.quays).forEach((quay) => {
+                let quayConfig = this.currentStopConfig.quays[quay];
 
-                const departuresInDirection = json['departures']
-                    .filter(function(departure) { return departure['directionName'] === direction })
-                    .filter(function(departure) { return directionConfig.lines.includes(departure['lineName']) })
-                    .filter(function(departure) { return departure['waitingTimeInMinutes'] >= directionConfig.minTime })
-                    .filter(function(departure, index) { return index < directionConfig.maxDepartures });
-                html += RuterView.departuresToHtml(departuresInDirection, directionConfig);
+                const departuresFromQuay = json['departures']
+                    .filter(function(departure) { return departure['quayId'] === quay })
+                    .filter(function(departure) { return quayConfig.lines.includes(departure['lineId']) })
+                    .filter(function(departure) { return departure['waitingTimeInMinutes'] >= quayConfig.minTime })
+                    .filter(function(departure, index) { return index < quayConfig.maxDepartures });
+                html += RealtimeView.departuresToHtml(departuresFromQuay, quayConfig);
             });
 
             this.el.innerHTML = html;
         }).catch((error) => {
-            console.error('Klikk bæng i henting fra ruter', error);
+            console.error('Klikk bæng i henting av sanntidsdata', error);
             this.networkIndicator.failed('Siste oppdatering feilet ☠☠☠');
         });
     }
@@ -59,7 +59,7 @@ class RuterView {
         let html = `<div class="direction"><h2 class="direction-heading">${config.name}</h2>`;
         if (departures.length > 0) {
             html += `<div class="departures">`;
-            html += departures.map(RuterView.departureToHtml).join('');
+            html += departures.map(RealtimeView.departureToHtml).join('');
             html += `</div>`;
         } else {
             html += '<div class="error">Fant ingenting! 😚</div>';
@@ -71,7 +71,7 @@ class RuterView {
     static departureToHtml(departure) {
         return `<div class="departure">
         <span class="time">${departure['waitingTimeInMinutes']}</span>
-        <span class="line">${departure['destinationName']} (${departure['lineName']})</span>
+        <span class="line">${departure['destinationName']} (${departure['localLineId']})</span>
     </div>`;
     }
 

@@ -55,7 +55,7 @@ class CinemaView {
 
             this.el.innerHTML = html;
         }).catch((error) => {
-            console.error('Klikk bæng i henting fra ruter', error);
+            console.error('Klikk bæng i henting fra odeon', error);
             this.networkIndicator.failed('Siste oppdatering feilet ☠☠☠');
         });
     }

@@ -1,56 +1,56 @@
-window.modules.ruter.config = {
+window.modules.realtime.config = {
     stops: [
         { name: 'T-bane sentrum',
             symbol: '🚇',
-            id: '3012130',
-            directions: {
-                '1': {
+            id: 'NSR:StopPlace:6073',
+            quays: {
+                'NSR:Quay:11151': {
                     minTime: 1,
                     maxDepartures: 4,
                     name: '👈 Vest',
-                    lines: ['4', '5']
+                    lines: ['RUT:Line:4', 'RUT:Line:5']
                 },
-                '2': {
+                'NSR:Quay:11153': {
                     minTime: 1,
                     maxDepartures: 4,
                     name: 'Øst 👉',
-                    lines: ['5']
+                    lines: ['RUT:Line:5']
                 }
             }
         },
         { name: 'T-bane RiksTV',
             symbol: '📺',
-            id: '3012130',
-            directions: {
-                '2': {
+            id: 'NSR:StopPlace:6073',
+            quays: {
+                'NSR:Quay:11153': {
                     minTime: 1,
                     maxDepartures: 4,
                     name: 'Vestli 🚀',
-                    lines: ['4']
+                    lines: ['RUT:Line:4']
                 }
             }
         },
-        { name: 'BI',
-            symbol: '🏫',
-            id: '3012131',
-            directions: {
-                '1': {
+        { name: 'K. Aamots bro',
+            symbol: '🌉',
+            id: 'NSR:StopPlace:6380',
+            quays: {
+                'NSR:Quay:11725': {
                     minTime: 4,
                     maxDepartures: 4,
                     name: 'Byen 🌃',
-                    lines: ['37']
+                    lines: ['RUT:Line:37']
                 }
             }
         },
         { name: 'Godals vei',
             symbol: '⛷',
-            id: '3012237',
-            directions: {
-                '2': {
+            id: 'NSR:StopPlace:6193',
+            quays: {
+                'NSR:Quay:11367': {
                     minTime: 2,
                     maxDepartures: 4,
                     name: 'Brekkekrysset and beyond 🌲',
-                    lines: ['54', '51']
+                    lines: ['RUT:Line:54', 'RUT:Line:51']
                 }
             }
         },
