@@ -1,4 +1,4 @@
-class RuterMenuView {
+class RealtimeMenuView {
 
     constructor(opts) {
         this.el = opts.el;
@@ -6,7 +6,7 @@ class RuterMenuView {
     }
 
     show() {
-        this.el.innerHTML = RuterMenuView.stopsToHtml(this.stops);
+        this.el.innerHTML = RealtimeMenuView.stopsToHtml(this.stops);
     }
 
     static pathToFirstStop() {

@@ -12,14 +12,14 @@
         networkIndicator: networkIndicator,
     });
 
-    const ruterMenuView = new RuterMenuView({
-        el: document.querySelector('#ruter-navigation'),
-        stops: window.modules.ruter.config.stops
+    const realtimeMenuView = new RealtimeMenuView({
+        el: document.querySelector('#realtime-navigation'),
+        stops: window.modules.realtime.config.stops
     });
 
-    const ruterView = new RuterView({
+    const realtimeView = new RealtimeView({
         el: document.querySelector('#departures'),
-        stopConfig: window.modules.ruter.config,
+        stopConfig: window.modules.realtime.config,
         networkIndicator: networkIndicator
     });
 
@@ -35,8 +35,8 @@
 
 
 
-    const mainViews = [ weatherView, ruterView, sleepyView, maintenanceView, cinemaView ];
-    ruterMenuView.show();
+    const mainViews = [ weatherView, realtimeView, sleepyView, maintenanceView, cinemaView ];
+    realtimeMenuView.show();
 
     window.addEventListener("hashchange", function (e) {
         render(e.newURL.split('#')[1]);
@@ -49,7 +49,7 @@
 
         if (url === '' || url === '/') {
             // Default to first stop
-            url = RuterMenuView.pathToFirstStop();
+            url = RealtimeMenuView.pathToFirstStop();
         }
 
         if (url.startsWith("/sleep")) {
@@ -64,8 +64,8 @@
             weatherView.setLocationFromPath(url);
             showOnly(weatherView);
         } else if (url.startsWith('/stop')) {
-            ruterView.setLocationFromPath(url);
-            showOnly(ruterView);
+            realtimeView.setLocationFromPath(url);
+            showOnly(realtimeView);
         } else if (url.startsWith('/maintenance')) {
             showOnly(maintenanceView);
         } else if (url.startsWith('/cinema')) {

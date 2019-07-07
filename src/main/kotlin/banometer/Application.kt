@@ -1,12 +1,12 @@
 package banometer
 
+import entur.realtime.EnturController
 import odeon.CinemaController
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import ruter.realtime.RuterController
 import weather.YrProxyController
 
-@SpringBootApplication(scanBasePackageClasses = [ RuterController::class, MaintenanceController::class, YrProxyController::class, CinemaController::class ])
+@SpringBootApplication(scanBasePackageClasses = [ EnturController::class, MaintenanceController::class, YrProxyController::class, CinemaController::class ])
 open class Application {
 
     companion object {
@@ -15,3 +15,4 @@ open class Application {
         }
     }
 }
+
