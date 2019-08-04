@@ -33,9 +33,14 @@
         networkIndicator: networkIndicator
     });
 
+    const temperatureView = new TemperatureView({
+        el: document.querySelector('#temperature'),
+        networkIndicator: networkIndicator
+    });
 
 
-    const mainViews = [ forecastView, realtimeView, sleepyView, maintenanceView, cinemaView ];
+
+    const mainViews = [ forecastView, realtimeView, sleepyView, maintenanceView, cinemaView, temperatureView ];
     realtimeMenuView.show();
 
     window.addEventListener("hashchange", function (e) {
@@ -70,6 +75,8 @@
             showOnly(maintenanceView);
         } else if (url.startsWith('/cinema')) {
             showOnly(cinemaView);
+        } else if (url.startsWith('/temperature')) {
+            showOnly(temperatureView);
         } else {
             alert(`Jøss, '${url}' var jammen en pussig URL. Den vet ikke jeg hva jeg skal gjøre med! 😬`);
         }

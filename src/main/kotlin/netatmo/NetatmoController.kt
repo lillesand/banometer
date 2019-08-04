@@ -9,9 +9,9 @@ class NetatmoController {
 
     var netatmoService = NetatmoApi()
 
-    @RequestMapping(path = ["/weather"], produces = ["application/json"])
+    @RequestMapping(path = ["/temperature"], produces = ["application/json"])
     @ResponseBody
-    fun weather(): Measurements {
+    fun temperature(): Measurements {
         val weather = netatmoService.getMeasurements()
         val indoor = weather.body.devices.find { it.type == "NAMain" }!!
         val outdoor = indoor.modules.find { it.type == "NAModule1" }!!.dashboard_data
