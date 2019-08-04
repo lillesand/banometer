@@ -1,4 +1,4 @@
-class WeatherView {
+class ForecastView {
 
 
     constructor(opts) {
@@ -15,7 +15,7 @@ class WeatherView {
     }
 
     setLocationFromPath(hash) {
-        let match = hash.match(/\/weather\/(.*)/);
+        let match = hash.match(/\/forecast\/(.*)/);
 
         if (match === null) {
             alert(`Klarte ikke hente lokasjon fra vær-URL: ${hash}. Da blir det Oslo!`);

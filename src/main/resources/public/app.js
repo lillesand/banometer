@@ -7,8 +7,8 @@
     const networkIndicator = new NetworkIndicatorView(document.querySelector('#status'));
     const sleepyView = new SleepyView(document.querySelector('#zzz'));
 
-    const weatherView = new WeatherView({
-        el: document.querySelector('#weather'),
+    const forecastView = new ForecastView({
+        el: document.querySelector('#forecast'),
         networkIndicator: networkIndicator,
     });
 
@@ -35,7 +35,7 @@
 
 
 
-    const mainViews = [ weatherView, realtimeView, sleepyView, maintenanceView, cinemaView ];
+    const mainViews = [ forecastView, realtimeView, sleepyView, maintenanceView, cinemaView ];
     realtimeMenuView.show();
 
     window.addEventListener("hashchange", function (e) {
@@ -60,9 +60,9 @@
         sleepyView.setPreviousUrl(url);
         sleepyView.sleepIn(timeAwake, {onSleep: () => window.location.hash = '/sleep'});
 
-        if (url.startsWith("/weather")) {
-            weatherView.setLocationFromPath(url);
-            showOnly(weatherView);
+        if (url.startsWith("/forecast")) {
+            forecastView.setLocationFromPath(url);
+            showOnly(forecastView);
         } else if (url.startsWith('/stop')) {
             realtimeView.setLocationFromPath(url);
             showOnly(realtimeView);
