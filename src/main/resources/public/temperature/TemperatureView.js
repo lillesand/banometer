@@ -36,7 +36,7 @@ class TemperatureView {
         <h2 class="number-grid-row-heading">Inne 🌱</h2>
         <div class="number-grid-row">
             <div class="temperature number-grid-entry">
-                <span class="number-grid-number">${json['indoor']['temperature']} &deg;c</span>
+                <span class="number-grid-number">${json['indoor']['temperature']}&deg;c</span>
             </div>
             <div class="humidity number-grid-entry">
                 <span class="number-grid-number number-grid-entry">${json['indoor']['humidity']}%</span>
@@ -49,7 +49,7 @@ class TemperatureView {
         <h2 class="number-grid-row-heading">Ute 😎</h2>
         <div class="number-grid-row">
             <div class="temperature number-grid-entry">
-                <span class="number-grid-number">${json['outdoor']['temperature']} &deg;c</span>
+                <span class="number-grid-number">${json['outdoor']['temperature']}&deg;c</span>
             </div>
             <div class="humidity number-grid-entry">
                 <span class="number-grid-number number-grid-entry">${json['outdoor']['humidity']}%</span>
