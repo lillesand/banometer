@@ -30,18 +30,6 @@ window.modules.realtime.config = {
                 }
             }
         },
-        { name: 'K. Aamots bro',
-            symbol: '🌉',
-            id: 'NSR:StopPlace:6380',
-            quays: {
-                'NSR:Quay:11725': {
-                    minTime: 4,
-                    maxDepartures: 4,
-                    name: 'Byen 🌃',
-                    lines: ['RUT:Line:37']
-                }
-            }
-        },
         { name: 'Godals vei',
             symbol: '⛷',
             id: 'NSR:StopPlace:6193',
