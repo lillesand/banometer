@@ -16,7 +16,7 @@ class CinemaController {
 
     var odeonApi: OdeonApi = OdeonApi()
 
-    @RequestMapping(path = arrayOf("/movies"), produces = arrayOf("application/json"))
+    @RequestMapping(path = arrayOf("/movies"), produces = ["application/json"])
     @ResponseBody
     fun movies(): Movies {
         val allMovies = odeonApi.fetchMovies(LocalDateTime.now(), LocalDate.now().plusDays(3), listOf("LUXE by Lexus", "IMAX®"))
