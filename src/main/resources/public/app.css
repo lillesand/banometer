@@ -61,11 +61,11 @@ body {
     display: block;
 }
 
-#weather {
+#forecast {
     text-align: center;
 }
 
-#weather .meteogram {
+#forecast .meteogram {
     width: 100%;
 }
 
@@ -140,38 +140,38 @@ body {
     background-color: #FF4136;
 }
 
-.departures {
+.number-grid-row {
     display: flex;
     flex-direction: row;
 
     font-size: 26px;
 }
 
-.departure {
+.number-grid-entry {
     flex-grow: 1;
     text-align: center;
 }
 
-.departure .time {
+.number-grid .number-grid-number {
     font-size: 3em;
 }
 
-.departure .line {
+.number-grid .number-grid-detail {
     display: block;
     font-size: 16px;
 }
 
-.direction + .direction {
-    /* All `.direction`s with a preceeding `.direction` (i.e. all expect the first) */
+.number-grid-row + .number-grid-row {
+    /* All rows with a preceeding row (i.e. all except the first) */
     margin-top: 40px;
 }
 
-.direction-heading {
+.number-grid-row-heading {
     font-size: 26px;
     text-align: center;
 }
 
-.direction .error {
+.number-grid-row .row-text {
     font-size: 16px;
     text-align: center;
 }

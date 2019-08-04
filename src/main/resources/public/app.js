@@ -7,8 +7,8 @@
     const networkIndicator = new NetworkIndicatorView(document.querySelector('#status'));
     const sleepyView = new SleepyView(document.querySelector('#zzz'));
 
-    const weatherView = new WeatherView({
-        el: document.querySelector('#weather'),
+    const forecastView = new ForecastView({
+        el: document.querySelector('#forecast'),
         networkIndicator: networkIndicator,
     });
 
@@ -33,9 +33,14 @@
         networkIndicator: networkIndicator
     });
 
+    const temperatureView = new TemperatureView({
+        el: document.querySelector('#temperature'),
+        networkIndicator: networkIndicator
+    });
 
 
-    const mainViews = [ weatherView, realtimeView, sleepyView, maintenanceView, cinemaView ];
+
+    const mainViews = [ forecastView, realtimeView, sleepyView, maintenanceView, cinemaView, temperatureView ];
     realtimeMenuView.show();
 
     window.addEventListener("hashchange", function (e) {
@@ -60,9 +65,9 @@
         sleepyView.setPreviousUrl(url);
         sleepyView.sleepIn(timeAwake, {onSleep: () => window.location.hash = '/sleep'});
 
-        if (url.startsWith("/weather")) {
-            weatherView.setLocationFromPath(url);
-            showOnly(weatherView);
+        if (url.startsWith("/forecast")) {
+            forecastView.setLocationFromPath(url);
+            showOnly(forecastView);
         } else if (url.startsWith('/stop')) {
             realtimeView.setLocationFromPath(url);
             showOnly(realtimeView);
@@ -70,6 +75,8 @@
             showOnly(maintenanceView);
         } else if (url.startsWith('/cinema')) {
             showOnly(cinemaView);
+        } else if (url.startsWith('/temperature')) {
+            showOnly(temperatureView);
         } else {
             alert(`Jøss, '${url}' var jammen en pussig URL. Den vet ikke jeg hva jeg skal gjøre med! 😬`);
         }

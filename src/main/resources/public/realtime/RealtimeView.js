@@ -35,7 +35,7 @@ class RealtimeView {
         }).then((response) => {
             return response.json();
         }).then((json) => {
-            let html = '';
+            let html = `<div class="realtime number-grid">`;
             Object.keys(this.currentStopConfig.quays).forEach((quay) => {
                 let quayConfig = this.currentStopConfig.quays[quay];
 
@@ -47,6 +47,8 @@ class RealtimeView {
                 html += RealtimeView.departuresToHtml(departuresFromQuay, quayConfig);
             });
 
+            html += `</div>`;
+
             this.el.innerHTML = html;
         }).catch((error) => {
             console.error('Klikk bæng i henting av sanntidsdata', error);
@@ -56,22 +58,22 @@ class RealtimeView {
 
 
     static departuresToHtml(departures, config) {
-        let html = `<div class="direction"><h2 class="direction-heading">${config.name}</h2>`;
+        let html = `<div class="direction"><h2 class="direction-heading number-grid-row-heading">${config.name}</h2>`;
         if (departures.length > 0) {
-            html += `<div class="departures">`;
+            html += `<div class="departures number-grid-row">`;
             html += departures.map(RealtimeView.departureToHtml).join('');
             html += `</div>`;
         } else {
-            html += '<div class="error">Fant ingenting! 😚</div>';
+            html += '<div class="row-text">Fant ingenting! 😚</div>';
         }
         html += `</div>`;
         return html;
     }
 
     static departureToHtml(departure) {
-        return `<div class="departure">
-        <span class="time">${departure['waitingTimeInMinutes']}</span>
-        <span class="line">${departure['destinationName']} (${departure['localLineId']})</span>
+        return `<div class="departure number-grid-entry">
+        <span class="time number-grid-number">${departure['waitingTimeInMinutes']}</span>
+        <span class="line number-grid-detail">${departure['destinationName']} (${departure['localLineId']})</span>
     </div>`;
     }
 
