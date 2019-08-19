@@ -41,8 +41,12 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
 
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.9'
+    compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.9'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+
+    compile group: 'com.sybit', name: 'airtable.java', version: '0.2.0'
+    compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.4.0'
 
     compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.4.1'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.4'
