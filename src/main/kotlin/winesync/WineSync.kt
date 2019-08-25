@@ -41,7 +41,11 @@ class WineSync(private val vivinoProperties: VivinoProperties, airtablePropertie
 
 }
 
-class Diff(val newWines: List<VivinoWine>, val drunkWines: List<AirtableWine>, val changedAmount: List<AmountDiff>)
+class Diff(val newWines: List<VivinoWine>, val drunkWines: List<AirtableWine>, val changedAmount: List<AmountDiff>) {
+    fun getNumberOfBottlesNeedSync(): Int {
+        return newWines.size + drunkWines.size + changedAmount.size
+    }
+}
 
 data class VivinoProperties(val username: String, val userId: String) {
 
