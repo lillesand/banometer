@@ -16,7 +16,7 @@ class WineController {
 
     var lastDiff: LastDiff? = null
 
-    val log = LoggerFactory.getLogger(this.javaClass)
+    private val log = LoggerFactory.getLogger(this.javaClass)
 
     @RequestMapping(path = ["/wine_status"], produces = ["application/json"])
     @ResponseBody
@@ -28,7 +28,7 @@ class WineController {
     @ResponseBody
     fun execute(@RequestParam generatedId: String) {
         if (generatedId != lastDiff!!.generatedId) {
-            throw RuntimeException("Provided diff ID ${generatedId} does not match expected ${lastDiff!!.generatedId}")
+            throw RuntimeException("Provided diff ID $generatedId does not match expected ${lastDiff!!.generatedId}")
         }
 
         wineSync.execute(lastDiff!!.diff)
