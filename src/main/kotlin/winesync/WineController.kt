@@ -12,10 +12,8 @@ import java.time.LocalDateTime
 @Controller
 class WineController {
 
-    val wineSync = WineSync(VivinoProperties("lillesand@gmail.com", "1235453"), AirtableProperties("appE2hzOYu6ksFXAw"))
-
-    var lastDiff: LastDiff? = null
-
+    private val wineSync = WineSync(VivinoProperties("lillesand@gmail.com", "1235453"), AirtableProperties("appE2hzOYu6ksFXAw"))
+    private var lastDiff: LastDiff? = null
     private val log = LoggerFactory.getLogger(this.javaClass)
 
     @RequestMapping(path = ["/wine_status"], produces = ["application/json"])

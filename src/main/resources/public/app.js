@@ -38,9 +38,13 @@
         networkIndicator: networkIndicator
     });
 
+    const wineView = new WineView({
+        el: document.querySelector('#wine'),
+        networkIndicator: networkIndicator
+    });
 
 
-    const mainViews = [ forecastView, realtimeView, sleepyView, maintenanceView, cinemaView, temperatureView ];
+    const mainViews = [ forecastView, realtimeView, sleepyView, maintenanceView, cinemaView, temperatureView, wineView ];
     realtimeMenuView.show();
 
     window.addEventListener("hashchange", function (e) {
@@ -77,6 +81,8 @@
             showOnly(cinemaView);
         } else if (url.startsWith('/temperature')) {
             showOnly(temperatureView);
+        } else if (url.startsWith('/wine')) {
+            showOnly(wineView);
         } else {
             alert(`Jøss, '${url}' var jammen en pussig URL. Den vet ikke jeg hva jeg skal gjøre med! 😬`);
         }

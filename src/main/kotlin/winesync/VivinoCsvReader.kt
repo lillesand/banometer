@@ -1,5 +1,6 @@
 package winesync
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.supercsv.cellprocessor.Optional
 import org.supercsv.cellprocessor.ParseDouble
 import org.supercsv.cellprocessor.ParseInt
@@ -44,10 +45,15 @@ data class VivinoWine(
         override val winery: String,
         override val name: String,
         override val vintage: String?,
+        @JsonIgnore
         val region: String?,
+        @JsonIgnore
         val country: String?,
+        @JsonIgnore
         val regionalWineType: String?,
+        @JsonIgnore
         val rating: Double,
+        @JsonIgnore
         val wineType: String,
         override val numberOfBottles: Int) : Wine
 

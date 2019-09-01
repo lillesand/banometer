@@ -97,13 +97,17 @@ body {
     content: ')';
 }
 
-#cinema ul {
+#wine {
+    padding-left: 15px;
+}
+
+ul.basic-list {
     -webkit-padding-start: 0;
     margin-left: 0;
     padding-left: 0;
 }
 
-#cinema li {
+.basic-list li {
     list-style: none;
     margin-left: 0;
 }
@@ -139,6 +143,8 @@ body {
     font-size: 36px;
     background-color: #FF4136;
 }
+
+
 
 .number-grid-row {
     display: flex;

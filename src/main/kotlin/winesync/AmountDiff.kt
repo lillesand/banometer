@@ -1,8 +1,12 @@
 package winesync
 
-data class AmountDiff(val vivinoWine: VivinoWine, val airtableWine: AirtableWine): Wine, AmountUpdate {
+import com.fasterxml.jackson.annotation.JsonIgnore
+
+data class AmountDiff(@JsonIgnore val vivinoWine: VivinoWine, @JsonIgnore val airtableWine: AirtableWine): Wine, AmountUpdate {
     override val airtableId: String
         get() = airtableWine.id!!
+    val oldAmount: Int
+        get() = airtableWine.numberOfBottles
     override val newAmount: Int
         get() = vivinoWine.numberOfBottles
     override val winery: String

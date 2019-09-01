@@ -1,5 +1,6 @@
 package winesync
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.sybit.airtable.Airtable
 
 class AirtableWineService(airtableProperties: AirtableProperties) {
@@ -13,7 +14,7 @@ class AirtableWineService(airtableProperties: AirtableProperties) {
         val wines = winePojos.map {
             try {
                 val averageRating = it.averageRating.replace(",", ".").toDouble()
-                AirtableWine(it.winery, it.name, it.vintage, it.wineType, it.country, it.region, it.wineStyle, averageRating, it.noBottles, it.noUnplacedBottles, it.noPlacedBottles, it.wine, it.id)
+                AirtableWine(it.winery, it.name, it.vintage, it.wineType, it.country, it.region, it.wineStyle, averageRating, it.noBottles, it.noUnplacedBottles, it.noPlacedBottles, it.id)
             } catch (e: IllegalStateException) {
                 println("Failed to parse data from Airtable, probably because of unexpeted null field. Failed on ${it.winery} ${it.name}")
                 throw e
@@ -58,15 +59,22 @@ data class AirtableWine(
         override val winery: String,
         override val name: String,
         override val vintage: String?,
+        @JsonIgnore
         val wineType: String?,
+        @JsonIgnore
         val country: String?,
+        @JsonIgnore
         val region: String?,
+        @JsonIgnore
         val wineStyle: String?,
+        @JsonIgnore
         val averageRating: Double,
         override val numberOfBottles: Int,
+        @JsonIgnore
         val noUnplacedBottles: Int?,
+        @JsonIgnore
         val noPlacedBottles: Int?,
-        val wine: String = "$winery $name ${vintage.orEmpty()}".trim(),
+        @JsonIgnore
         val id: String?
 ) : Wine
 
