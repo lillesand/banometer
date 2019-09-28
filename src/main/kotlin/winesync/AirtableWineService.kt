@@ -13,8 +13,8 @@ class AirtableWineService(airtableProperties: AirtableProperties) {
         val winePojos = vinTable.select() as List<AirtableWinePojo>
         val wines = winePojos.map {
             try {
-                val averageRating = it.averageRating.replace(",", ".").toDouble()
-                AirtableWine(it.winery, it.name, it.vintage, it.wineType, it.country, it.region, it.wineStyle, averageRating, it.noBottles, it.noUnplacedBottles, it.noPlacedBottles, it.id)
+                val averageRating = it.averageRating!!.replace(",", ".").toDouble()
+                AirtableWine(it.winery!!, it.name!!, it.vintage, it.wineType, it.country, it.region, it.wineStyle, averageRating, it.noBottles!!, it.noUnplacedBottles, it.noPlacedBottles, it.id)
             } catch (e: IllegalStateException) {
                 println("Failed to parse data from Airtable, probably because of unexpeted null field. Failed on ${it.winery} ${it.name}")
                 throw e

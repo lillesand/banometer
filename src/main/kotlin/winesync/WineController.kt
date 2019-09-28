@@ -19,6 +19,9 @@ class WineController {
     @RequestMapping(path = ["/wine_status"], produces = ["application/json"])
     @ResponseBody
     fun status(): LastDiff {
+        if (lastDiff == null) {
+            updateDiff()
+        }
         return lastDiff!!
     }
 
@@ -33,7 +36,7 @@ class WineController {
     }
 
 
-    @Scheduled(initialDelay = 0, fixedRate = 30 * 60 * 1000)
+    @Scheduled(fixedRate = 30 * 60 * 1000)
     fun updateDiff() {
         log.info("Updating wines")
         val diff = wineSync.findDiff()
