@@ -25,14 +25,16 @@ class WineController {
         return lastDiff!!
     }
 
-    @RequestMapping(path = ["/update_wines"], produces = ["application/json"], method = [ RequestMethod.POST ])
+    @RequestMapping(path = ["/update_wines"], produces = ["text/plain"], method = [ RequestMethod.POST ])
     @ResponseBody
-    fun execute(@RequestParam generatedId: String) {
+    fun execute(@RequestParam generatedId: String): String {
         if (generatedId != lastDiff!!.generatedId) {
             throw RuntimeException("Provided diff ID $generatedId does not match expected ${lastDiff!!.generatedId}")
         }
 
         wineSync.execute(lastDiff!!.diff)
+
+        return "Okee dokee!"
     }
 
 

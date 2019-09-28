@@ -101,6 +101,34 @@ body {
     padding-left: 15px;
 }
 
+.sync-wines {
+    float: right;
+    padding: 15px;
+}
+
+button {
+    outline: none;
+    background: none;
+    border: 1px solid darkgray;
+    padding: 10px;
+    font-family: arial, sans-serif;
+    color: #069;
+    font-size: 16px;
+    margin: 15px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+button:hover {
+    text-decoration: underline;
+}
+
+button:active {
+    position:relative;
+    top:1px;
+}
+
+
 ul.basic-list {
     -webkit-padding-start: 0;
     margin-left: 0;
