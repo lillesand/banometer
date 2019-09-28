@@ -9,8 +9,7 @@ body {
     color: #FFFFFF;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 
-    overflow: hidden; /* Scrollbar: no thanks*/
-    min-height: 100vh;
+    height: 100vh;
     margin: 0;
 
     display: flex;
@@ -43,6 +42,7 @@ body {
     align-self: stretch;
     flex-grow: 1;
     justify-content: center;
+    overflow: hidden;
 }
 
 #reload {
@@ -127,7 +127,7 @@ ul.basic-list {
 
 #status .lastUpdated {
     left: 0;
-
+    background-color: #111111;
     padding: 10px;
     font-size: 20px;
 }

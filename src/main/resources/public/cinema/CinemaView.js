@@ -1,6 +1,5 @@
 class CinemaView {
 
-
     constructor(opts) {
         this.el = opts.el;
         this.networkIndicator = opts.networkIndicator;
