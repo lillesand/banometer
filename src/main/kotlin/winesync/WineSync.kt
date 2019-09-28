@@ -6,8 +6,6 @@ class WineSync(private val vivinoProperties: VivinoProperties, airtablePropertie
 
     private val airtable = AirtableWineService(airtableProperties)
 
-
-
     fun findDiff(): Diff {
         val vivinoWebScraper = VivinoWebScraper(vivinoProperties)
         val winesFromVivino = VivinoCsvReader().read(InputStreamReader(vivinoWebScraper.getCellar(), Charsets.UTF_8))
@@ -36,8 +34,6 @@ class WineSync(private val vivinoProperties: VivinoProperties, airtablePropertie
         airtable.remove(diff.drunkWines)
         airtable.updateAmounts(diff.changedAmount)
     }
-
-
 
 }
 
