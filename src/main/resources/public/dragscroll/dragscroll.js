@@ -2,6 +2,10 @@ let isDown, startY, scrollTop;
 
 const dragscroll = (el) => {
     el.style['user-select'] = 'none';
+    el.style['-moz-user-select'] = 'none';
+    el.style['-webkit-user-select'] = 'none';
+    el.style['-ms-user-select'] = 'none';
+    
     el.addEventListener('mousedown', (e) => {
         isDown = true;
         startY = e.pageY - el.offsetTop;
