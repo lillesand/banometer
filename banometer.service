@@ -1,5 +1,5 @@
 [Unit]
-Description=Banometer web serrver
+Description=Banometer web server
 After=multi-user.target
 
 [Service]
