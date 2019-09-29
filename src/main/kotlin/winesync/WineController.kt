@@ -32,7 +32,7 @@ class WineController {
             throw RuntimeException("Provided diff ID $generatedId does not match expected ${lastDiff!!.generatedId}")
         }
 
-        wineSync.execute(lastDiff!!.diff)
+        wineSync.synchronizeVivinoAndAirtable(lastDiff!!.diff)
         updateDiff();
         return "Okee dokee!"
     }

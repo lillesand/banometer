@@ -28,7 +28,7 @@ class WineSync(private val vivinoProperties: VivinoProperties, airtablePropertie
         return Diff(newWines, drunkWines, changedAmount)
     }
 
-    fun execute(diff: Diff) {
+    fun synchronizeVivinoAndAirtable(diff: Diff) {
         val newWinesToCreate = diff.newWines.map { AirtableWine(it.winery, it.name, it.vintage, it.regionalWineType, it.country, it.region, it.wineType, it.rating, it.numberOfBottles, noUnplacedBottles = null, noPlacedBottles = null, id = null) }
         airtable.saveNew(newWinesToCreate)
         airtable.remove(diff.drunkWines)
