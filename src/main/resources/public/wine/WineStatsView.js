@@ -25,7 +25,7 @@ class WineStatsView {
             this.viewCounter++;
             switch (this.viewCounter % 3) {
                 case 0: this.el.innerHTML = this.mostCollected(stats); break;
-                case 1: this.el.innerHTML = this.mostCollected(stats); break;
+                case 1: this.el.innerHTML = this.highestRated(stats); break;
                 case 2: this.el.innerHTML = this.recentlyScanned(stats); break;
             }
         }, modules.utils.toMillis([30, 'seconds']));
