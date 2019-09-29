@@ -2,30 +2,18 @@ package winesync
 
 import java.io.InputStreamReader
 
-class WineSync(private val vivinoProperties: VivinoProperties, airtableProperties: AirtableProperties) {
+class WineSync(vivinoProperties: VivinoProperties, airtableProperties: AirtableProperties) {
 
     private val airtable = AirtableWineService(airtableProperties)
+    private val vivinoWebScraper = VivinoWebScraper(vivinoProperties)
+    private val wineAnalyzer = WineAnalyzer()
 
-    fun findDiff(): Diff {
-        val vivinoWebScraper = VivinoWebScraper(vivinoProperties)
+    fun getWineStatus(): Diff {
         val winesFromVivino = VivinoCsvReader().read(InputStreamReader(vivinoWebScraper.getCellar(), Charsets.UTF_8))
 
         val winesFromAirtable = airtable.getWines()
 
-        val newWines = winesFromVivino.wines.filter { !winesFromAirtable.contains(it) }
-
-        val drunkWines = winesFromAirtable.wines.filter { !winesFromVivino.contains(it) }
-
-        val changedAmount = winesFromVivino.wines.mapNotNull {
-            val airtableWine = winesFromAirtable.find(it)
-            if (airtableWine == null) {
-                null
-            } else {
-                AmountDiff(it, airtableWine as AirtableWine)
-            }
-        }.filter { it.hasDiff() }
-
-        return Diff(newWines, drunkWines, changedAmount)
+        return wineAnalyzer.findDiff(winesFromVivino, winesFromAirtable)
     }
 
     fun synchronizeVivinoAndAirtable(diff: Diff) {

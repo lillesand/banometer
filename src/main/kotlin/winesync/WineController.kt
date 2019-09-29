@@ -41,7 +41,7 @@ class WineController {
     @Scheduled(initialDelay = 0, fixedRate = 30 * 60 * 1000)
     fun updateDiff() {
         log.info("Updating wines")
-        val diff = wineSync.findDiff()
+        val diff = wineSync.getWineStatus()
         val generatedTime = LocalDateTime.now()
         val generatedId = generatedTime.toString()
         lastDiff = LastDiff(generatedTime, generatedId, diff)
