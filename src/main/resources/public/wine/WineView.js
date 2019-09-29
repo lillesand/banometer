@@ -59,19 +59,7 @@ class WineView {
             const changedAmount = json['diff']['changedAmount'].map((wine) => `<li>${wine['oldAmount']} ➜ ${wine['newAmount']} ${wine['wineName']}</li>`);
             const drunkWines = json['diff']['drunkWines'].map((wine) => `<li>${wine['numberOfBottles']} ${wine['wineName']}`);
 
-            this.el.innerHTML = `
-    <form class="sync-wines">
-        <button>Sync wines</button>
-    </form>
-    <div class="wine-updates">
-        <h3>Ny vin</h3>
-        <ul class="basic-list wine-list">${newWines.join('\n')}</ul>
-        <h3>Endret antall</h3>
-        <ul class="basic-list wine-list">${changedAmount.join('\n')}</ul>
-        <h3>Tomt</h3>
-        <ul class="basic-list wine-list">${drunkWines.join('\n')}</ul>
-        
-    </div>`;
+            this.el.innerHTML = this.winesToBeSyncedHtml(newWines, changedAmount, drunkWines);
 
             this.el.querySelector('.sync-wines').addEventListener('submit', this.syncWinesListener.bind(this))
         }).catch((error) => {
@@ -80,4 +68,18 @@ class WineView {
         });
     }
 
+    winesToBeSyncedHtml(newWines, changedAmount, drunkWines) {
+        const syncWinesHtml = `<form class="sync-wines"><button>Sync wines</button></form>`;
+        const newWineHtml = newWines.length === 0 ? '' : `<h3>Ny vin</h3><ul class="basic-list wine-list">${newWines.join('\n')}</ul>`;
+        const changedAmountHtml = changedAmount.length === 0 ? '' : `<h3>Endret antall</h3><ul class="basic-list wine-list">${changedAmount.join('\n')}</ul>`;
+        const drunkWineHtml = drunkWines.length === 0 ? '' : `<h3>Tomt</h3><ul class="basic-list wine-list">${drunkWines.join('\n')}</ul>`;
+
+        return `
+    ${syncWinesHtml}
+    <div class="wine-updates">
+        ${newWineHtml}
+        ${changedAmountHtml}
+        ${drunkWineHtml}
+    </div>`;
+    }
 }
