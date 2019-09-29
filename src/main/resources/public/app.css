@@ -43,6 +43,7 @@ body {
     flex-grow: 1;
     justify-content: center;
     overflow: hidden;
+    padding-bottom: 30px; /* Give some space to scroll past the last updated overlay */
 }
 
 #reload {
