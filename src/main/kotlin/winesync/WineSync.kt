@@ -13,8 +13,10 @@ class WineSync(vivinoProperties: VivinoProperties, airtableProperties: AirtableP
         val winesFromAirtable = airtable.getWines()
 
         val highestRated = wineAnalyzer.highestRated(15, winesFromVivino.wines)
+        val mostCollected = wineAnalyzer.mostCollected(15, winesFromVivino.wines)
+        val mostRecentlyScanned = wineAnalyzer.mostRecentlyScanned(15, winesFromVivino.wines)
 
-        val stats = Stats(highestRated)
+        val stats = Stats(highestRated, mostCollected, mostRecentlyScanned)
         val diff = wineAnalyzer.findDiff(winesFromVivino, winesFromAirtable)
 
         return WineStatus(diff, stats)
@@ -31,7 +33,7 @@ class WineSync(vivinoProperties: VivinoProperties, airtableProperties: AirtableP
 
 data class WineStatus(val diff: Diff, val stats: Stats)
 
-data class Stats(val highestRated: List<VivinoWine>)
+data class Stats(val highestRated: List<VivinoWine>, val mostCollected: List<WineAmountAcrossVintages>, val mostRecentlyScanned: List<VivinoWine>)
 
 class Diff(val newWines: List<VivinoWine>, val drunkWines: List<AirtableWine>, val changedAmount: List<AmountDiff>) {
     fun getNumberOfBottlesNeedSync(): Int {
