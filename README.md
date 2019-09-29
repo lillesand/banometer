@@ -4,7 +4,15 @@ Banometeret er den frekke arvtageren til [busometeret](https://github.com/lilles
  
 Det kan kjøre på enhver webserver, og vises på en Raspberry Pi med en tilhørende [Waveshare-skjerm](https://www.digitalimpuls.no/pc-komponenter/enkortsdata/arduino/skjerm/waveshare-7-touch-skjerm-pi-stand-800480-for-raspberry-pi-3-2-b-140893-p0000153040).
 
-Denne versjonen kjører lokalt på Raspberry Pien, og har en pussig innebygd oppdateringsmekanisme der den bygger lokalt på Pien. Den oppdateringsmekanismen funker i beste fall sånn passe. 
+Denne versjonen kjører lokalt på Raspberry Pien.
+
+## Installasjon/deploy
+
+1. Bygg med `./gradlew bootJar`.
+2. Kopier over `banometer.service` og `./build/libs/banometer-kotlin.jar` (se `deploy.sh`).
+3. Symlink inn `banometer.service` til systemd: `ln -s /home/pi/banometer/banometer.service /etc/systemd/system/banometer.service`
+4. Reload systemd: `sudo systemctl daemon-reload`
+4. Start banometeret: `sudo systemctl start banometer` (eller noe sånt). 
 
 ## Oppsett
   

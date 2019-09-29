@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 Type=idle
 EnvironmentFile=/etc/systemd/user/banometer.env
-ExecStart=/usr/bin/java -jar /home/pi/Desktop/banometer/build/libs/banometer.jar
+ExecStart=/usr/bin/java -jar /home/pi/banometer/banometer-kotlin.jar
 
 [Install]
 WantedBy=multi-user.target
