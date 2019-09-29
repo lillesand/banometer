@@ -46,6 +46,10 @@ body {
     padding-bottom: 30px; /* Give some space to scroll past the last updated overlay */
 }
 
+#main .page-notice {
+    font-size: 14px;
+}
+
 #reload {
     position: absolute;
     top: 0;
