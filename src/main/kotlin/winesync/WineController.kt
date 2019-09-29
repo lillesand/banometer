@@ -33,7 +33,7 @@ class WineController {
         }
 
         wineSync.execute(lastDiff!!.diff)
-
+        updateDiff();
         return "Okee dokee!"
     }
 
