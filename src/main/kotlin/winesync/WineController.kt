@@ -13,26 +13,26 @@ import java.time.LocalDateTime
 class WineController {
 
     private val wineSync = WineSync(VivinoProperties("lillesand@gmail.com", "1235453"), AirtableProperties("appE2hzOYu6ksFXAw"))
-    private var lastDiff: LastDiff? = null
+    private var lastWineStatus: LastWineStatus? = null
     private val log = LoggerFactory.getLogger(this.javaClass)
 
     @RequestMapping(path = ["/wine_status"], produces = ["application/json"])
     @ResponseBody
-    fun status(): LastDiff {
-        if (lastDiff == null) {
+    fun status(): LastWineStatus {
+        if (lastWineStatus == null) {
             updateDiff()
         }
-        return lastDiff!!
+        return lastWineStatus!!
     }
 
     @RequestMapping(path = ["/update_wines"], produces = ["text/plain"], method = [ RequestMethod.POST ])
     @ResponseBody
     fun execute(@RequestParam generatedId: String): String {
-        if (generatedId != lastDiff!!.generatedId) {
-            throw RuntimeException("Provided diff ID $generatedId does not match expected ${lastDiff!!.generatedId}")
+        if (generatedId != lastWineStatus!!.generatedId) {
+            throw RuntimeException("Provided diff ID $generatedId does not match expected ${lastWineStatus!!.generatedId}")
         }
 
-        wineSync.synchronizeVivinoAndAirtable(lastDiff!!.diff)
+        wineSync.synchronizeVivinoAndAirtable(lastWineStatus!!.wineStatus.diff)
         updateDiff();
         return "Okee dokee!"
     }
@@ -44,11 +44,11 @@ class WineController {
         val diff = wineSync.getWineStatus()
         val generatedTime = LocalDateTime.now()
         val generatedId = generatedTime.toString()
-        lastDiff = LastDiff(generatedTime, generatedId, diff)
-        log.info("Generated diff of ${lastDiff!!.diff.getNumberOfBottlesNeedSync()} bottles")
+        lastWineStatus = LastWineStatus(generatedTime, generatedId, diff)
+        log.info("Generated diff of ${lastWineStatus!!.wineStatus.diff.getNumberOfBottlesNeedSync()} bottles")
     }
 
-    class LastDiff(val now: LocalDateTime, val generatedId: String, val diff: Diff)
+    class LastWineStatus(val now: LocalDateTime, val generatedId: String, val wineStatus: WineStatus)
 
 }
 

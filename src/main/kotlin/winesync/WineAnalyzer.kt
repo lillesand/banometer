@@ -19,6 +19,15 @@ class WineAnalyzer {
         return Diff(newWines, drunkWines, changedAmount)
     }
 
+    fun <T: RatedWine> highestRated(numberToReturn: Int, wines: List<T>): List<T> {
+        return wines.sortedByDescending { it.rating }.subList(0, numberToReturn)
+    }
 
+}
 
+interface RatedWine {
+    val winery: String
+    val name: String
+    val vintage: String?
+    val rating: Double
 }

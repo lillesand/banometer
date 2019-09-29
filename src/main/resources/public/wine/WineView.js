@@ -55,9 +55,10 @@ class WineView {
         }).then(json => {
             this.generatedId = json['generatedId'];
 
-            const newWines = json['diff']['newWines'].map((wine) => `<li>${wine['numberOfBottles']} ${wine['wineName']}</li>`);
-            const changedAmount = json['diff']['changedAmount'].map((wine) => `<li>${wine['oldAmount']} ➜ ${wine['newAmount']} ${wine['wineName']}</li>`);
-            const drunkWines = json['diff']['drunkWines'].map((wine) => `<li>${wine['numberOfBottles']} ${wine['wineName']}`);
+            let winesToSync = json['wineStatus']['diff'];
+            const newWines = winesToSync['newWines'].map((wine) => `<li>${wine['numberOfBottles']} ${wine['wineName']}</li>`);
+            const changedAmount = winesToSync['changedAmount'].map((wine) => `<li>${wine['oldAmount']} ➜ ${wine['newAmount']} ${wine['wineName']}</li>`);
+            const drunkWines = winesToSync['drunkWines'].map((wine) => `<li>${wine['numberOfBottles']} ${wine['wineName']}`);
 
             this.el.innerHTML = this.winesToBeSyncedHtml(newWines, changedAmount, drunkWines);
 

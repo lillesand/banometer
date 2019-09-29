@@ -51,10 +51,9 @@ data class VivinoWine(
         val country: String?,
         @JsonIgnore
         val regionalWineType: String?,
-        @JsonIgnore
-        val rating: Double,
+        override val rating: Double,
         @JsonIgnore
         val wineType: String,
-        override val numberOfBottles: Int) : Wine
+        override val numberOfBottles: Int) : Wine, RatedWine
 
 data class WinesFromVivino(override val wines: List<VivinoWine>): Wines
