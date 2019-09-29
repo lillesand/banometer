@@ -60,4 +60,9 @@ interface WineAmount {
     val numberOfBottles: Int
 }
 
-data class WineAmountAcrossVintages(val winery: String, val name: String, val totalAmount: Int, val vintages: String)
+data class WineAmountAcrossVintages(override val winery: String, override val name: String, val totalAmount: Int, val vintages: String): Wine {
+    override val numberOfBottles: Int
+        get() = totalAmount
+
+    override val vintage: String? = null
+}
