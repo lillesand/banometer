@@ -95,7 +95,7 @@
 
     dragscroll(document.querySelector('#main'));
 
-    if (navigator.userAgent.includes('x11')) {
+    if (navigator.userAgent.includes('X11')) {
         // No cursor on x11 (which in practice means RasPi)
         document.body.style['cursor'] = 'none';
     }
