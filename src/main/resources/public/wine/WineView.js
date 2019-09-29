@@ -4,6 +4,8 @@ class WineView {
         this.el = opts.el;
         this.networkIndicator = opts.networkIndicator;
         this.refreshInterval = [10, 'minutes'];
+        this.wineSyncView = new WineSyncView({ el: this.el, networkIndicator: this.networkIndicator, reload: this.refresh });
+        this.wineStatsView = new WineStatsView({ el: this.el });
     }
 
     show() {
@@ -16,29 +18,6 @@ class WineView {
         this.el.style['display'] = 'none';
     }
 
-    syncWinesListener(e) {
-        e.preventDefault();
-        this.networkIndicator.loading();
-
-        fetch('/update_wines', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `generatedId=${encodeURIComponent(this.generatedId)}`
-        }).then(res => {
-            if (res.status !== 200) {
-                throw `Got non 200 status code: ${res.status}`
-            }
-        }).then(() => {
-            alert('Okee dokee, sync done.');
-            this.refresh();
-        }).catch((error) => {
-            console.error(error);
-            alert('Synk feilet :(');
-            this.refresh();
-        });
-    }
 
     refresh() {
         this.networkIndicator.loading();
@@ -53,35 +32,16 @@ class WineView {
         }).then((res) => {
             return res.json();
         }).then(json => {
-            this.generatedId = json['generatedId'];
-
             let winesToSync = json['wineStatus']['diff'];
-            const newWines = winesToSync['newWines'].map((wine) => `<li>${wine['numberOfBottles']} ${wine['wineName']}</li>`);
-            const changedAmount = winesToSync['changedAmount'].map((wine) => `<li>${wine['oldAmount']} ➜ ${wine['newAmount']} ${wine['wineName']}</li>`);
-            const drunkWines = winesToSync['drunkWines'].map((wine) => `<li>${wine['numberOfBottles']} ${wine['wineName']}`);
-
-            this.el.innerHTML = this.winesToBeSyncedHtml(newWines, changedAmount, drunkWines);
-
-            this.el.querySelector('.sync-wines').addEventListener('submit', this.syncWinesListener.bind(this))
+            if (winesToSync['numberOfBottlesNeedSync'] > 0) {
+                this.wineSyncView.render(winesToSync, json['generatedId']);
+            } else {
+                this.wineStatsView.render(json['wineStatus']['stats'])
+            }
         }).catch((error) => {
             console.error('Feilet', error);
             this.networkIndicator.failed('Siste oppdatering feilet ☠☠☠');
         });
     }
 
-    winesToBeSyncedHtml(newWines, changedAmount, drunkWines) {
-        const syncWinesHtml = `<form class="sync-wines"><button>Kjør synk!</button></form>`;
-        const newWineHtml = newWines.length === 0 ? '' : `<h3>Ny vin</h3><ul class="basic-list wine-list">${newWines.join('\n')}</ul>`;
-        const changedAmountHtml = changedAmount.length === 0 ? '' : `<h3>Endret antall</h3><ul class="basic-list wine-list">${changedAmount.join('\n')}</ul>`;
-        const drunkWineHtml = drunkWines.length === 0 ? '' : `<h3>Tomt</h3><ul class="basic-list wine-list">${drunkWines.join('\n')}</ul>`;
-
-        return `
-    ${syncWinesHtml}
-    <div class="wine-updates">
-        <p class="page-notice">Mangler synk mellom Vivino og AirTable.</p>
-        ${newWineHtml}
-        ${changedAmountHtml}
-        ${drunkWineHtml}
-    </div>`;
-    }
 }
