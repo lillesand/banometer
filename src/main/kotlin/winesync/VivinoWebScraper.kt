@@ -9,13 +9,19 @@ import org.apache.http.entity.StringEntity
 import org.apache.http.impl.client.HttpClients
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import java.time.temporal.ChronoUnit
 
 
 class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
 
+    private val requestConfig = RequestConfig.custom()
+            .setConnectTimeout(4000)
+            .setSocketTimeout(120000)
+            .setCookieSpec(CookieSpecs.STANDARD)
+            .build()
+
     private val httpClient = HttpClients.custom()
-            .setDefaultRequestConfig(RequestConfig.custom()
-                    .setCookieSpec(CookieSpecs.STANDARD).build())
+            .setDefaultRequestConfig(requestConfig)
             .build()
 
     fun getCellar(): InputStream {
