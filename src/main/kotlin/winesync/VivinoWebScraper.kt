@@ -6,30 +6,35 @@ import org.apache.http.client.config.CookieSpecs
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.methods.HttpPost
 import org.apache.http.entity.StringEntity
-import org.apache.http.impl.client.HttpClients
+import org.apache.http.impl.client.CloseableHttpClient
+import org.apache.http.impl.client.HttpClientBuilder
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
-import java.time.temporal.ChronoUnit
 
 
 class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
 
-    private val requestConfig = RequestConfig.custom()
-            .setConnectTimeout(4000)
-            .setSocketTimeout(120000)
-            .setCookieSpec(CookieSpecs.STANDARD)
-            .build()
+    private val httpClient: CloseableHttpClient
 
-    private val httpClient = HttpClients.custom()
-            .setDefaultRequestConfig(requestConfig)
-            .build()
+    init {
+        val requestConfig = RequestConfig.custom()
+                .setConnectTimeout(4000)
+                .setSocketTimeout(60000)
+                .setCookieSpec(CookieSpecs.STANDARD)
+                .build()
+
+        httpClient = HttpClientBuilder.create()
+                .setDefaultRequestConfig(requestConfig)
+                .build()
+    }
+
 
     fun getCellar(): InputStream {
         login(vivinoProperties.username, vivinoProperties.password)
         return downloadCellar()
     }
 
-    internal fun login(username: String, password: String) {
+    private fun login(username: String, password: String) {
         val csrfToken = getCsrfToken()
 
         val post = HttpPost("https://www.vivino.com/api/login")
@@ -37,42 +42,41 @@ class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
         post.addHeader("Accept", "application/json")
         post.entity = StringEntity("{\"email\":\"$username\",\"password\":\"$password\"}", ContentType.APPLICATION_JSON)
 
-        val httpResponse = httpClient.execute(post)
+        httpClient.execute(post).use {
+            if (it.statusLine.statusCode != 200) {
+                throw VivinoException("Vivino login failed with code ${it.statusLine.statusCode}")
+            }
 
-        if (httpResponse.statusLine.statusCode != 200) {
-            throw VivinoException("Vivino login failed with code ${httpResponse.statusLine.statusCode}")
-        }
+            val response = it.entity.content.bufferedReader().use { responseReader -> responseReader.readText() }
 
-        val response = httpResponse.entity.content.bufferedReader().use { it.readText() }
-
-        if (!response.contains("\"success\":true")) {
-            throw VivinoException("Vivino login failed:\n$response")
+            if (!response.contains("\"success\":true")) {
+                throw VivinoException("Vivino login failed:\n$response")
+            }
         }
     }
 
-    internal fun downloadCellar(): InputStream {
+    private fun downloadCellar(): InputStream {
         val get = HttpGet("https://www.vivino.com/users/${vivinoProperties.userId}/export.csv?data=cellar")
 
-        val response = httpClient.execute(get)
+        httpClient.execute(get).use {
+            if (it.statusLine.statusCode != 200) {
+                throw VivinoException("Vivino cellar download failed with code ${it.statusLine.statusCode}")
+            }
 
-        if (response.statusLine.statusCode != 200) {
-            throw VivinoException("Vivino cellar download failed with code ${response.statusLine.statusCode}")
+            return it.entity.content!!
         }
-
-        return response.entity.content!!
     }
 
     private fun getCsrfToken(): String {
-        val frontPage = httpClient.execute(HttpGet("https://www.vivino.com"))
+        httpClient.execute(HttpGet("https://www.vivino.com")).use {
+            val frontpageBytes = ByteArrayOutputStream()
+            it.entity.writeTo(frontpageBytes)
 
-        val frontpageBytes = ByteArrayOutputStream()
-        frontPage.entity.writeTo(frontpageBytes)
+            val frontPageHtml = frontpageBytes.toString("utf-8")
+            val csrfToken = frontPageHtml.substringAfter("<meta name=\"csrf-token\" content=\"").substringBefore("\" />")
 
-        val frontPageHtml = frontpageBytes.toString("utf-8")
-        val csrfToken = frontPageHtml.substringAfter("<meta name=\"csrf-token\" content=\"").substringBefore("\" />")
-
-        frontPage.close()
-        return csrfToken
+            return csrfToken
+        }
     }
 
 }
