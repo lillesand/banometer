@@ -8,6 +8,7 @@ import org.supercsv.cellprocessor.ParseInt
 import org.supercsv.cellprocessor.constraint.NotNull
 import org.supercsv.io.CsvMapReader
 import org.supercsv.prefs.CsvPreference
+import java.io.ByteArrayInputStream
 import java.io.Reader
 import java.time.Instant
 import java.util.*
@@ -15,11 +16,11 @@ import kotlin.collections.ArrayList
 
 class VivinoCsvReader {
 
-    fun read(cellar: Reader): WinesFromVivino {
+    fun read(cellar: String): WinesFromVivino {
         val headers = arrayOf("Winery", "Wine name", "Vintage", "Region", "Country", "Regional wine style", "Average rating", "Scan date", null, null, null, null, null, "Wine type", null, null, null, null, "Bottles in cellar")
         val cellProcessors = arrayOf(NotNull(), NotNull(), Optional(), Optional(), Optional(), Optional(), ParseDouble(), ParseDate("yyyy-MM-dd HH:mm"), null, null, null, null, null, NotNull(), null, null, null, null, ParseInt())
 
-        val csvReader = CsvMapReader(cellar, CsvPreference.STANDARD_PREFERENCE)
+        val csvReader = CsvMapReader(cellar.byteInputStream().bufferedReader(), CsvPreference.STANDARD_PREFERENCE)
 
         csvReader.getHeader(true) // Skip headers
         val wines = ArrayList<VivinoWine>()
