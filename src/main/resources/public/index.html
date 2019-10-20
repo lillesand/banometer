@@ -17,6 +17,9 @@
             <a class="nav-item" href="#/forecast/Norway/Oslo/Oslo/Oslo"><span class="icon">🌦</span><span class="name">Værmelding</span></a>
             <a class="nav-item" href="#/temperature"><span class="icon">🌡</span><span class="name">Temperatur</span></a>
         </span>
+        <span id="wine-navigation">
+            <a class="nav-item" href="#/wine"><span class="icon">🍷</span><span class="name">Vin</span></a>
+        </span>
     </nav>
 
     <a style="display: none" id="reload" href="#/maintenance">⛑️</a>
@@ -27,6 +30,8 @@
         <section id="forecast"></section>
 
         <section id="temperature"></section>
+
+        <section id="wine"></section>
 
         <section id="cinema"></section>
 
@@ -59,6 +64,10 @@
 <script src="realtime/RealtimeMenuView.js"></script>
 <script src="realtime/RealtimeView.js"></script>
 
+<script src="wine/WineSyncView.js"></script>
+<script src="wine/WineStatsView.js"></script>
+<script src="wine/WineView.js"></script>
+
 <script src="maintenance/MaintenanceView.js"></script>
 
 <script src="forecast/ForecastView.js"></script>
@@ -66,5 +75,6 @@
 <script src="cinema/CinemaView.js"></script>
 
 
+<script src="dragscroll/dragscroll.js"></script>
 <script src="app.js"></script>
 </html>

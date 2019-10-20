@@ -1,6 +1,5 @@
 class CinemaView {
 
-
     constructor(opts) {
         this.el = opts.el;
         this.networkIndicator = opts.networkIndicator;
@@ -42,10 +41,12 @@ class CinemaView {
 
                 days.forEach((day) => {
                     html += `<h3>${day}</h3>`;
-                    html += `<ul>`;
+                    html += `<ul class="basic-list">`;
 
                     movies[screen][day].forEach((movie) => {
-                        html += `<li><span class="time">${movie['displayTime']}</span><span class="title">${movie['show']}</span><span class="free-seats">${movie['freeSeats']}</span></li>`;
+                        html += `<li>
+<span class="time">${movie['displayTime']}</span><span class="title">${movie['show']}</span><span class="free-seats">${movie['freeSeats']}</span>
+</li>`;
                     });
 
                     html += `</ul>`;

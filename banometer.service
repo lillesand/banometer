@@ -1,11 +1,11 @@
 [Unit]
-Description=Banometer web serrver
+Description=Banometer web server
 After=multi-user.target
 
 [Service]
 Type=idle
 EnvironmentFile=/etc/systemd/user/banometer.env
-ExecStart=/usr/bin/java -jar /home/pi/Desktop/banometer/build/libs/banometer-1.0.jar
+ExecStart=/usr/bin/java -jar /home/pi/banometer/banometer-kotlin.jar
 
 [Install]
 WantedBy=multi-user.target
