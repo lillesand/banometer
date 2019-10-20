@@ -29,7 +29,7 @@ class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
     }
 
 
-    fun getCellar(): String {
+    fun getCellar(): WinesFromVivino {
         login(vivinoProperties.username, vivinoProperties.password)
         return downloadCellar()
     }
@@ -55,7 +55,9 @@ class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
         }
     }
 
-    private fun downloadCellar(): String {
+    private val vivinoCsvReader = VivinoCsvReader()
+
+    private fun downloadCellar(): WinesFromVivino {
         val get = HttpGet("https://www.vivino.com/users/${vivinoProperties.userId}/export.csv?data=cellar")
 
         httpClient.execute(get).use {
@@ -63,7 +65,7 @@ class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
                 throw VivinoException("Vivino cellar download failed with code ${it.statusLine.statusCode}")
             }
 
-            return it.entity.content.bufferedReader().use { responseReader -> responseReader.readText() }
+            return vivinoCsvReader.read(it.entity.content.bufferedReader())
         }
     }
 
