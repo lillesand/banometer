@@ -9,7 +9,7 @@ class WineSync(vivinoProperties: VivinoProperties, airtableProperties: AirtableP
     private val wineAnalyzer = WineAnalyzer()
 
     fun getWineStatus(): WineStatus {
-        val winesFromVivino = VivinoCsvReader().read(vivinoWebScraper.getCellar())
+        val winesFromVivino = vivinoWebScraper.getCellar()
         val winesFromAirtable = airtable.getWines()
 
         val highestRated = wineAnalyzer.highestRated(15, winesFromVivino.wines)

@@ -9,12 +9,13 @@ import org.apache.http.entity.StringEntity
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClientBuilder
 import java.io.ByteArrayOutputStream
-import java.io.InputStream
 
 
 class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
 
     private val httpClient: CloseableHttpClient
+    private val vivinoCsvReader = VivinoCsvReader()
+
 
     init {
         val requestConfig = RequestConfig.custom()
@@ -28,8 +29,7 @@ class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
                 .build()
     }
 
-
-    fun getCellar(): String {
+    fun getCellar(): WinesFromVivino {
         login(vivinoProperties.username, vivinoProperties.password)
         return downloadCellar()
     }
@@ -55,7 +55,7 @@ class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
         }
     }
 
-    private fun downloadCellar(): String {
+    private fun downloadCellar(): WinesFromVivino {
         val get = HttpGet("https://www.vivino.com/users/${vivinoProperties.userId}/export.csv?data=cellar")
 
         httpClient.execute(get).use {
@@ -63,7 +63,7 @@ class VivinoWebScraper(private val vivinoProperties: VivinoProperties) {
                 throw VivinoException("Vivino cellar download failed with code ${it.statusLine.statusCode}")
             }
 
-            return it.entity.content.bufferedReader().use { responseReader -> responseReader.readText() }
+            return vivinoCsvReader.read(it.entity.content.bufferedReader())
         }
     }
 
