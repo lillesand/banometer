@@ -39,8 +39,8 @@ data class NetatmoWeatherResponse(
                 val date_min_temp: Int,
                 val max_temp: Double,
                 val min_temp: Double,
-                val pressure_trend: String,
-                val temp_trend: String,
+                val pressure_trend: String?,
+                val temp_trend: String?,
                 val time_utc: Int
             )
 
@@ -66,7 +66,7 @@ data class NetatmoWeatherResponse(
                     val date_min_temp: Int,
                     val max_temp: Double,
                     val min_temp: Double,
-                    val temp_trend: String,
+                    val temp_trend: String?,
                     val time_utc: Int
                 )
             }
