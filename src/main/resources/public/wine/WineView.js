@@ -4,7 +4,7 @@ class WineView {
         this.el = opts.el;
         this.networkIndicator = opts.networkIndicator;
         this.refreshInterval = [10, 'minutes'];
-        this.wineSyncView = new WineSyncView({ el: this.el, networkIndicator: this.networkIndicator, reload: this.refresh });
+        this.wineSyncView = new WineSyncView({ el: this.el, networkIndicator: this.networkIndicator, reload: this.refresh.bind(this) });
         this.wineStatsView = new WineStatsView({ el: this.el });
     }
 
