@@ -1,4 +1,4 @@
-package netatmo
+package weather
 
 data class NetatmoWeatherResponse(
     val body: Body,

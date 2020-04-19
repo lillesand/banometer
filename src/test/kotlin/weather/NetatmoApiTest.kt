@@ -1,4 +1,4 @@
-package netatmo
+package weather
 
 import org.junit.Test
 

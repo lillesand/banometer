@@ -1,4 +1,4 @@
-package netatmo
+package weather
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
