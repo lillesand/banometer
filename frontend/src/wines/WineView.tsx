@@ -33,9 +33,11 @@ function WineView() {
     ];
 
     setStatsView(statsViews[currentIndex]);
-    setInterval(() => {
+    const interval = setInterval(() => {
       setStatsView(statsViews[currentIndex++ % statsViews.length]);
-    }, toMillis(5, 'seconds'))
+    }, toMillis(5, 'seconds'));
+
+    return () => { clearInterval(interval) };
   }, [wines, currentIndex]);
 
   return <div>
