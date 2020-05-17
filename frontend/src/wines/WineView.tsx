@@ -1,15 +1,17 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { HighestRated as HighestRatedRes, WinesResponse } from './types';
-import { pluralize } from '../utils/strings';
+import React, { useEffect, useState } from 'react';
+import { WinesResponse } from './types';
+import { HighestRated } from './HighestRated';
+import { toMillis } from '../utils/time';
+import { MostCollected } from './MostCollected';
+import { MostRecentlyScanned } from './MostRecentlyScanned';
 
 function WineView() {
 
-  const [ wines, setWines ] = useState<WinesResponse | null>(null);
+  const [ StatsView, setStatsView ] = useState();
+  const [ wines, setWines ] = useState<WinesResponse>();
   const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
-    console.log('called');
     fetch('http://localhost:5000/wine_status')
       .then(res => res.json())
       .then(res => {
@@ -21,26 +23,25 @@ function WineView() {
       })
   }, []);
 
-  console.log("Rendering", wines, isLoading);
+  let currentIndex = 0;
+  useEffect(() => {
+    if (!wines) return;
+    const statsViews = [
+      <HighestRated wines={wines!.wineStatus.stats.highestRated}/>,
+      <MostCollected wines={wines!.wineStatus.stats.mostCollected}/>,
+      <MostRecentlyScanned wines={wines!.wineStatus.stats.mostRecentlyScanned}/>
+    ];
+
+    setStatsView(statsViews[currentIndex]);
+    setInterval(() => {
+      setStatsView(statsViews[currentIndex++ % statsViews.length]);
+    }, toMillis(5, 'seconds'))
+  }, [wines, currentIndex]);
+
   return <div>
     {isLoading && <p>laddar…</p>}
-    {wines && <>
-      <h3>Best rangering</h3>
-      <HighestRated wines={wines?.wineStatus.stats.highestRated}/>
-    </>
-    }
+    {StatsView}
   </div>
-}
-
-function HighestRated(props: {wines: HighestRatedRes[]}) {
-  const {wines} = props;
-  if (wines.length == 0) return null;
-
-  return <ul>
-    {wines.map(wine =>
-      <li>{wine.rating} - {wine.wineName} ({wine.numberOfBottles} {pluralize(wine.numberOfBottles, "flaske", "flasker")})</li>
-    )}
-  </ul>
 }
 
 export default WineView;
