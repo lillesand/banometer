@@ -54,7 +54,7 @@ data class NetatmoWeatherResponse(
                 val last_message: Int,
                 val last_seen: Int,
                 val last_setup: Int,
-                val module_name: String,
+                val module_name: String?,
                 val reachable: Boolean,
                 val rf_status: Int,
                 val type: String
@@ -73,7 +73,7 @@ data class NetatmoWeatherResponse(
 
             data class Place(
                 val altitude: Int,
-                val city: String,
+                val city: String?,
                 val country: String,
                 val location: List<Double>,
                 val timezone: String

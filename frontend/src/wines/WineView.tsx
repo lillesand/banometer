@@ -5,7 +5,7 @@ import { toMillis } from '../utils/time';
 import { MostCollected } from './MostCollected';
 import { MostRecentlyScanned } from './MostRecentlyScanned';
 
-function WineView() {
+export const WineView = () => {
 
   const [ StatsView, setStatsView ] = useState();
   const [ wines, setWines ] = useState<WinesResponse>();
@@ -44,6 +44,4 @@ function WineView() {
     {isLoading && <p>laddar…</p>}
     {StatsView}
   </div>
-}
-
-export default WineView;
+};

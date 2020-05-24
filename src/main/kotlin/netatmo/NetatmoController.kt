@@ -11,17 +11,30 @@ class NetatmoController {
 
     @RequestMapping(path = ["/temperature"], produces = ["application/json"])
     @ResponseBody
-    fun temperature(): Measurements {
+    fun temperature(): List<SensorPair> {
         val weather = netatmoService.getMeasurements()
-        val indoor = weather.body.devices.find { it.type == "NAMain" }!!
-        val outdoor = indoor.modules.find { it.type == "NAModule1" }!!.dashboard_data
 
-        return Measurements(indoor = MeasurementSet(indoor.dashboard_data.Temperature, indoor.dashboard_data.Humidity),
-                outdoor = MeasurementSet(outdoor.Temperature, outdoor.Humidity))
+        return weather.body.devices.map { mainModule ->
+            val indoor = SensorData(mainModule.module_name, mainModule.dashboard_data.Temperature, mainModule.dashboard_data.Humidity)
 
+            val outdoor = mainModule.modules.find { it.type == "NAModule1" }?.let {
+                SensorData(it.module_name ?: "Den andre", it.dashboard_data.Temperature, it.dashboard_data.Humidity)
+            }
+
+            SensorPair(indoor, outdoor)
+        }
     }
 
-    data class Measurements(val indoor: MeasurementSet, val outdoor: MeasurementSet)
+    data class SensorPair(val indoor: SensorData, val outdoor: SensorData?)
 
-    data class MeasurementSet(val temperature: Double, val humidity: Int)
+    data class SensorData(val sensorName: String, val temperature: Double, val humidity: Int)
+}
+
+
+fun main() {
+    val value: String? = "Heisann"
+
+    value?.let {
+        it.length
+    }
 }
