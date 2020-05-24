@@ -4,32 +4,20 @@ import { HighestRated } from './HighestRated';
 import { toMillis } from '../utils/time';
 import { MostCollected } from './MostCollected';
 import { MostRecentlyScanned } from './MostRecentlyScanned';
+import { useApi } from '../utils/useApis';
 
 export const WineView = () => {
 
   const [ StatsView, setStatsView ] = useState();
-  const [ wines, setWines ] = useState<WinesResponse>();
-  const [ isLoading, setIsLoading ] = useState(true);
-
-  useEffect(() => {
-    fetch('http://localhost:5000/wine_status')
-      .then(res => res.json())
-      .then(res => {
-        setWines(res);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('oh no, failed!', error);
-      })
-  }, []);
+  const [ loading, response ] = useApi<WinesResponse>('http://localhost:5000/wine_status');
 
   let currentIndex = 0;
   useEffect(() => {
-    if (!wines) return;
+    if (!response || response.failed || !response.data) return;
     const statsViews = [
-      <HighestRated wines={wines!.wineStatus.stats.highestRated}/>,
-      <MostCollected wines={wines!.wineStatus.stats.mostCollected}/>,
-      <MostRecentlyScanned wines={wines!.wineStatus.stats.mostRecentlyScanned}/>
+      <HighestRated wines={response.data.wineStatus.stats.highestRated}/>,
+      <MostCollected wines={response.data.wineStatus.stats.mostCollected}/>,
+      <MostRecentlyScanned wines={response.data.wineStatus.stats.mostRecentlyScanned}/>
     ];
 
     setStatsView(statsViews[currentIndex]);
@@ -38,10 +26,10 @@ export const WineView = () => {
     }, toMillis(5, 'seconds'));
 
     return () => { clearInterval(interval) };
-  }, [wines, currentIndex]);
+  }, [response, currentIndex]);
 
   return <div>
-    {isLoading && <p>laddar…</p>}
+    {loading && <p>laddar…</p>}
     {StatsView}
   </div>
 };

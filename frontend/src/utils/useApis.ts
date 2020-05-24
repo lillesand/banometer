@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 interface ApiResponse<T> {
   failed: boolean;
   error?: any;
-  response?: T;
+  data?: T;
 }
 
 export const useApi = <T> (url: string): [boolean, ApiResponse<T>?] => {
@@ -17,7 +17,7 @@ export const useApi = <T> (url: string): [boolean, ApiResponse<T>?] => {
       .then(res => {
         setData({
           failed: false,
-          response: res,
+          data: res,
         });
       })
       .catch(error => {

@@ -15,7 +15,7 @@ export const NetatmoView = () => {
     return <div>Oh no, feilet :(</div>;
   }
 
-  const response = data!.response;
+  const response = data!.data;
   return <div>
     { response?.map((sensorPair, index) =>
       <div className="sensorpair" key={index}>
