@@ -23,7 +23,7 @@ export const WineView = () => {
     setStatsView(statsViews[currentIndex]);
     const interval = setInterval(() => {
       setStatsView(statsViews[currentIndex++ % statsViews.length]);
-    }, toMillis(5, 'seconds'));
+    }, toMillis(25, 'seconds'));
 
     return () => { clearInterval(interval) };
   }, [response, currentIndex]);
