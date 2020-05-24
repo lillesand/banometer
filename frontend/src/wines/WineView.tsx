@@ -28,8 +28,9 @@ export const WineView = () => {
     return () => { clearInterval(interval) };
   }, [response, currentIndex]);
 
-  return <div>
-    {loading && <p>laddar…</p>}
-    {StatsView}
-  </div>
+
+  if (loading) {
+    return '';
+  }
+  return StatsView;
 };
