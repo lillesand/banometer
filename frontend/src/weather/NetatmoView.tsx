@@ -1,22 +1,14 @@
 import { useApi } from '../utils/useApis';
 import React from 'react';
-import '../grid/grid.scss';
 import { Measurement, NetatmoResponse } from './types';
+import { GridRow } from '../number-grid/GridRow';
+import { GridRowEntry } from '../number-grid/GridRowEntry';
 
 const renderMeasurement = (name: string, measurement: Measurement) => {
-  return <>
-    <h3 className="number-grid-row__heading">{name}</h3>
-    <div className="number-grid-row__row">
-      <div className="number-grid-row__entry">
-        <span className="number-grid-row__number">{measurement.humidity}%</span>
-        <span className="number-grid-row__detail">Luftfuktighet</span>
-      </div>
-      <div className="number-grid-row__entry">
-        <span className="number-grid-row__number">{measurement.temperature}°c</span>
-        <span className="number-grid-row__detail">Temp</span>
-      </div>
-    </div>
-  </>;
+  return <GridRow heading={name}>
+    <GridRowEntry fieldName="Luftfuktighet">{measurement.humidity}%</GridRowEntry>
+    <GridRowEntry fieldName="Temp">{measurement.temperature}°c</GridRowEntry>
+  </GridRow>;
 };
 
 export const NetatmoView = () => {
@@ -41,7 +33,4 @@ export const NetatmoView = () => {
     { nydalenOutdoor && renderMeasurement('Ute', nydalenOutdoor) }
     { wineCellar && renderMeasurement('Vinkjeller', wineCellar) }
   </div>
-
-
-
 };
