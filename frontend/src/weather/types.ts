@@ -1,10 +1,15 @@
-export interface SensorData {
+export interface Measurement {
   sensorName: string;
   temperature: number;
   humidity: number;
 }
 
 export interface SensorPair {
-  indoor: SensorData;
-  outdoor?: SensorData;
+  indoor?: Measurement;
+  outdoor?: Measurement;
+}
+
+export interface NetatmoResponse {
+  nydalen?: SensorPair;
+  ski?: SensorPair;
 }
