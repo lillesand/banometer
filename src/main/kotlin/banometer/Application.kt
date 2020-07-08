@@ -6,6 +6,7 @@ import odeon.CinemaController
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.scheduling.annotation.EnableScheduling
+import weather.MetController
 import weather.YrProxyController
 import winesync.WineController
 
@@ -13,6 +14,7 @@ import winesync.WineController
     EnturController::class,
     MaintenanceController::class,
     YrProxyController::class,
+    MetController::class,
     NetatmoController::class,
     CinemaController::class,
     WineController::class
