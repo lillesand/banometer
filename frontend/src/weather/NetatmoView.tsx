@@ -12,7 +12,7 @@ const renderMeasurement = (name: string, measurement: Measurement) => {
 };
 
 export const NetatmoView = () => {
-  const [isLoading, data] = useApi<NetatmoResponse>('http://localhost:5000/temperature');
+  const [isLoading, data] = useApi<NetatmoResponse>('http://localhost:5000/temperature', [30, 'minutes']);
 
   if (isLoading) {
     return <div>Laddar…</div>;
