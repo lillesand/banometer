@@ -27,14 +27,4 @@ export function HighestRated(props: { wines: HighestRatedRes[] }) {
       </tbody>
     </table>
   </>;
-
-
-  return <>
-    <h3>Best rangering</h3>
-    <ul>
-      {wines.map((wine, index) =>
-        <li key={index}>{wine.rating} - {wine.wineName} ({wine.numberOfBottles} {pluralize(wine.numberOfBottles, 'flaske', 'flasker')})</li>
-      )}
-    </ul>
-  </>
 }

@@ -26,5 +26,5 @@ export function MostCollected(props: { wines: MostCollectedRes[] }) {
         )}
       </tbody>
     </table>
-  </>
+  </>;
 }
