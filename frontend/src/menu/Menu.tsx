@@ -7,7 +7,8 @@ export const Menu = () => {
     <nav className="main-navigation">
       <ul>
         <LinkEntry to="/wines" emoji="🍷" text="Vin"/>
-        <LinkEntry to="/weather" emoji="⛅️️" text="Vær"/>
+        <LinkEntry to="/temperature" emoji="🌡️️" text="Temp"/>
+        <LinkEntry to="/forecast" emoji="🌦" text="Vær"/>
       </ul>
     </nav>
   )

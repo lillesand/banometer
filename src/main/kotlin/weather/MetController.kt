@@ -4,6 +4,13 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.TemporalUnit
+import java.util.*
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
@@ -16,6 +23,8 @@ class MetController {
             val details = it.data.instant.details
             val forecastDetails = it.data.next_1_hours!!.details!!
             MetHourlyForecast(it.time,
+                    dayString(it.time),
+                    it.time.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("HH:mm")),
                     details.air_temperature,
                     forecastDetails.precipitation_amount,
                     details.wind_from_direction,
@@ -27,11 +36,22 @@ class MetController {
         return MetWeatherForecast(forecast)
     }
 
+    private fun dayString(time: Instant): String {
+        return when (val day = time.atZone(ZoneId.systemDefault()).toLocalDate()) {
+            LocalDate.now() -> "I dag"
+            LocalDate.now().plus(1, DAYS) -> "I morgen"
+            LocalDate.now().plus(2, DAYS) -> "Overimorgen"
+            else -> day.format(DateTimeFormatter.ofPattern("dd.MM"))
+        }
+    }
+
 }
 
 data class MetWeatherForecast(val forecast: List<MetHourlyForecast>)
 
 data class MetHourlyForecast(val instant: Instant,
+                             val dayString: String,
+                             val time: String,
                              val temperature: Double,
                              val precipiation: Double,
                              val windFromDirection: Double,
