@@ -21,7 +21,7 @@ export function HighestRated(props: { wines: HighestRatedRes[] }) {
         <tr key={index}>
           <td>{wine.rating}</td>
           <td>{wine.wineName}</td>
-          <td className="number-of-bottles">{wine.numberOfBottles}</td>
+          <td className="number-column">{wine.numberOfBottles}</td>
         </tr>
       )}
       </tbody>

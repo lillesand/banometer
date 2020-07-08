@@ -19,9 +19,9 @@ export function MostRecentlyScanned(props: { wines: MostRecentlyScannedRes[] }) 
       <tbody>
       {wines.map((wine, index) =>
         <tr key={index}>
-          <td>{wine.displayName}</td>
-          <td>{wine.rating}</td>
           <td>{wine.wineName}</td>
+          <td className="number-column">{wine.rating}</td>
+          <td className="number-column">{wine.numberOfBottles}</td>
         </tr>
       )}
       </tbody>

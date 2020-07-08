@@ -19,7 +19,7 @@ export function MostCollected(props: { wines: MostCollectedRes[] }) {
       <tbody>
         {wines.map((wine, index) =>
           <tr key={index}>
-            <td>{wine.numberOfBottles}</td>
+            <td className="number-column">{wine.numberOfBottles}</td>
             <td>{wine.wineName}</td>
             <td><ul className="vintages">{wine.vintages.reverse().map((vintage) => <li>{vintage}</li>)}</ul></td>
           </tr>
