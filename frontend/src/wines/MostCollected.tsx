@@ -8,10 +8,23 @@ export function MostCollected(props: { wines: MostCollectedRes[] }) {
 
   return <>
     <h3>Mest samlet</h3>
-    <ul>
-      {wines.map((wine, index) =>
-        <li key={index}>{wine.numberOfBottles} {pluralize(wine.numberOfBottles, 'flaske', 'flasker')} - {wine.wineName} ({wine.vintages})</li>
-      )}
-    </ul>
+    <table className="wine-table">
+      <thead>
+        <tr>
+          <td>Antall</td>
+          <td>Vin</td>
+          <td>Årgang</td>
+        </tr>
+      </thead>
+      <tbody>
+        {wines.map((wine, index) =>
+          <tr key={index}>
+            <td>{wine.numberOfBottles}</td>
+            <td>{wine.wineName}</td>
+            <td><ul className="vintages">{wine.vintages.reverse().map((vintage) => <li>{vintage}</li>)}</ul></td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   </>
 }

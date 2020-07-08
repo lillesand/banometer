@@ -36,7 +36,7 @@ class WineAnalyzer {
 
         return sortedByAmounts.map { it.value }.map { amountsOfWine: List<WineAmount> ->
             val wine = amountsOfWine.first()
-            val vintages = amountsOfWine.sortedBy { it.vintage }.map { "${it.vintage}: ${it.numberOfBottles}" }.joinToString(", ")
+            val vintages = amountsOfWine.sortedBy { it.vintage }.map { "${it.vintage}: ${it.numberOfBottles}" }
             val totalBottles = amountsOfWine.map { it.numberOfBottles }.reduce { acc, i -> acc + i }
 
             WineAmountAcrossVintages(wine.winery, wine.name, totalBottles, vintages)
@@ -60,7 +60,7 @@ interface WineAmount {
     val numberOfBottles: Int
 }
 
-data class WineAmountAcrossVintages(override val winery: String, override val name: String, val totalAmount: Int, val vintages: String): Wine {
+data class WineAmountAcrossVintages(override val winery: String, override val name: String, val totalAmount: Int, val vintages: List<String>): Wine {
     override val numberOfBottles: Int
         get() = totalAmount
 

@@ -1,0 +1,32 @@
+.wines {
+
+  h3 {
+    font-size: 26px;
+    margin: 1em 10px;
+  }
+
+  .wine-table {
+
+    border-collapse: collapse;
+    margin: 0 10px;
+
+    td {
+      vertical-align: top;
+      padding: 4px 0 2px 8px;
+    }
+
+    tr {
+      border-bottom: 1px solid grey;
+    }
+
+    .vintages {
+      font-size: 9px;
+      vertical-align: center;
+    }
+
+    .number-of-bottles {
+      text-align: center;
+    }
+  }
+
+}

@@ -29,7 +29,7 @@ export interface MostCollected {
   winery: string;
   name: string;
   totalAmount: number;
-  vintages: string;
+  vintages: string[];
   vintage?: any;
   numberOfBottles: number;
   displayName: string;

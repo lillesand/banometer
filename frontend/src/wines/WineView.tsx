@@ -5,6 +5,7 @@ import { toMillis } from '../utils/time';
 import { MostCollected } from './MostCollected';
 import { MostRecentlyScanned } from './MostRecentlyScanned';
 import { useApi } from '../utils/useApis';
+import './WineView.scss';
 
 export const WineView = () => {
 
@@ -30,7 +31,7 @@ export const WineView = () => {
 
 
   if (loading) {
-    return '';
+    return null;
   }
-  return StatsView;
+  return <div className="wines">{StatsView}</div>;
 };
