@@ -5,7 +5,10 @@ import groupBy from 'lodash.groupby';
 import './forecast.scss'
 
 const forecastRow = (forecast: Forecast, index: number) => {
-    return <>
+  const rowIdentifier = forecast.dayString + '-' + forecast.time;
+  const key = index === 0 ? rowIdentifier + '-with-header' : rowIdentifier; // We render the same date and time differently if it's the first element in the table.
+
+  return <React.Fragment key={key}>
       { index === 0 &&
         <tr className="heading-row">
           <td colSpan={2} className="day-heading">{forecast.dayString}</td>
@@ -34,7 +37,7 @@ const forecastRow = (forecast: Forecast, index: number) => {
           {forecast.windFromDirectionWord}
         </td>
       </tr>
-    </>
+    </React.Fragment>
 };
 
 export const ForecastView = () => {
@@ -54,7 +57,11 @@ export const ForecastView = () => {
   return <div className="forecast">
     <table>
       <tbody>
-      {Object.values(forecastByDay).map(forecastsForDay => forecastsForDay.map(forecastRow))}
+      {Object.entries(forecastByDay).map(([day, forecastsForDay]) =>
+        <React.Fragment key={day}>
+          {forecastsForDay.map(forecastRow)}
+        </React.Fragment>
+      )}
       </tbody>
     </table>
   </div>;
