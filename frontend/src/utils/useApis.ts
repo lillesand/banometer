@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Time, toMillis } from './time';
 
 interface ApiResponse<T> {
   failed: boolean;
@@ -7,11 +6,10 @@ interface ApiResponse<T> {
   data?: T;
 }
 
-export const useApi = <T> (url: string, updateFrequency?: Time): [boolean, ApiResponse<T>?] => {
-
+export const useApi = <T> (url: string, updateFrequencyMillis?: number): [boolean, ApiResponse<T>?] => {
   const [ data, setData ] = useState<ApiResponse<T>>();
   const [ isLoading, setIsLoading ] = useState(true);
-  let interval: number;
+
 
   useEffect(() => {
     const call = () => {
@@ -34,18 +32,16 @@ export const useApi = <T> (url: string, updateFrequency?: Time): [boolean, ApiRe
         })
     };
 
-    if (updateFrequency) {
-      interval = window.setInterval(call, toMillis(updateFrequency))
-    }
-
     call();
 
-    if (interval) {
+    if (updateFrequencyMillis) {
+      let interval = window.setInterval(call, updateFrequencyMillis);
+
       return () => {
-        clearInterval(interval);
+        window.clearInterval(interval);
       }
     }
-  }, [url]);
+  }, [url, updateFrequencyMillis]);
 
   return [isLoading, data];
 };

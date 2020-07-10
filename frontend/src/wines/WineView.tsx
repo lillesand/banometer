@@ -10,7 +10,7 @@ import './WineView.scss';
 export const WineView = () => {
 
   const [ StatsView, setStatsView ] = useState();
-  const [ loading, response ] = useApi<WinesResponse>('http://localhost:5000/wine_status', [30, 'minutes']);
+  const [ loading, response ] = useApi<WinesResponse>('http://localhost:5000/wine_status', toMillis(30, 'minutes'));
 
   let currentIndex = 0;
   useEffect(() => {
@@ -24,7 +24,7 @@ export const WineView = () => {
     setStatsView(statsViews[currentIndex]);
     const interval = setInterval(() => {
       setStatsView(statsViews[currentIndex++ % statsViews.length]);
-    }, toMillis([25, 'seconds']));
+    }, toMillis(25, 'seconds'));
 
     return () => { clearInterval(interval) };
   }, [response, currentIndex]);
