@@ -1,5 +1,4 @@
 import { HighestRated as HighestRatedRes } from './types';
-import { pluralize } from '../utils/strings';
 import React from 'react';
 
 export function HighestRated(props: { wines: HighestRatedRes[] }) {

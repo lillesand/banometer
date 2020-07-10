@@ -1,5 +1,4 @@
 import { MostCollected as MostCollectedRes } from './types';
-import { pluralize } from '../utils/strings';
 import React from 'react';
 
 export function MostCollected(props: { wines: MostCollectedRes[] }) {
