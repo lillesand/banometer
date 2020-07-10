@@ -11,7 +11,6 @@ export const Dragscroll = (props: OwnProps) => {
     const dragscrollable = createRef<HTMLDivElement>();
 
     const dragStart: EventHandler<MouseEvent<HTMLDivElement>> = (e: MouseEvent<HTMLDivElement>) => {
-        e.preventDefault();
         isDown = true;
         startY = e.pageY - dragscrollable!.current!.offsetTop;
         scrollTop = dragscrollable!.current!.scrollTop;
@@ -19,7 +18,6 @@ export const Dragscroll = (props: OwnProps) => {
 
     const dragging: EventHandler<MouseEvent<HTMLDivElement>> = (e: MouseEvent<HTMLDivElement>) => {
         if(!isDown) return;
-        e.preventDefault();
         const endY = e.pageY - dragscrollable!.current!.offsetTop;
         const scrollDistance = (startY - endY) * 1.4;
         const newPosition = scrollTop + scrollDistance;
@@ -27,7 +25,6 @@ export const Dragscroll = (props: OwnProps) => {
     };
 
     const dragStop: EventHandler<MouseEvent<HTMLDivElement>> = (e: MouseEvent<HTMLDivElement>) => {
-        console.log(`drag stop: ${dragscrollable!.current!.scrollTop}`);
         isDown = false;
     };
 
