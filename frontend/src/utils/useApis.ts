@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { getApiRoot } from './env';
 
 interface ApiResponse<T> {
   failed: boolean;
@@ -6,10 +7,11 @@ interface ApiResponse<T> {
   data?: T;
 }
 
-export const useApi = <T> (url: string, updateFrequencyMillis?: number): [boolean, ApiResponse<T>?] => {
+export const useApi = <T> (uri: string, updateFrequencyMillis?: number): [boolean, ApiResponse<T>?] => {
   const [ data, setData ] = useState<ApiResponse<T>>();
   const [ isLoading, setIsLoading ] = useState(true);
 
+  const url = uri.startsWith('http') ? uri : getApiRoot() + uri;
 
   useEffect(() => {
     const call = () => {

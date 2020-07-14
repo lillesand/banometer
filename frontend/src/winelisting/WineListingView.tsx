@@ -4,7 +4,7 @@ import '../wines/WineView.scss';
 interface Wine {
   wineName: string;
   rating?: number;
-  numberOfBottles?: number;
+  numberOfBottles?: number | string;
   vintage?: string;
   vintages?: string | React.ReactNode;
 }

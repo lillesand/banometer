@@ -6,6 +6,7 @@ import { WineView } from './wines/WineView';
 import { Menu } from './menu/Menu';
 import { ForecastView } from './forecast/ForecastView';
 import { Dragscroll } from './utils/dragscroll/Dragscroll';
+import { Winesync } from './winesync/WinesyncView';
 import './App.scss';
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
               <Switch>
                 <Route path="/wines">
                   <WineView />
+                </Route>
+                <Route path="/wine_sync">
+                  <Winesync />
                 </Route>
                 <Route path="/temperature">
                   <NetatmoView />
