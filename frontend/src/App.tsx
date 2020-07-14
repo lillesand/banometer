@@ -12,21 +12,21 @@ function App() {
   return <>
     <BrowserRouter>
       <div className="app">
-        <section className="main">
-          <Switch>
-            <Route path="/wines">
-              <WineView />
-            </Route>
-            <Route path="/temperature">
-              <NetatmoView />
-            </Route>
-            <Route path="/forecast">
-              <Dragscroll>
-                <ForecastView />
-              </Dragscroll>
-            </Route>
-          </Switch>
-        </section>
+          <section className="main">
+            <Dragscroll>
+              <Switch>
+                <Route path="/wines">
+                  <WineView />
+                </Route>
+                <Route path="/temperature">
+                  <NetatmoView />
+                </Route>
+                <Route path="/forecast">
+                  <ForecastView />
+                </Route>
+              </Switch>
+            </Dragscroll>
+          </section>
         <Menu />
       </div>
     </BrowserRouter>
