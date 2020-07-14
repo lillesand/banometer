@@ -1,3 +1,14 @@
+export interface NewWine {
+  winery: string;
+  name: string;
+  vintage: string;
+  rating: number;
+  numberOfBottles: number;
+  scanDate: number;
+  displayName: string;
+  wineName: string;
+}
+
 export interface DrunkWine {
   winery: string;
   name: string;
@@ -7,10 +18,22 @@ export interface DrunkWine {
   wineName: string;
 }
 
+export interface ChangedAmount {
+  name: string;
+  winery: string;
+  vintage: string;
+  numberOfBottles: number;
+  airtableId: string;
+  newAmount: number;
+  oldAmount: number;
+  displayName: string;
+  wineName: string;
+}
+
 export interface Diff {
-  newWines: any[];
+  newWines: NewWine[];
   drunkWines: DrunkWine[];
-  changedAmount: any[];
+  changedAmount: ChangedAmount[];
   numberOfBottlesNeedSync: number;
 }
 
@@ -20,7 +43,7 @@ export interface HighestRated {
   vintage: string;
   rating: number;
   numberOfBottles: number;
-  scanDate: Date;
+  scanDate: number;
   displayName: string;
   wineName: string;
 }
@@ -42,7 +65,7 @@ export interface MostRecentlyScanned {
   vintage: string;
   rating: number;
   numberOfBottles: number;
-  scanDate: Date;
+  scanDate: number;
   displayName: string;
   wineName: string;
 }
@@ -59,9 +82,7 @@ export interface WineStatus {
 }
 
 export interface WinesResponse {
-  now: Date;
+  now: number[];
   generatedId: Date;
   wineStatus: WineStatus;
 }
-
-

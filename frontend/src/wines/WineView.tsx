@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { WinesResponse } from './types';
-import { HighestRated } from './HighestRated';
 import { toMillis } from '../utils/time';
-import { MostCollected } from './MostCollected';
-import { MostRecentlyScanned } from './MostRecentlyScanned';
 import { useApi } from '../utils/useApis';
+import { WineList } from '../winelisting/WineListingView';
 import './WineView.scss';
+
+const VintageList = (vintages: string[]) =>
+  <ul className="vintages">
+    { vintages.map(vintage => <li key={vintage}>{vintage}</li>)}
+  </ul>;
 
 export const WineView = () => {
 
@@ -16,9 +19,20 @@ export const WineView = () => {
   useEffect(() => {
     if (!response || response.failed || !response.data) return;
     const statsViews = [
-      <HighestRated wines={response.data.wineStatus.stats.highestRated}/>,
-      <MostCollected wines={response.data.wineStatus.stats.mostCollected}/>,
-      <MostRecentlyScanned wines={response.data.wineStatus.stats.mostRecentlyScanned}/>
+      <WineList
+        title="Høyest rangering på Vivino"
+        wines={response.data.wineStatus.stats.highestRated}
+        fields={['rating', 'wineName', 'numberOfBottles']}/>,
+      <WineList
+        title="Mest samlet"
+        wines={response.data.wineStatus.stats.mostCollected.map((wine) => {
+          return {...wine, vintages: VintageList(wine.vintages)}
+        })}
+        fields={['numberOfBottles', 'wineName', 'vintages']}/>,
+      <WineList
+        title="Nyeste viner"
+        wines={response.data.wineStatus.stats.mostRecentlyScanned}
+        fields={['wineName', 'vintage', 'rating', 'numberOfBottles']}/>,
     ];
 
     setStatsView(statsViews[currentIndex]);
@@ -33,5 +47,5 @@ export const WineView = () => {
   if (loading) {
     return null;
   }
-  return <div className="wines">{StatsView}</div>;
+  return <>{StatsView}</>;
 };
