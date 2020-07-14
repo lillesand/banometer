@@ -23,7 +23,6 @@ class WineSync(vivinoProperties: VivinoProperties, airtableProperties: AirtableP
     fun synchronizeVivinoAndAirtable(diff: Diff) {
         val newWinesToCreate = diff.newWines.map { AirtableWine(it.winery, it.name, it.vintage, it.regionalWineType, it.country, it.region, it.wineType, it.rating, it.numberOfBottles, noUnplacedBottles = null, noPlacedBottles = null, id = null) }
         airtable.saveNew(newWinesToCreate)
-        airtable.remove(diff.drunkWines)
         airtable.updateAmounts(diff.changedAmount)
     }
 
@@ -33,9 +32,9 @@ data class WineStatus(val diff: Diff, val stats: Stats)
 
 data class Stats(val highestRated: List<VivinoWine>, val mostCollected: List<WineAmountAcrossVintages>, val mostRecentlyScanned: List<VivinoWine>)
 
-class Diff(val newWines: List<VivinoWine>, val drunkWines: List<AirtableWine>, val changedAmount: List<AmountDiff>) {
+class Diff(val newWines: List<VivinoWine>, val changedAmount: List<AmountDiff>) {
     fun getNumberOfBottlesNeedSync(): Int {
-        return newWines.size + drunkWines.size + changedAmount.size
+        return newWines.size + changedAmount.size
     }
 }
 

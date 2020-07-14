@@ -31,11 +31,6 @@ export const Winesync = () => {
         })}
         fields={['wineName', 'numberOfBottles']}
       />
-      <WineList
-        title={`Drukket (${diff.drunkWines.length} viner)`}
-        wines={diff.drunkWines}
-        fields={['wineName']}
-      />
     </>
   } else {
     return <div>Alt er i synk 👼</div>

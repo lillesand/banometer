@@ -8,18 +8,17 @@ class WineAnalyzer {
     fun findDiff(winesFromVivino: WinesFromVivino, winesFromAirtable: WinesFromAirtable): Diff {
         val newWines = winesFromVivino.wines.filter { !winesFromAirtable.contains(it) }
 
-        val drunkWines = winesFromAirtable.wines.filter { !winesFromVivino.contains(it) }
-
-        val changedAmount = winesFromVivino.wines.mapNotNull {
-            val airtableWine = winesFromAirtable.find(it)
-            if (airtableWine == null) {
-                null
+        val changedAmount = winesFromAirtable.wines.map { airtableWine ->
+            val vivinoWine = winesFromVivino.find(airtableWine)
+            if (vivinoWine == null) {
+                AmountDiff(airtableWine, 0)
             } else {
-                AmountDiff(it, airtableWine as AirtableWine)
+                AmountDiff(airtableWine, vivinoWine.numberOfBottles)
             }
         }.filter { it.hasDiff() }
 
-        return Diff(newWines, drunkWines, changedAmount)
+
+        return Diff(newWines, changedAmount)
     }
 
     fun <T: RatedWine> highestRated(numberToReturn: Int, wines: List<T>): List<T> {
