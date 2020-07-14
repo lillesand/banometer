@@ -1,7 +1,5 @@
 package winesync
 
-import java.io.InputStreamReader
-
 class WineSync(vivinoProperties: VivinoProperties, airtableProperties: AirtableProperties) {
 
     private val airtable = AirtableWineService(airtableProperties)
