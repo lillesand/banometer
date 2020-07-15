@@ -13,4 +13,12 @@
     overflow: hidden;
   }
 
+  &.touch-enabled {
+    cursor: none;
+
+    a {
+      // Needs extra specificity to override user agent default
+      cursor: none;
+    }
+  }
 }

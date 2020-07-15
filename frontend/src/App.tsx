@@ -10,9 +10,11 @@ import { Winesync } from './winesync/WinesyncView';
 import './App.scss';
 
 function App() {
+  const touchCssClass = navigator.userAgent.includes('X11') ? 'touch-enabled' : '';
+
   return <>
     <BrowserRouter>
-      <div className="app">
+      <div className={"app " + touchCssClass}>
           <section className="main">
             <Dragscroll>
               <Switch>
