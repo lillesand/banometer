@@ -43,7 +43,7 @@ const forecastRow = (forecast: Forecast, index: number) => {
 
 export const ForecastView = () => {
 
-  const [ isLoading, data ] = useApi<ForecastResponse>('http://localhost:5000/forecast', toMillis(20, 'minutes'));
+  const [ isLoading, data ] = useApi<ForecastResponse>('/forecast', toMillis(20, 'minutes'));
 
   if (isLoading) {
     return null;

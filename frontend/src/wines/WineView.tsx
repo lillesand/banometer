@@ -13,7 +13,7 @@ const VintageList = (vintages: string[]) =>
 export const WineView = () => {
 
   const [ StatsView, setStatsView ] = useState();
-  const [ loading, response ] = useApi<WinesResponse>('http://localhost:5000/wine_status', toMillis(30, 'minutes'));
+  const [ loading, response ] = useApi<WinesResponse>('/wine_status', toMillis(30, 'minutes'));
 
   let currentIndex = 0;
   useEffect(() => {
