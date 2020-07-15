@@ -17,8 +17,21 @@ class WineAnalyzer {
             }
         }.filter { it.hasDiff() }
 
+        val potentialRenames = newWines.mapNotNull { vivinoWine ->
+            changedAmount.filter { it.updatedAmount == 0 }.map { PotentialRename(it.displayName(), vivinoWine.displayName()) }
+                    .sortedByDescending { it.levensthein }
+                    .find { it.levensthein > 0.3 }
+
+        }.sortedByDescending { it.levensthein }
+
+        println(potentialRenames.joinToString("\n") { "${it.levensthein}: ${it.oldName} -> ${it.newName}" })
 
         return Diff(newWines, changedAmount)
+    }
+
+    data class PotentialRename(val oldName: String, val newName: String) {
+        val levensthein: Double
+            get() = biggestSimilarity(oldName, newName)
     }
 
     fun <T: RatedWine> highestRated(numberToReturn: Int, wines: List<T>): List<T> {
