@@ -29,7 +29,7 @@ export const useApi = <T> (uri: string, updateFrequencyMillis?: number): [boolea
             error: error
           });
         })
-        .finally(() => {
+        .then(() => {
           setIsLoading(false);
         })
     };
