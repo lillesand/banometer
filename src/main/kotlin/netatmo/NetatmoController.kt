@@ -7,21 +7,35 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 class NetatmoController {
 
-    var netatmoService = NetatmoApi()
+    private val netatmoService = NetatmoApi()
 
     @RequestMapping(path = ["/temperature"], produces = ["application/json"])
     @ResponseBody
-    fun temperature(): Measurements {
+    fun temperature(): Sensors {
         val weather = netatmoService.getMeasurements()
-        val indoor = weather.body.devices.find { it.type == "NAMain" }!!
-        val outdoor = indoor.modules.find { it.type == "NAModule1" }!!.dashboard_data
 
-        return Measurements(indoor = MeasurementSet(indoor.dashboard_data.Temperature, indoor.dashboard_data.Humidity),
-                outdoor = MeasurementSet(outdoor.Temperature, outdoor.Humidity))
-
+        val nydalen = weather.body.devices.filter { device -> device.dashboard_data != null }.map(json).find { device -> device.indoor.sensorName == "Indoor" }
+        val ski = weather.body.devices.filter { device -> device.dashboard_data != null }.map(json).find { device -> device.indoor.sensorName == "Kjelleren" }
+        return Sensors(nydalen, ski)
     }
 
-    data class Measurements(val indoor: MeasurementSet, val outdoor: MeasurementSet)
+    private val json = { mainModule: NetatmoWeatherResponse.Body.Device ->
+        val indoor = SensorData(mainModule.module_name, mainModule.dashboard_data!!.Temperature, mainModule.dashboard_data.Humidity)
 
-    data class MeasurementSet(val temperature: Double, val humidity: Int)
+        val outdoor = mainModule.modules.find { it.type == "NAModule1" }?.let {
+            if (it.dashboard_data != null) {
+                SensorData(it.module_name ?: "Den andre", it.dashboard_data.Temperature, it.dashboard_data.Humidity)
+            } else {
+                null
+            }
+        }
+
+        SensorPair(indoor, outdoor)
+    }
+
+    data class Sensors(val nydalen: SensorPair?, val ski: SensorPair?)
+
+    data class SensorPair(val indoor: SensorData, val outdoor: SensorData?)
+
+    data class SensorData(val sensorName: String, val temperature: Double, val humidity: Int)
 }

@@ -8,18 +8,17 @@ class WineAnalyzer {
     fun findDiff(winesFromVivino: WinesFromVivino, winesFromAirtable: WinesFromAirtable): Diff {
         val newWines = winesFromVivino.wines.filter { !winesFromAirtable.contains(it) }
 
-        val drunkWines = winesFromAirtable.wines.filter { !winesFromVivino.contains(it) }
-
-        val changedAmount = winesFromVivino.wines.mapNotNull {
-            val airtableWine = winesFromAirtable.find(it)
-            if (airtableWine == null) {
-                null
+        val changedAmount = winesFromAirtable.wines.map { airtableWine ->
+            val vivinoWine = winesFromVivino.find(airtableWine)
+            if (vivinoWine == null) {
+                AmountDiff(airtableWine, 0)
             } else {
-                AmountDiff(it, airtableWine as AirtableWine)
+                AmountDiff(airtableWine, vivinoWine.numberOfBottles)
             }
         }.filter { it.hasDiff() }
 
-        return Diff(newWines, drunkWines, changedAmount)
+
+        return Diff(newWines, changedAmount)
     }
 
     fun <T: RatedWine> highestRated(numberToReturn: Int, wines: List<T>): List<T> {
@@ -36,7 +35,7 @@ class WineAnalyzer {
 
         return sortedByAmounts.map { it.value }.map { amountsOfWine: List<WineAmount> ->
             val wine = amountsOfWine.first()
-            val vintages = amountsOfWine.sortedBy { it.vintage }.map { "${it.vintage}: ${it.numberOfBottles}" }.joinToString(", ")
+            val vintages = amountsOfWine.sortedBy { it.vintage }.map { "${it.vintage}: ${it.numberOfBottles}" }
             val totalBottles = amountsOfWine.map { it.numberOfBottles }.reduce { acc, i -> acc + i }
 
             WineAmountAcrossVintages(wine.winery, wine.name, totalBottles, vintages)
@@ -60,7 +59,7 @@ interface WineAmount {
     val numberOfBottles: Int
 }
 
-data class WineAmountAcrossVintages(override val winery: String, override val name: String, val totalAmount: Int, val vintages: String): Wine {
+data class WineAmountAcrossVintages(override val winery: String, override val name: String, val totalAmount: Int, val vintages: List<String>): Wine {
     override val numberOfBottles: Int
         get() = totalAmount
 

@@ -1,0 +1,43 @@
+.number-grid-row {
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+
+    font-size: 26px;
+  }
+
+  &__entry {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  &__number {
+    font-size: 3em;
+  }
+
+  &__detail {
+    display: block;
+    font-size: 16px;
+  }
+
+  + .number-grid-row {
+    /* All rows with a preceeding row (i.e. all except the first) */
+    margin-top: 40px;
+  }
+
+  &__heading {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  &__text {
+    font-size: 16px;
+    text-align: center;
+  }
+
+}
+
+
+
+

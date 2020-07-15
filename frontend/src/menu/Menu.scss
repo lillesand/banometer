@@ -1,0 +1,32 @@
+.main-navigation {
+
+  padding: 3px 20px;
+  background-color: white;
+
+  a {
+    text-decoration: none;
+  }
+
+  &__link-emoji {
+    font-size: 26px;
+    height: 30px;
+    display: block;
+    margin-bottom: -3px;
+  }
+
+  &__link-text {
+    font-size: 12px;
+  }
+
+  ul {
+    display: inline-block;
+    list-style: none;
+    margin-left: 0;
+  }
+
+  li {
+    float: left;
+    margin-right: 13px;
+    text-align: center;
+  }
+}

@@ -13,7 +13,7 @@ data class NetatmoWeatherResponse(
         data class Device(
             val _id: String,
             val co2_calibrating: Boolean,
-            val dashboard_data: DashboardData,
+            val dashboard_data: DashboardData?,
             val data_type: List<String>,
             val date_setup: Int,
             val firmware: Int,
@@ -48,13 +48,13 @@ data class NetatmoWeatherResponse(
                 val _id: String,
                 val battery_percent: Int,
                 val battery_vp: Int,
-                val dashboard_data: DashboardData,
+                val dashboard_data: DashboardData?,
                 val data_type: List<String>,
                 val firmware: Int,
                 val last_message: Int,
                 val last_seen: Int,
                 val last_setup: Int,
-                val module_name: String,
+                val module_name: String?,
                 val reachable: Boolean,
                 val rf_status: Int,
                 val type: String
@@ -73,7 +73,7 @@ data class NetatmoWeatherResponse(
 
             data class Place(
                 val altitude: Int,
-                val city: String,
+                val city: String?,
                 val country: String,
                 val location: List<Double>,
                 val timezone: String
