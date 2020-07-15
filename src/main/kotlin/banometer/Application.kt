@@ -41,7 +41,7 @@ open class Application {
         println("Configurer")
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000", "http://localhost:80")
+                registry.addMapping("/**").allowedOrigins("http://localhost:3000", "http://localhost")
             }
         }
     }
