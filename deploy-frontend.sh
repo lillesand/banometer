@@ -1,5 +1,6 @@
 cd frontend || exit && npm run build && cd ..
-scp -r frontend/build/ pi@192.168.86.22:~/banometer/frontend/
+ssh pi@192.168.86.22 "rm -r ~/banometer/frontend/**"
+scp -r frontend/build/** pi@192.168.86.22:~/banometer/frontend/
 
 # Use if service definition is new or changed:
 #scp banometer-frontend.service pi@192.168.86.22:~/banometer/banometer-frontend.service
