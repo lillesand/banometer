@@ -8,6 +8,7 @@ import { ForecastView } from './forecast/ForecastView';
 import { Dragscroll } from './utils/dragscroll/Dragscroll';
 import { Winesync } from './winesync/WinesyncView';
 import './App.scss';
+import { RealtimeView } from './realtime/RealtimeView';
 
 function App() {
   const touchCssClass = navigator.userAgent.includes('X11') ? 'touch-enabled' : '';
@@ -29,6 +30,12 @@ function App() {
                 </Route>
                 <Route path="/forecast">
                   <ForecastView />
+                </Route>
+                <Route path="/realtime">
+                  <RealtimeView stopIds={['NSR:StopPlace:6193', 'NSR:StopPlace:59649']}
+                                quays={[{id: 'NSR:Quay:11367', name: 'Godals vei til Brekkekrysset og Skar'},
+                                  {id: 'NSR:Quay:494', name: 'Gjøvikbanen'}]}
+                  />
                 </Route>
               </Switch>
             </Dragscroll>
