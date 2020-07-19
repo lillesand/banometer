@@ -12,9 +12,10 @@ class EnturController {
 
     @RequestMapping(path = ["/realtime"], produces = ["application/json"])
     @ResponseBody
-    fun realtime(@RequestParam stopId: String): UpcomingDepartures {
+    fun realtime(@RequestParam stopId: String, @RequestParam lines: String?): UpcomingDepartures {
         val stops = stopId.split(",")
-        return enturService.fetchRealtime(RealTimeRequest(stops = stops))
+        val lines = lines?.split(",").orEmpty()
+        return enturService.fetchRealtime(RealTimeRequest(stops = stops, wantedLines = lines))
     }
 
 

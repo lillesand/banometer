@@ -23,6 +23,13 @@ class EnturServiceTest {
     }
 
     @Test
+    fun only_wanted_lines() {
+        val upcomingDepartures = sut.fetchRealtime(RealTimeRequest(stops = listOf("NSR:StopPlace:6073", "NSR:StopPlace:59649"), wantedLines = listOf("GJB:Line:R30")))
+
+        println(upcomingDepartures)
+    }
+
+    @Test
     fun eastbound_5_from_nydalen() {
         val upcomingDepartures = sut.fetchRealtime(RealTimeRequest(stops = listOf("NSR:StopPlace:6073"), wantedQuay = "NSR:Quay:11153", wantedLines = listOf("RUT:Line:5")))
 
