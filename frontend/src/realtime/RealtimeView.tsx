@@ -32,7 +32,7 @@ export const RealtimeView = (props: OwnProps) => {
   const [isLoading, response] = useApi<RealtimeResponse>(`/realtime?stopId=${props.stopIds.join(",")}&lines=${props.quays.map(quay => quay.lines).join(",")}`);
 
   if (!response?.data) {
-    return <div>"Laddar…"</div>
+    return <div>Laddar…</div>
   }
 
   return <>
@@ -44,6 +44,7 @@ export const RealtimeView = (props: OwnProps) => {
               .filter(departure => departure.quayId === quay.id)
               .filter(departure => !quay.minTime || departure.waitingTimeInMinutes >= quay.minTime)
               .filter(departure => !quay.destination || quay.destination.includes(departure.destinationName))
+              .filter(departure => !quay.lines || quay.lines.includes(departure.lineId))
               .splice(0, quay.maxDepartures)
               .map(departure =>
                 <GridRowEntry key={"gridrowentry-" + quay.id + departure.lineId + departure.expectedDepartureTime}
