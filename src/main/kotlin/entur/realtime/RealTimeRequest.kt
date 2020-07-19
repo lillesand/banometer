@@ -1,6 +1,6 @@
 package entur.realtime
 
-class RealTimeRequest(val stopId: String = "3012130",
+class RealTimeRequest(val stops: List<String> = listOf("3012130"),
                       private val wantedQuay: String? = null,
                       val wantedLines: List<String> = emptyList()) {
 
