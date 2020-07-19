@@ -7,8 +7,9 @@ import { Menu } from './menu/Menu';
 import { ForecastView } from './forecast/ForecastView';
 import { Dragscroll } from './utils/dragscroll/Dragscroll';
 import { Winesync } from './winesync/WinesyncView';
-import './App.scss';
 import { RealtimeView } from './realtime/RealtimeView';
+import { realtimeConfig } from './realtime/config';
+import './App.scss';
 
 function App() {
   const touchCssClass = navigator.userAgent.includes('X11') ? 'touch-enabled' : '';
@@ -31,12 +32,12 @@ function App() {
                 <Route path="/forecast">
                   <ForecastView />
                 </Route>
-                <Route path="/realtime">
-                  <RealtimeView stopIds={['NSR:StopPlace:6193', 'NSR:StopPlace:59649']}
-                                quays={[{id: 'NSR:Quay:11367', name: 'Godals vei til Brekkekrysset og Skar'},
-                                  {id: 'NSR:Quay:494', name: 'Gjøvikbanen'}]}
-                  />
-                </Route>
+                {
+                  realtimeConfig.screens.map(stopScreen =>
+                    <Route path={'/realtime' + stopScreen.path} key={stopScreen.stopPlaces.join(',')}>
+                      <RealtimeView stopIds={stopScreen.stopPlaces} quays={stopScreen.quays}/>
+                    </Route>)
+                }
               </Switch>
             </Dragscroll>
           </section>
