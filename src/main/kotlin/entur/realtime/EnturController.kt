@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 class EnturController {
 
-    var enturService = EnturService()
+    private var enturService = EnturService()
 
-    @RequestMapping(path = arrayOf("/realtime"), produces = arrayOf("application/json"))
+    @RequestMapping(path = ["/realtime"], produces = ["application/json"])
     @ResponseBody
-    fun realtime(@RequestParam stopId: String): UpcomingDepartures {
-        return enturService.fetchRealtime(RealTimeRequest(stopId = stopId))
+    fun realtime(@RequestParam stopId: String, @RequestParam lines: String?): UpcomingDepartures {
+        val stops = stopId.split(",")
+        val lines = lines?.split(",").orEmpty()
+        return enturService.fetchRealtime(RealTimeRequest(stops = stops, wantedLines = lines))
     }
 
 

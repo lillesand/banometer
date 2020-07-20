@@ -44,13 +44,13 @@ class EnturService {
             post.addHeader("ET-Client-Name", "Joran Vagnby Lillesand (lillesand@gmail.com) - Banometer")
             post.addHeader("Content-Type", "application/graphql")
             post.addHeader("Accept", "application/json")
-            post.entity = StringEntity(graphqlRequest(request.stopId))
+            post.entity = StringEntity(graphqlRequest(request.stops, request.wantedLines))
             val response = httpClient.execute(post)
 
 
             response.entity.content.use { inputStream ->
                 val jsonResponse = mapper.readValue<EnturRealtimeResponse>(inputStream, object : TypeReference<EnturRealtimeResponse>() {})
-                return UpcomingDepartures(request, jsonResponse.data.stopPlace.estimatedCalls)
+                return UpcomingDepartures(request, jsonResponse.data.stopPlaces)
             }
         } catch (e: IOException) {
             throw BanometerIOException(e)
@@ -59,13 +59,15 @@ class EnturService {
     }
 
 
-    private fun graphqlRequest(stopPlaceId: String) : String =
-        """
+    private fun graphqlRequest(stops: List<String>, lines: List<String>) : String {
+        val stopsString = stops.joinToString(",") { "\"${it}\"" }
+        val linesQuery = if (lines.isEmpty()) "" else ", whiteListed: { lines: [" + lines.joinToString(",") { "\"${it}\"" } +  "] }"
+        return """
             {
-              stopPlace(id: "$stopPlaceId") {
+              stopPlaces(ids: [ $stopsString ]) {
                 id
                 name
-                estimatedCalls(timeRange: 3600, numberOfDepartures: 10) {
+                estimatedCalls(timeRange: 10800, numberOfDepartures: 10 ${linesQuery}) {
                   realtime
                   aimedArrivalTime
                   aimedDepartureTime
@@ -94,5 +96,7 @@ class EnturService {
             }
 
         """.trimIndent()
+    }
+
 
 }

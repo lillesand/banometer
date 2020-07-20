@@ -7,6 +7,7 @@ import { Menu } from './menu/Menu';
 import { ForecastView } from './forecast/ForecastView';
 import { Dragscroll } from './utils/dragscroll/Dragscroll';
 import { Winesync } from './winesync/WinesyncView';
+import { realtimeNavigation, realtimeRoutes } from './realtime/navigation';
 import './App.scss';
 
 function App() {
@@ -30,10 +31,11 @@ function App() {
                 <Route path="/forecast">
                   <ForecastView />
                 </Route>
+                { realtimeRoutes }
               </Switch>
             </Dragscroll>
           </section>
-        <Menu />
+        <Menu dynamicEntries={realtimeNavigation}/>
       </div>
     </BrowserRouter>
   </>;

@@ -38,7 +38,6 @@ open class Application {
 
     @Bean
     open fun corsConfigurer(): WebMvcConfigurer {
-        println("Configurer")
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
                 registry.addMapping("/**").allowedOrigins("http://localhost:3000", "http://localhost")
