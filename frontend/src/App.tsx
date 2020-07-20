@@ -16,6 +16,9 @@ function App() {
 
   return <>
     <BrowserRouter>
+      <Route path="/sleep">
+        <SleepView />
+      </Route>
       <div className={"app " + touchCssClass}>
           <section className="main">
             <Dragscroll>
@@ -35,9 +38,6 @@ function App() {
 
                 { realtimeRoutes }
 
-                <Route path="/sleep">
-                  <SleepView />
-                </Route>
               </Switch>
             </Dragscroll>
           </section>
