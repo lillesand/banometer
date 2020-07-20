@@ -58,10 +58,10 @@ export const realtimeConfig = {
         {
           id: 'NSR:Quay:494',
           minTime: 5,
-          maxDepartures: 4,
+          maxDepartures: 3,
           name: 'Gjøvikbanen',
-          lines: ['GJB:Line:R30'],
-          destination: ['Gjøvik']
+          lines: ['GJB:Line:R30', 'GJB:Line:R30x', 'GJB:Line:L3'],
+          destination: ['Gjøvik', 'Jaren']
         },
         {
           id: 'NSR:Quay:11162',
