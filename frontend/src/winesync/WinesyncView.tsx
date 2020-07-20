@@ -33,7 +33,7 @@ export const Winesync = () => {
       />
     </>
   } else {
-    return <div>Alt er i synk 👼</div>
+    return <div>Alt er i synk <span role="img" aria-label="innocent">👼</span></div>
   }
 
 };
