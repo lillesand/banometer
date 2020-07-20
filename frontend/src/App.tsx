@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import { NetatmoView } from './weather/NetatmoView';
 import { BrowserRouter} from 'react-router-dom';
 import { WineView } from './wines/WineView';
@@ -7,6 +7,7 @@ import { Menu } from './menu/Menu';
 import { ForecastView } from './forecast/ForecastView';
 import { Dragscroll } from './utils/dragscroll/Dragscroll';
 import { Winesync } from './winesync/WinesyncView';
+import { SleepView } from './sleep/SleepView';
 import { realtimeNavigation, realtimeRoutes } from './realtime/navigation';
 import './App.scss';
 
@@ -15,6 +16,12 @@ function App() {
 
   return <>
     <BrowserRouter>
+      <Route path="/">
+        <Redirect to="/wines" />
+      </Route>
+      <Route path="/sleep">
+        <SleepView />
+      </Route>
       <div className={"app " + touchCssClass}>
           <section className="main">
             <Dragscroll>
@@ -31,7 +38,9 @@ function App() {
                 <Route path="/forecast">
                   <ForecastView />
                 </Route>
+
                 { realtimeRoutes }
+
               </Switch>
             </Dragscroll>
           </section>
