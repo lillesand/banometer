@@ -7,6 +7,7 @@ import { Menu } from './menu/Menu';
 import { ForecastView } from './forecast/ForecastView';
 import { Dragscroll } from './utils/dragscroll/Dragscroll';
 import { Winesync } from './winesync/WinesyncView';
+import { SleepView } from './sleep/SleepView';
 import { realtimeNavigation, realtimeRoutes } from './realtime/navigation';
 import './App.scss';
 
@@ -31,7 +32,12 @@ function App() {
                 <Route path="/forecast">
                   <ForecastView />
                 </Route>
+
                 { realtimeRoutes }
+
+                <Route path="/sleep">
+                  <SleepView />
+                </Route>
               </Switch>
             </Dragscroll>
           </section>

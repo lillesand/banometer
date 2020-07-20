@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getApiRoot } from './env';
+import { useHistory } from 'react-router';
+import { toMillis } from './time';
 
 interface ApiResponse<T> {
   failed: boolean;
@@ -10,6 +12,7 @@ interface ApiResponse<T> {
 export const useApi = <T> (uri: string, updateFrequencyMillis?: number): [boolean, ApiResponse<T>?] => {
   const [ data, setData ] = useState<ApiResponse<T>>();
   const [ isLoading, setIsLoading ] = useState(true);
+  const history = useHistory();
 
   const url = uri.startsWith('http') ? uri : getApiRoot() + uri;
 
@@ -38,12 +41,16 @@ export const useApi = <T> (uri: string, updateFrequencyMillis?: number): [boolea
 
     if (updateFrequencyMillis) {
       let interval = window.setInterval(call, updateFrequencyMillis);
+      let sleepInteval = window.setTimeout(() => {
+        history.push('/sleep');
+      }, toMillis(20, 'minutes'));
 
       return () => {
         window.clearInterval(interval);
+        window.clearInterval(sleepInteval);
       }
     }
-  }, [url, updateFrequencyMillis]);
+  }, [url, updateFrequencyMillis, history]);
 
   return [isLoading, data];
 };

@@ -3,6 +3,7 @@ import { useApi } from '../utils/useApis';
 import { RealtimeResponse } from './types';
 import { GridRowEntry } from '../number-grid/GridRowEntry';
 import { GridRow } from '../number-grid/GridRow';
+import { toMillis } from '../utils/time';
 
 interface Quay {
   id: string;
@@ -29,7 +30,8 @@ function hourPrint(waitingTimeInMinutes: number) {
 }
 
 export const RealtimeView = (props: OwnProps) => {
-  const [isLoading, response] = useApi<RealtimeResponse>(`/realtime?stopId=${props.stopIds.join(",")}&lines=${props.quays.map(quay => quay.lines).join(",")}`);
+  const [isLoading, response] = useApi<RealtimeResponse>(`/realtime?stopId=${props.stopIds.join(",")}&lines=${props.quays.map(quay => quay.lines).join(",")}`,
+    toMillis(1, 'minutes'));
 
   if (!response?.data) {
     return <div>Laddar…</div>
