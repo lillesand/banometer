@@ -11,6 +11,6 @@ export const SleepView = () => {
   const history = useHistory<SleepHistoryProps>();
 
   return <div className="sleep">
-    <Link to={history.location.state.previous} className="full-screen-emoji" role="img" aria-label="sleeping">😴</Link>
+    <Link to={history.location.state.previous} className="full-screen-emoji"><span role="img" aria-label="sleeping">😴</span></Link>
   </div>
  };
