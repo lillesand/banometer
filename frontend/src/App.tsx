@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import { NetatmoView } from './weather/NetatmoView';
 import { BrowserRouter} from 'react-router-dom';
 import { WineView } from './wines/WineView';
@@ -16,6 +16,9 @@ function App() {
 
   return <>
     <BrowserRouter>
+      <Route path="/">
+        <Redirect to="/wines" />
+      </Route>
       <Route path="/sleep">
         <SleepView />
       </Route>
