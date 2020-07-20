@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getApiRoot } from './env';
+import { getApiRoot } from '../utils/env';
 import { useHistory } from 'react-router';
-import { toMillis } from './time';
+import { toMillis } from '../utils/time';
 import { SleepHistoryProps } from '../sleep/SleepView';
 
 interface ApiResponse<T> {

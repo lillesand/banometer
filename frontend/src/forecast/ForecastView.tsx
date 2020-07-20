@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApi } from '../utils/useApis';
+import { useApi } from '../useApi/useApi';
 import { Forecast, ForecastResponse } from './types';
 import { toMillis } from '../utils/time';
 import groupBy from 'lodash.groupby';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApi } from '../utils/useApis';
+import { useApi } from '../useApi/useApi';
 import { toMillis } from '../utils/time';
 import { WinesResponse } from '../wines/types';
 import { WineList } from '../winelisting/WineListingView';

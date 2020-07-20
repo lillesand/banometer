@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { WinesResponse } from './types';
 import { toMillis } from '../utils/time';
-import { useApi } from '../utils/useApis';
+import { useApi } from '../useApi/useApi';
 import { WineList } from '../winelisting/WineListingView';
 import './WineView.scss';
 
