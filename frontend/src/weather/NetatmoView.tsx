@@ -1,4 +1,4 @@
-import { useApi } from '../utils/useApis';
+import { useApi } from '../useApi/useApi';
 import React from 'react';
 import { Measurement, NetatmoResponse } from './types';
 import { GridRow } from '../number-grid/GridRow';

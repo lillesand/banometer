@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApi } from '../utils/useApis';
+import { useApi } from '../useApi/useApi';
 import { RealtimeResponse } from './types';
 import { GridRowEntry } from '../number-grid/GridRowEntry';
 import { GridRow } from '../number-grid/GridRow';
