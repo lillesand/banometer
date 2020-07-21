@@ -4,6 +4,7 @@ import { Measurement, NetatmoResponse } from './types';
 import { GridRow } from '../number-grid/GridRow';
 import { GridRowEntry } from '../number-grid/GridRowEntry';
 import { toMillis } from '../utils/time';
+import { LoaderWrapper } from '../useApi/LoaderWrapper';
 
 const renderMeasurement = (name: string, measurement: Measurement) => {
   return <GridRow heading={name}>
@@ -13,25 +14,15 @@ const renderMeasurement = (name: string, measurement: Measurement) => {
 };
 
 export const NetatmoView = () => {
-  const [isLoading, data] = useApi<NetatmoResponse>('/temperature', toMillis(30, 'minutes'));
+  const response = useApi<NetatmoResponse>('/temperature', toMillis(30, 'minutes'));
 
-  if (isLoading) {
-    return <div>Laddar…</div>;
-  }
+  const data = response.data;
 
-  if (data?.failed) {
-    return <div>Oh no, feilet :(</div>;
-  }
-
-  const response = data!.data;
-
-  const nydalenIndoor = response?.nydalen?.indoor;
-  const nydalenOutdoor = response?.nydalen?.outdoor;
-  const wineCellar = response?.ski?.indoor;
-
-  return <div className="temperature number-grid">
-    { nydalenIndoor && renderMeasurement('Inne', nydalenIndoor) }
-    { nydalenOutdoor && renderMeasurement('Ute', nydalenOutdoor) }
-    { wineCellar && renderMeasurement('Vinkjeller', wineCellar) }
-  </div>
+  return <LoaderWrapper response={response}>
+    <div className="temperature number-grid">
+      { data?.nydalen?.indoor && renderMeasurement('Inne', data.nydalen?.indoor) }
+      { data?.nydalen?.outdoor && renderMeasurement('Ute', data.nydalen?.outdoor) }
+      { data?.ski?.indoor && renderMeasurement('Vinkjeller', data.ski?.indoor) }
+    </div>
+  </LoaderWrapper>
 };

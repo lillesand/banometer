@@ -4,37 +4,37 @@ import { useHistory } from 'react-router';
 import { toMillis } from '../utils/time';
 import { SleepHistoryProps } from '../sleep/SleepView';
 
-interface ApiResponse<T> {
-  failed: boolean;
+type Status = 'loading' | 'success' | 'failed';
+
+export interface ApiResponse<T> {
+  status: Status;
   error?: any;
   data?: T;
 }
 
-export const useApi = <T> (uri: string, updateFrequencyMillis?: number): [boolean, ApiResponse<T>?] => {
-  const [ data, setData ] = useState<ApiResponse<T>>();
-  const [ isLoading, setIsLoading ] = useState(true);
+export const useApi = <T> (uri: string, updateFrequencyMillis?: number): ApiResponse<T> => {
+  const [ response, setResponse ] = useState<ApiResponse<T>>({ status: 'loading' });
   const history = useHistory<SleepHistoryProps>();
 
   const url = uri.startsWith('http') ? uri : getApiRoot() + uri;
 
   useEffect(() => {
     const call = () => {
+      setResponse({ status: 'loading' });
+
       fetch(url)
         .then(res => res.json())
         .then(res => {
-          setData({
-            failed: false,
+          setResponse({
+            status: 'success',
             data: res,
           });
         })
         .catch(error => {
-          setData({
-            failed: true,
+          setResponse({
+            status: 'failed',
             error: error
           });
-        })
-        .then(() => {
-          setIsLoading(false);
         })
     };
 
@@ -53,5 +53,5 @@ export const useApi = <T> (uri: string, updateFrequencyMillis?: number): [boolea
     }
   }, [url, updateFrequencyMillis, history]);
 
-  return [isLoading, data];
+  return response;
 };
