@@ -4,6 +4,7 @@ import { Forecast, ForecastResponse } from './types';
 import { toMillis } from '../utils/time';
 import groupBy from 'lodash.groupby';
 import './forecast.scss'
+import { LoaderWrapper } from '../useApi/LoaderWrapper';
 
 const forecastRow = (forecast: Forecast, index: number) => {
   const rowIdentifier = forecast.dayString + '-' + forecast.time;
@@ -43,27 +44,19 @@ const forecastRow = (forecast: Forecast, index: number) => {
 
 export const ForecastView = () => {
 
-  const [ isLoading, data ] = useApi<ForecastResponse>('/forecast', toMillis(20, 'minutes'));
+  const response = useApi<ForecastResponse>('/forecast', toMillis(20, 'minutes'));
 
-  if (isLoading) {
-    return null;
-  }
-
-  if (data?.failed || !data?.data) {
-    return <div>Oh no, feilet :(</div>;
-  }
-
-  const forecastByDay = groupBy(data.data.forecast, 'dayString');
-
-  return <div className="forecast">
-    <table>
-      <tbody>
-      {Object.entries(forecastByDay).map(([day, forecastsForDay]) =>
-        <React.Fragment key={day}>
-          {forecastsForDay.map(forecastRow)}
-        </React.Fragment>
-      )}
-      </tbody>
-    </table>
-  </div>;
+  return <LoaderWrapper response={response}>
+    <div className="forecast">
+      <table>
+        <tbody>
+        {response.data && Object.entries(groupBy(response.data.forecast, 'dayString')).map(([day, forecastsForDay]) =>
+          <React.Fragment key={day}>
+            {forecastsForDay.map(forecastRow)}
+          </React.Fragment>
+        )}
+        </tbody>
+      </table>
+    </div>
+  </LoaderWrapper>;
 };
