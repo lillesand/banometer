@@ -16,36 +16,38 @@ function App() {
 
   return <>
     <BrowserRouter>
-      <Route path="/">
-        <Redirect to="/wines" />
-      </Route>
-      <Route path="/sleep">
-        <SleepView />
-      </Route>
-      <div className={"app " + touchCssClass}>
-          <section className="main">
-            <Dragscroll>
-              <Switch>
-                <Route path="/wines">
-                  <WineView />
-                </Route>
-                <Route path="/wine_sync">
-                  <Winesync />
-                </Route>
-                <Route path="/temperature">
-                  <NetatmoView />
-                </Route>
-                <Route path="/forecast">
-                  <ForecastView />
-                </Route>
-
-                { realtimeRoutes }
-
-              </Switch>
-            </Dragscroll>
-          </section>
-        <Menu dynamicEntries={realtimeNavigation}/>
-      </div>
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/wines" />
+        </Route>
+        <Route path="/sleep">
+          <SleepView />
+        </Route>
+        <Route>
+          <div className={"app " + touchCssClass}>
+            <section className="main">
+              <Dragscroll>
+                <Switch>
+                  <Route path="/wines">
+                    <WineView />
+                  </Route>
+                  <Route path="/wine_sync">
+                    <Winesync />
+                  </Route>
+                  <Route path="/temperature">
+                    <NetatmoView />
+                  </Route>
+                  <Route path="/forecast">
+                    <ForecastView />
+                  </Route>
+                  { realtimeRoutes }
+                </Switch>
+              </Dragscroll>
+            </section>
+            <Menu dynamicEntries={realtimeNavigation}/>
+          </div>
+        </Route>
+      </Switch>
     </BrowserRouter>
   </>;
 }
