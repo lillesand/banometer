@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { WinesResponse } from './types';
 import { toMillis } from '../utils/time';
-import { useApi } from '../utils/useApis';
+import { useApi } from '../useApi/useApi';
 import { WineList } from '../winelisting/WineListingView';
 import './WineView.scss';
+import { LoaderWrapper } from '../useApi/LoaderWrapper';
 
 const VintageList = (vintages: string[]) =>
   <ul className="vintages">
@@ -13,25 +14,26 @@ const VintageList = (vintages: string[]) =>
 export const WineView = () => {
 
   const [ StatsView, setStatsView ] = useState();
-  const [ loading, response ] = useApi<WinesResponse>('/wine_status', toMillis(30, 'minutes'));
+  const response = useApi<WinesResponse>('/wine_status', toMillis(30, 'minutes'));
 
   let currentIndex = 0;
   useEffect(() => {
-    if (!response || response.failed || !response.data) return;
+    if (response.status !== 'success') return;
+    const data = response!.data!;
     const statsViews = [
       <WineList
         title="Høyest rangering på Vivino"
-        wines={response.data.wineStatus.stats.highestRated}
+        wines={data.wineStatus.stats.highestRated}
         fields={['rating', 'wineName', 'numberOfBottles']}/>,
       <WineList
         title="Mest samlet"
-        wines={response.data.wineStatus.stats.mostCollected.map((wine) => {
+        wines={data.wineStatus.stats.mostCollected.map((wine) => {
           return {...wine, vintages: VintageList(wine.vintages)}
         })}
         fields={['numberOfBottles', 'wineName', 'vintages']}/>,
       <WineList
         title="Nyeste viner"
-        wines={response.data.wineStatus.stats.mostRecentlyScanned}
+        wines={data.wineStatus.stats.mostRecentlyScanned}
         fields={['wineName', 'vintage', 'rating', 'numberOfBottles']}/>,
     ];
 
@@ -44,8 +46,7 @@ export const WineView = () => {
   }, [response, currentIndex]);
 
 
-  if (loading) {
-    return null;
-  }
-  return <>{StatsView}</>;
+  return <LoaderWrapper response={response}>
+    {response?.data && StatsView}
+  </LoaderWrapper>;
 };

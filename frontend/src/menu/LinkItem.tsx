@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface OwnProps {
+export interface OwnProps {
   emoji: string;
   text: string;
   to: string;

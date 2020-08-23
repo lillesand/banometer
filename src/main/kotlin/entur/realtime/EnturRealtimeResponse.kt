@@ -8,11 +8,11 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 data class EnturRealtimeResponse(
-    val `data`: Data
+    val data: Data
 )
 
 data class Data(
-        val stopPlace: StopPlace
+    val stopPlaces: List<StopPlace>
 )
 
 data class StopPlace(

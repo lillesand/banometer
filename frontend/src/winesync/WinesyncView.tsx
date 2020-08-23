@@ -1,21 +1,12 @@
 import React from 'react';
-import { useApi } from '../utils/useApis';
+import { useApi } from '../useApi/useApi';
 import { toMillis } from '../utils/time';
-import { WinesResponse } from '../wines/types';
+import { Diff, WinesResponse } from '../wines/types';
 import { WineList } from '../winelisting/WineListingView';
+import { LoaderWrapper } from '../useApi/LoaderWrapper';
 
-export const Winesync = () => {
-  const [ isLoading, response ] = useApi<WinesResponse>('/wine_status', toMillis(30, 'minutes'));
-
-  if (isLoading) {
-    return <div>'laddar yo'</div>;
-  }
-
-  if (!response || !response.data || response.failed) {
-    return <div>Noe feila :(</div>;
-  }
-
-  const diff = response.data.wineStatus.diff;
+const View = (props: { diff: Diff } ) => {
+  const diff = props.diff;
   if (diff.numberOfBottlesNeedSync > 0) {
     return <>
       <WineList
@@ -33,7 +24,16 @@ export const Winesync = () => {
       />
     </>
   } else {
-    return <div>Alt er i synk 👼</div>
+    return <div>Alt er i synk <span role="img" aria-label="innocent">👼</span></div>
   }
 
+};
+
+export const Winesync = () => {
+  const response = useApi<WinesResponse>('/wine_status', toMillis(30, 'minutes'));
+
+  const diff = response?.data?.wineStatus.diff;
+  return <LoaderWrapper response={response}>
+    {diff &&  <View diff={diff} /> }
+  </LoaderWrapper>
 };
