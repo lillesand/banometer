@@ -9,7 +9,6 @@ interface OwnProps {
 export const Menu = (props: OwnProps) => {
   const items = [
     <LinkItem to="/wines" emoji="🍷" text="Vin"/>,
-    <LinkItem to="/wine_sync" emoji="🥂" text="Synk"/>,
     <LinkItem to="/temperature" emoji="🌡️️" text="Temp"/>,
     <LinkItem to="/forecast" emoji="🌦" text="Vær"/>,
   ];
