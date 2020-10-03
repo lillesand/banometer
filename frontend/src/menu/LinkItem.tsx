@@ -10,7 +10,7 @@ export interface OwnProps {
 
 type Props = OwnProps;
 
-export const LinkEntry = (props: Props) => {
+export const LinkItem = (props: Props) => {
   return (
     <Link to={props.to} className={styles.linkItem}>
       <span className={styles.linkEmoji}>{props.emoji}</span>

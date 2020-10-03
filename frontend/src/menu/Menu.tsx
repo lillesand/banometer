@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkEntry, OwnProps as LinkItemProps } from './LinkItem';
+import { LinkItem, OwnProps as LinkItemProps } from './LinkItem';
 import styles from './Menu.module.scss';
 
 interface OwnProps {
@@ -8,10 +8,10 @@ interface OwnProps {
 
 export const Menu = (props: OwnProps) => {
   const items = [
-    <LinkEntry to="/wines" emoji="🍷" text="Vin"/>,
-    <LinkEntry to="/wine_sync" emoji="🥂" text="Synk"/>,
-    <LinkEntry to="/temperature" emoji="🌡️️" text="Temp"/>,
-    <LinkEntry to="/forecast" emoji="🌦" text="Vær"/>,
+    <LinkItem to="/wines" emoji="🍷" text="Vin"/>,
+    <LinkItem to="/wine_sync" emoji="🥂" text="Synk"/>,
+    <LinkItem to="/temperature" emoji="🌡️️" text="Temp"/>,
+    <LinkItem to="/forecast" emoji="🌦" text="Vær"/>,
   ];
 
   const allItems = items.concat(props.dynamicEntries ?? []);
