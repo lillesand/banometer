@@ -18,7 +18,7 @@ export const Menu = (props: OwnProps) => {
   return (
     <nav className={styles.mainNavigation}>
       <ul>
-        { allItems.map(menuEntry => <li>{menuEntry}</li>) }
+        { allItems.map((menuEntry, i) => <li key={i}>{menuEntry}</li>) }
       </ul>
     </nav>
   )
