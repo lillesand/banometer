@@ -2,7 +2,7 @@ import React from 'react';
 import { useApi } from '../useApi/useApi';
 import { toMillis } from '../utils/time';
 import { Diff, WinesResponse } from '../wines/types';
-import { WineList } from '../winelisting/WineListingView';
+import { WineList } from '../winelist/WineList';
 import { LoaderWrapper } from '../useApi/LoaderWrapper';
 
 const View = (props: { diff: Diff } ) => {

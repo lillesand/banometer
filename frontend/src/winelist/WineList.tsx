@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './WineListingView.module.scss';
+import styles from './WineList.module.scss';
 
 interface Wine {
   wineName: string;
