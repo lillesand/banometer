@@ -1,5 +1,5 @@
 import React from 'react';
-import '../wines/WineView.scss';
+import styles from './WineListingView.module.scss';
 
 interface Wine {
   wineName: string;
@@ -26,9 +26,9 @@ const headings = {
 export const WineList = (props: OwnProps) => {
   const { title, wines, fields } = props;
 
-  return <div className="wines">
+  return <div className={styles.wineListing}>
     <h3>{title}</h3>
-    <table className="wine-table">
+    <table className={ styles.wineTable }>
       <thead>
       <tr>
         { fields.map(field => {
