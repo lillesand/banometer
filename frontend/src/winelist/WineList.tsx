@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './WineList.module.scss';
+import classNames from 'classnames';
 
 interface Wine {
   wineName: string;
@@ -15,12 +16,25 @@ interface OwnProps {
   fields: Array<keyof Wine>;
 }
 
-const headings = {
-  'wineName': 'Vin',
-  'rating': 'Poeng',
-  'numberOfBottles': 'Antall',
-  'vintage': 'Årgang',
-  'vintages': 'Årganger',
+const fieldConfig: {[key: string]: { heading: string, classes?: string}} = {
+  'wineName': {
+    heading: 'Vin',
+  },
+  'rating': {
+    heading: 'Poeng',
+  },
+  'numberOfBottles': {
+    heading: 'Antall',
+    classes: 'numberColumn',
+  },
+  'vintage': {
+    heading: 'Årgang',
+    classes: 'numberColumn',
+  },
+  'vintages': {
+    heading: 'Årganger',
+    classes: 'vintages',
+  },
 };
 
 export const WineList = (props: OwnProps) => {
@@ -32,7 +46,7 @@ export const WineList = (props: OwnProps) => {
       <thead>
       <tr>
         { fields.map(field => {
-          return <td key={field + '-heading'}>{headings[field]}</td>
+          return <td key={field + '-heading'}>{fieldConfig[field].heading}</td>
         }) }
       </tr>
       </thead>
@@ -40,7 +54,8 @@ export const WineList = (props: OwnProps) => {
       {wines.map((wine, index) =>
         <tr key={wine.wineName}>
           {fields.map(field => {
-            return <td key={wine.wineName + '-' + field}>{wine[field]}</td>
+            const classes = fieldConfig[field]?.classes?.split(' ') ?? [];
+            return <td className={classNames(classes.map(className => styles[className]))} key={wine.wineName + '-' + field}>{wine[field]}</td>
           })}
         </tr>
       )}
