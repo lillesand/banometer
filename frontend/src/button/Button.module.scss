@@ -1,0 +1,13 @@
+.button {
+
+  border: 1px solid black;
+  padding: 15px 20px;
+  font-size: 1.2em;
+  background-color: inherit;
+
+}
+
+.simple {
+  composes: button;
+  border: none;
+}

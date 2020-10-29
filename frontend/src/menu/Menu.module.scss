@@ -4,6 +4,7 @@
   background-color: white;
 
   ul {
+    width: 100%;
     display: inline-block;
     list-style: none;
     margin-left: 0;
@@ -13,5 +14,10 @@
     float: left;
     margin-right: 13px;
     text-align: center;
+  }
+
+  .floatRight {
+    float: right;
+    margin-right: 0;
   }
 }
