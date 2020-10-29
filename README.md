@@ -24,20 +24,22 @@ Deploys gjøres med `deploy-backend.sh`.
 Frontenden bor i `frontend`-mappa.
 
 1. Kopier over `banometer-frontend.service` (se `deploy-frontend.sh`)
-2. Symlink inn `banometer.service` til systemd: `ln -s /home/pi/banometer/banometer.service /etc/systemd/system/banometer.service`
+2. Symlink inn `banometer.service` til systemd: `ln -s /home/pi/banometer/banometer-frontend.service /etc/systemd/system/banometer-frontend.service`
 3. Kjør en deploy med `deploy-frontend.sh`
+4. Lag secrets-fil i `/etc/systemd/user/banometer.env` (tilsvarende `secrets.env` lokalt) 
 4. Reload systemd: `sudo systemctl daemon-reload`
 5. Legg til autostart ved boot `sudo systemctl enable banometer-frontend` 
 6. Start banometeret: `sudo systemctl start banometer-frontend`
 
-## Oppsett
+## Oppsett av Raspberry Pi
   
 Noen ting jeg har gjort som det kan være nyttig å huske til senere:
 
-* Skrudd på innstillingene for [screen blanking](https://www.raspberrypi.org/documentation/configuration/screensaver.md) med xscreensaver for å unngå at skjermen skrur seg av så kjapt.
-* Installert [EmojiOne som font](https://github.com/eosrei/emojione-color-font#manual-install-on-any-linux) for å slippe de kjipe svart-hvitt emojiene på Raspbian.
-* Installert Firefox, for å bruke SVG-emojis med farger fra EmojiOne. Bruk Firefox ESR som ikke er helt tilfredstillende, men det funker.
-* Skrudd på skjermrotasjonen til RasPien, som dokumentert for [Waveshare-skjermen](http://www.lcdwiki.com/How_to_modify_the_display_orientation-CTP(En). Obs: de eksempelmatrisene i bunn er bare tull, men standardoppskriften virker.
+* Sett screen [screen blanking](https://www.raspberrypi.org/documentation/configuration/screensaver.md) til 15 minutter for å unngå at skjermen skrur seg av i tide og utide.
+* Installer [EmojiOne som font](https://github.com/eosrei/emojione-color-font#manual-install-on-any-linux) for å slippe de kjipe svart-hvitt emojiene på Raspbian.
+* Installer Firefox, for å bruke SVG-emojis med farger fra EmojiOne. Bruk Firefox ESR som ikke er helt tilfredstillende, men det funker.
+* Justér på skjermrotasjonen til RasPien, som dokumentert for [Waveshare-skjermen](http://www.lcdwiki.com/How_to_modify_the_display_orientation-CTP(En). Obs: de eksempelmatrisene i bunn er bare tull, men standardoppskriften virker.
+* Installer [Java](https://linuxize.com/post/install-java-on-raspberry-pi/))
 
 ## Kode og sånt!
 
