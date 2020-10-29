@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { WinesResponse } from './types';
 import { toMillis } from '../utils/time';
 import { useApi } from '../useApi/useApi';
-import { WineList } from '../winelisting/WineListingView';
-import './WineView.scss';
+import { WineList } from '../winelist/WineList';
 import { LoaderWrapper } from '../useApi/LoaderWrapper';
+import { LinkItem } from '../menu/LinkItem';
+import styles from './WineView.module.scss';
 
 const VintageList = (vintages: string[]) =>
   <ul className="vintages">
@@ -46,7 +47,12 @@ export const WineView = () => {
   }, [response, currentIndex]);
 
 
+  const needsSync = (response?.data?.wineStatus?.diff?.numberOfBottlesNeedSync ?? 0) > 0;
+
   return <LoaderWrapper response={response}>
-    {response?.data && StatsView}
+    <div className={styles.wineView}>
+      { needsSync && <LinkItem className={styles.syncLink} emoji="🥂" text="Synk" to="/wine_sync" /> }
+      { response?.data && StatsView }
+    </div>
   </LoaderWrapper>;
 };

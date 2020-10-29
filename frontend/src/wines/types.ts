@@ -83,6 +83,6 @@ export interface WineStatus {
 
 export interface WinesResponse {
   now: number[];
-  generatedId: Date;
+  generatedId: string;
   wineStatus: WineStatus;
 }

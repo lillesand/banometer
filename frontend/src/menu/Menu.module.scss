@@ -1,0 +1,23 @@
+.mainNavigation {
+
+  padding: 3px 20px;
+  background-color: white;
+
+  ul {
+    width: 100%;
+    display: inline-block;
+    list-style: none;
+    margin-left: 0;
+  }
+
+  li {
+    float: left;
+    margin-right: 13px;
+    text-align: center;
+  }
+
+  .floatRight {
+    float: right;
+    margin-right: 0;
+  }
+}
