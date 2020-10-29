@@ -22,20 +22,20 @@ export const WineView = () => {
     if (response.status !== 'success') return;
     const data = response!.data!;
     const statsViews = [
-      //<WineList
-      //  title="Høyest rangering på Vivino"
-      //  wines={data.wineStatus.stats.highestRated}
-      //  fields={['rating', 'wineName', 'numberOfBottles']}/>,
+      <WineList
+        title="Høyest rangering på Vivino"
+        wines={data.wineStatus.stats.highestRated}
+        fields={['rating', 'wineName', 'numberOfBottles']}/>,
       <WineList
         title="Mest samlet"
         wines={data.wineStatus.stats.mostCollected.map((wine) => {
           return {...wine, vintages: VintageList(wine.vintages)}
         })}
         fields={['numberOfBottles', 'wineName', 'vintages']}/>,
-      //<WineList
-      //  title="Nyeste viner"
-      //  wines={data.wineStatus.stats.mostRecentlyScanned}
-      //  fields={['wineName', 'vintage', 'rating', 'numberOfBottles']}/>,
+      <WineList
+        title="Nyeste viner"
+        wines={data.wineStatus.stats.mostRecentlyScanned}
+        fields={['wineName', 'vintage', 'rating', 'numberOfBottles']}/>,
     ];
 
     setStatsView(statsViews[currentIndex]);
