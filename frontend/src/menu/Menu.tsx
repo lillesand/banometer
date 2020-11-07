@@ -21,7 +21,9 @@ export const Menu = (props: OwnProps) => {
       <ul>
         { allItems.map((menuEntry, i) => <li key={i}>{menuEntry}</li>) }
         <li className={styles.floatRight}>
-          <Button layout="simple"  onClick={() => { window.location.reload() }}>♻️</Button>
+          <Button layout="simple"  onClick={() => { window.location.reload() }}>
+            <span role="img" aria-label="reload">♻️</span>
+          </Button>
         </li>
       </ul>
     </nav>

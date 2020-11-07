@@ -11,7 +11,7 @@ export const Button = (props: OwnProps & React.DetailedHTMLProps<React.ButtonHTM
 
   return <button {...props}
                  className={classNames(styles.button, props.className, {
-                   [styles.simple]: props.layout == 'simple'
+                   [styles.simple]: props.layout === 'simple'
                  })}>
     {props.children}
   </button>
