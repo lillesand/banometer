@@ -3,18 +3,25 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './LinkItem.module.scss';
 
-export interface OwnProps {
+interface OwnProps {
   emoji: string;
   text: string;
-  to: string;
   className?: string;
 }
 
-type Props = OwnProps;
+interface OnClickProps extends OwnProps {
+  onClick: () => void;
+}
+
+interface LinkProps extends OwnProps {
+  to: string;
+}
+
+export type Props = OnClickProps | LinkProps;
 
 export const LinkItem = (props: Props) => {
   return (
-    <Link to={props.to} className={classNames(styles.linkItem, props.className)}>
+    <Link type="div" to={(props as LinkProps)?.to ?? '#'} onClick={(props as OnClickProps)?.onClick} className={classNames(styles.linkItem, props.className)}>
       <span className={styles.linkEmoji}>{props.emoji}</span>
       <span className={styles.linkText}>{props.text}</span>
     </Link>

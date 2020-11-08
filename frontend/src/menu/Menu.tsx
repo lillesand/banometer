@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkItem, OwnProps as LinkItemProps } from './LinkItem';
+import { LinkItem, Props as LinkItemProps } from './LinkItem';
 import { Button } from '../button/Button';
 import styles from './Menu.module.scss';
 
@@ -21,7 +21,7 @@ export const Menu = (props: OwnProps) => {
       <ul>
         { allItems.map((menuEntry, i) => <li key={i}>{menuEntry}</li>) }
         <li className={styles.floatRight}>
-          <Button layout="simple"  onClick={() => { window.location.reload() }}>
+          <Button layout="simple" onClick={() => { window.location.reload() }}>
             <span role="img" aria-label="reload">♻️</span>
           </Button>
         </li>
