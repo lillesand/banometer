@@ -10,6 +10,7 @@ import { Winesync } from './winesync/WinesyncView';
 import { SleepView } from './sleep/SleepView';
 import { realtimeNavigation, realtimeRoutes } from './realtime/navigation';
 import { AddTraining } from './training/AddTraining';
+import { ShowTraining } from './training/ShowTraining';
 import './App.scss';
 
 function App() {
@@ -44,6 +45,9 @@ function App() {
                   { realtimeRoutes }
                   <Route path="/add_training">
                     <AddTraining />
+                  </Route>
+                  <Route path="/show_training">
+                    <ShowTraining />
                   </Route>
                 </Switch>
               </Dragscroll>

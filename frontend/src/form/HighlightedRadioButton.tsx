@@ -4,7 +4,7 @@ import styles from './HighlightedRadioButton.module.scss';
 interface OwnProps {
   name: string;
   value: string;
-  style: keyof typeof styleMapping;
+  displayStyle: keyof typeof styleMapping;
   label?: string;
   defaultChecked?: boolean;
 }
@@ -17,9 +17,9 @@ const styleMapping = {
 };
 
 export const HighlightedRadioButton = React.forwardRef<HTMLInputElement, OwnProps>((props: Props, ref) => {
-  const {name, value, label = value, style, defaultChecked} = props;
+  const {name, value, label = value, displayStyle, defaultChecked} = props;
 
-  const buttonStyle = styleMapping[style];
+  const buttonStyle = styleMapping[displayStyle];
 
   const id = `radio-${name}-${value}`;
   return <span className={styles.highlightedRadioButton + ' ' + buttonStyle}>
