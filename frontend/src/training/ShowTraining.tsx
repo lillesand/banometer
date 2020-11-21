@@ -1,49 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import database from '../firebase-storage/config';
-import { SavedExercise } from './types';
+import { ExerciseConfig, SavedExercise } from './types';
 import { prettyDate } from '../date/date-utils';
-import styles from './ShowTraining.module.scss';
 import { LinkItem } from '../menu/LinkItem';
+import { people } from './config';
+import styles from './ShowTraining.module.scss';
+import { useParams } from 'react-router';
+import { ErrorBar } from '../useApi/errorBar/ErrorBar';
+import { TrainingTable } from './TrainingTable';
 
+interface ApiResponse {
+  data?: {
+    result: SavedExercise[];
+    config: ExerciseConfig;
+  };
+  error?: string;
+  loading: boolean;
+}
+
+interface OwnParams {
+  person: string;
+}
 
 export const ShowTraining = () => {
-  const [trainingData, setData] = useState<SavedExercise[]>([]);
+  const params = useParams<OwnParams>();
 
-  const fetchExercise = async () => {
-    const res = await database.ref('users/jøran/exercises').orderByKey().once('value');
-    const data = await Object.values(res.val());
-    setData(data as SavedExercise[]);
+  const [response, setData] = useState<ApiResponse>({ loading: true });
+
+  const fetchExercise = async (config: ExerciseConfig) => {
+    const res = await database.ref(`users/${config.databaseId}/exercises`).orderByKey().once('value');
+    const data = await res.val() ? Object.values(res.val()) : [];
+    setData({
+      loading: false,
+      data: {
+        result: data as SavedExercise[],
+        config
+      },
+    });
   }
 
   useEffect(() => {
-    fetchExercise();
-  }, []);
+    const config = people.find(person => person.id === params.person);
+    if (!config) {
+      setData({ loading: false, error: `Har ikke noe konfigurasjon for ${params.person} :(` })
+      return;
+    }
 
-  if (trainingData.length === 0) {
-    return <div>loading… (?)</div>;
+    fetchExercise(config).catch(error => {
+      console.error(error);
+      setData({ loading: false, error: error.toString()})
+    });
+  }, [params.person]);
+
+  if (response.loading) {
+    return <div>loading…</div>;
   }
 
+  if (response.error) {
+    return <div>
+      <ErrorBar>Ugh, noe feilet: {response.error}</ErrorBar>
+    </div>
+  }
 
-  const dates = Array.from(new Set(trainingData?.map(trainingData => trainingData.date)));
+  const trainingData = response.data?.result!!;
+  const config = response.data?.config!!;
+
   return <div className={styles.page}>
-    <LinkItem className={styles.addTraining} to="/add_training" emoji="➕" text="Ny" />
-    <table>
-      <tbody>
-      {dates.sort((a, b) => b.localeCompare(a)).map(date => {
-        const exercisesForDay = trainingData.filter(e => e.date === date);
-        let firstDayRow = true;
-        return exercisesForDay.map((exercise, i) => {
-          const Row = <tr className={styles.exercise} key={`exercise-${date}-${i}`}>
-            <td className={styles.date}>{firstDayRow && prettyDate(date)}</td>
-            <td className={styles.type}>{exercise.type}</td>
-            <td className={styles.distance}>{exercise.distanceMeters && `${(exercise.distanceMeters / 1000)}km`}</td>
-            <td className={styles.feeling}>{exercise.feeling}</td>
-          </tr>
-          firstDayRow = false;
-          return Row;
-        })
-      })}
-      </tbody>
-    </table>
+    <LinkItem className={styles.addTraining} to={`/add_training/${config.id}`} emoji="➕" text="Ny" />
+    { trainingData.length === 0 && <div>Ikke noe treningsdata registrert. På tide å komme seg ut!</div> }
+    { trainingData.length > 0 && <TrainingTable trainingData={trainingData} /> }
   </div>;
 };

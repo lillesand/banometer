@@ -43,10 +43,10 @@ function App() {
                     <ForecastView />
                   </Route>
                   { realtimeRoutes }
-                  <Route path="/add_training">
+                  <Route path="/add_training/:name/:exercise?">
                     <AddTraining />
                   </Route>
-                  <Route path="/show_training">
+                  <Route path="/show_training/:person">
                     <ShowTraining />
                   </Route>
                 </Switch>
