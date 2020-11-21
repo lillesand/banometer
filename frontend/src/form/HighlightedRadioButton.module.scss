@@ -1,6 +1,11 @@
 .highlightedRadioButton {
 
-  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
 
   &.styleEmojiSelector {
 
@@ -11,6 +16,12 @@
       display: inline-block;
     }
 
+  }
+
+  &.styleEmojiSelector:first-of-type {
+    label {
+      padding-left: 0;
+    }
   }
 
   &.styleText {
