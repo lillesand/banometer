@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkItem, Props as LinkItemProps } from './LinkItem';
+import { LinkItem, LinkItemProps as LinkItemProps } from './LinkItem';
 import { Button } from '../button/Button';
 import styles from './Menu.module.scss';
 

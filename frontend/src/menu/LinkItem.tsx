@@ -17,9 +17,9 @@ interface LinkProps extends OwnProps {
   to: string;
 }
 
-export type Props = OnClickProps | LinkProps;
+export type LinkItemProps = OnClickProps | LinkProps;
 
-export const LinkItem = (props: Props) => {
+export const LinkItem = (props: LinkItemProps) => {
   return (
     <Link type="div" to={(props as LinkProps)?.to ?? '#'} onClick={(props as OnClickProps)?.onClick} className={classNames(styles.linkItem, props.className)}>
       <span className={styles.linkEmoji}>{props.emoji}</span>

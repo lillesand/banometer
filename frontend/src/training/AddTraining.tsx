@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { people } from './config';
 import { AddActivityForm } from './AddActivityForm';
 import styles from './AddTraining.module.scss';
+import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
 
 interface OwnParams {
     name: string;
@@ -21,15 +22,14 @@ export const AddTraining = () => {
     const activity = config.activities.find(exercise => exercise.type.type === params.exercise) ?? config.activities[0];
 
     return <>
-        <ul className={styles.activities}>
-        {
-            config.activities.map(activity =>
-              <li key={'activity-' + activity.type.type} className={styles.activity}>
-                  <LinkItem emoji={activity.icon} text={activity.type.displayName} to={`/add_training/${params.name}/${activity.type.type}`} />
-              </li>
-            )
-        }
-        </ul>
+
+        <TopBarNavigation title={{ capitalized: `${params.name}`, rest: "trener" }}>
+            {
+                config.activities.map(activity =>
+                  <LinkItem key={'activity-' + activity.type.type} emoji={activity.icon} text={activity.type.displayName} to={`/add_training/${params.name}/${activity.type.type}`} />
+                )
+            }
+        </TopBarNavigation>
         <AddActivityForm activity={activity} person={params.name} />
     </>
 };

@@ -6,6 +6,7 @@ import { people } from './config';
 import { useParams } from 'react-router';
 import { ErrorBar } from '../useApi/errorBar/ErrorBar';
 import { TrainingTable } from './TrainingTable';
+import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
 import styles from './ShowTraining.module.scss';
 
 interface ApiResponse {
@@ -65,14 +66,9 @@ export const ShowTraining = () => {
   const config = response.data?.config!!;
 
   return <>
-    <div className={styles.topBar}>
-      <h2 className={styles.title}>
-        <span className={styles.name}>{params.person}s</span> treningslogg
-      </h2>
-      <nav>
-        <LinkItem className={styles.addTraining} to={`/add_training/${config.id}`} emoji="➕" text="Ny" />
-      </nav>
-    </div>
+    <TopBarNavigation title={{capitalized: `${params.person}s`, rest: "treningslogg"}}>
+      <LinkItem className={styles.addTraining} to={`/add_training/${config.id}`} emoji="➕" text="Ny" />
+    </TopBarNavigation>
     <div className={styles.mainContent}>
       { trainingData.length === 0 && <div>Ikke noe treningsdata registrert. På tide å komme seg ut!</div> }
       { trainingData.length > 0 && <TrainingTable trainingData={trainingData} /> }
