@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import database from '../firebase-storage/config';
 import { ExerciseConfig, SavedExercise } from './types';
-import { prettyDate } from '../date/date-utils';
 import { LinkItem } from '../menu/LinkItem';
 import { people } from './config';
 import styles from './ShowTraining.module.scss';
