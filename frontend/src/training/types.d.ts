@@ -14,6 +14,7 @@ interface ActivityConfig {
   icon: string;
   feelings?: FeelingConfig;
   distance?: number[];
+  durationMinutes?: number[];
 
 }
 
@@ -31,4 +32,5 @@ export interface SavedExercise {
   year: number;
   feeling?: string;
   distanceMeters?: number;
+  durationMinutes?: number;
 }

@@ -42,6 +42,16 @@ const roundedInterval = (from: Date, to: Date) => {
   return 'kort tid';
 };
 
+const prettyMinutes = (minutes: number) => {
+  const hours = Math.floor(minutes/60);
+  const hoursString = hours > 0 ? hours + 't' : '';
+
+  const remainingMinutes = (minutes % 60).toString().padStart(2, '0');
+  const minutesLabel = hours > 0 ? 'm' : 'min';
+
+  return `${hoursString}${remainingMinutes}${minutesLabel}`;
+};
+
 export {
-  toMillis, roundedInterval
+  toMillis, roundedInterval, prettyMinutes
 }

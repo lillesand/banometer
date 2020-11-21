@@ -13,6 +13,10 @@ export const activities = {
     type: 'taichi',
     displayName: 'Tai Chi'
   },
+  hike: {
+    type: 'hike',
+    displayName: 'Gåtur'
+  }
 };
 
 
@@ -33,7 +37,12 @@ export const people: ExerciseConfig[] = [
       {
         type: activities.stretch,
         icon: '🧘‍♂️'
-      }
+      },
+      {
+        type: activities.hike,
+        icon: '🏔',
+        distance: Array.from(Array(10)).map((_, index) => (index + 5) * 1000)
+      },
     ]
   },
   {
@@ -42,7 +51,8 @@ export const people: ExerciseConfig[] = [
     activities: [
       {
         type: activities.taichi,
-        icon: '🧘‍♀️'
+        icon: '🧘‍♀️',
+        durationMinutes: Array.from(Array(8)).map((_, index) => (index + 1) * 10)
       },
       {
         type: activities.run,
@@ -52,6 +62,11 @@ export const people: ExerciseConfig[] = [
           options: ['😅', '😌', '😊', '😓', '😪', '🤕']
         },
         distance: Array.from(Array(8)).map((_, index) => (index + 3) * 1000)
+      },
+      {
+        type: activities.hike,
+        icon: '🏔',
+        distance: Array.from(Array(10)).map((_, index) => (index + 3) * 1000)
       },
     ]
   }

@@ -7,11 +7,13 @@ import React, { useState } from 'react';
 import { HighlightedRadioButton } from '../form/HighlightedRadioButton';
 import { ErrorBar } from '../useApi/errorBar/ErrorBar';
 import styles from './AddActivityForm.module.scss';
+import { prettyMinutes } from '../utils/time';
 
 interface FormData {
   type: string;
   feeling?: string;
   distance?: number;
+  duration?: number;
   date: string;
 }
 
@@ -71,6 +73,13 @@ export const AddActivityForm = (props: OwnProps) => {
         <legend>Hvor langt ble det?</legend>
         {activity.distance.map(distance =>
           <HighlightedRadioButton displayStyle="styleText" key={'distance-input-' + distance} name="distanceMeters" label={distance / 1000 + 'km'} value={distance.toString()} ref={register}/>
+        )}
+      </fieldset>}
+
+      {activity.durationMinutes && <fieldset>
+          <legend>Hvor lenge holdt du på?</legend>
+        {activity.durationMinutes.map(duration =>
+          <HighlightedRadioButton displayStyle="styleText" key={'duration-input-' + duration} name="durationMinutes" label={prettyMinutes(duration)} value={duration.toString()} ref={register}/>
         )}
       </fieldset>}
 

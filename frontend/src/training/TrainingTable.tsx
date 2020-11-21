@@ -4,6 +4,7 @@ import { SavedExercise } from './types';
 import classNames from 'classnames';
 import styles from './TrainingTable.module.scss';
 import { prettyExerciseName } from './config';
+import { prettyMinutes } from '../utils/time';
 
 interface OwnProps {
   trainingData: SavedExercise[];
@@ -27,7 +28,8 @@ export const TrainingTable = (props: OwnProps) => {
          key={`exercise-${date}-${i}`}>
           <td className={styles.date}>{firstDayRow && prettyDate(date)}</td>
           <td className={styles.type}>{prettyExerciseName(exercise.type)}</td>
-          <td className={styles.distance}>{exercise.distanceMeters && `${(exercise.distanceMeters / 1000)}km`}</td>
+          <td className={styles.distance}>{exercise.durationMinutes && `${prettyMinutes(exercise.durationMinutes)}`}</td>
+          <td className={styles.duration}>{exercise.distanceMeters && `${(exercise.distanceMeters / 1000)}km`}</td>
           <td className={styles.feeling}>{exercise.feeling}</td>
         </tr>
         firstDayRow = false;
