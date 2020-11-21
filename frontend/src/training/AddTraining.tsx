@@ -3,7 +3,6 @@ import { LinkItem } from '../menu/LinkItem';
 import { useParams } from 'react-router';
 import { people } from './config';
 import { AddActivityForm } from './AddActivityForm';
-import styles from './AddTraining.module.scss';
 import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
 
 interface OwnParams {
@@ -22,7 +21,6 @@ export const AddTraining = () => {
     const activity = config.activities.find(exercise => exercise.type.type === params.exercise) ?? config.activities[0];
 
     return <>
-
         <TopBarNavigation title={{ capitalized: `${params.name}`, rest: "trener" }}>
             {
                 config.activities.map(activity =>

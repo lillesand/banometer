@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import database from '../firebase-storage/config';
 import { lastWeek } from '../date/date-utils';
-import styles from './AddTraining.module.scss';
 import React, { useState } from 'react';
 import { HighlightedRadioButton } from '../form/HighlightedRadioButton';
 import { ErrorBar } from '../useApi/errorBar/ErrorBar';
+import styles from './AddActivityForm.module.scss';
 
 interface FormData {
   type: string;
