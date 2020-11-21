@@ -56,3 +56,7 @@ export const people: ExerciseConfig[] = [
     ]
   }
 ]
+
+export const prettyExerciseName = (exerciseType: string) => {
+  return Object.values(activities).find(activity => activity.type === exerciseType)?.displayName ?? exerciseType;
+};

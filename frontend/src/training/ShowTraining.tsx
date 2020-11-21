@@ -3,10 +3,10 @@ import database from '../firebase-storage/config';
 import { ExerciseConfig, SavedExercise } from './types';
 import { LinkItem } from '../menu/LinkItem';
 import { people } from './config';
-import styles from './ShowTraining.module.scss';
 import { useParams } from 'react-router';
 import { ErrorBar } from '../useApi/errorBar/ErrorBar';
 import { TrainingTable } from './TrainingTable';
+import styles from './ShowTraining.module.scss';
 
 interface ApiResponse {
   data?: {
@@ -64,9 +64,18 @@ export const ShowTraining = () => {
   const trainingData = response.data?.result!!;
   const config = response.data?.config!!;
 
-  return <div className={styles.page}>
-    <LinkItem className={styles.addTraining} to={`/add_training/${config.id}`} emoji="➕" text="Ny" />
-    { trainingData.length === 0 && <div>Ikke noe treningsdata registrert. På tide å komme seg ut!</div> }
-    { trainingData.length > 0 && <TrainingTable trainingData={trainingData} /> }
-  </div>;
+  return <>
+    <div className={styles.topBar}>
+      <h2 className={styles.title}>
+        <span className={styles.name}>{params.person}s</span> treningslogg
+      </h2>
+      <nav>
+        <LinkItem className={styles.addTraining} to={`/add_training/${config.id}`} emoji="➕" text="Ny" />
+      </nav>
+    </div>
+    <div className={styles.mainContent}>
+      { trainingData.length === 0 && <div>Ikke noe treningsdata registrert. På tide å komme seg ut!</div> }
+      { trainingData.length > 0 && <TrainingTable trainingData={trainingData} /> }
+    </div>
+  </>;
 };

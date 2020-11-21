@@ -1,30 +1,19 @@
-.page {
-  position: relative;
-}
+.topBar {
+  display: flex;
 
-.addTraining {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.date {
-  font-size: 1.2em;
-}
-
-.exercise {
-
-  .type {
-
+  .name {
+    text-transform: capitalize;
   }
 
-  .distance {
-
+  .title {
+    flex-grow: 1;
+    margin: 10px;
+    align-self: center;
   }
 
-  .feeling {
-
+  .addTraining {
+    margin: 15px;
+    justify-self: flex-end;
   }
 }
-
 
