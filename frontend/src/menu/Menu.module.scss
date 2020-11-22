@@ -1,5 +1,6 @@
 .mainNavigation {
 
+  position: relative;
   padding: 3px 20px;
   background-color: white;
 
@@ -15,8 +16,9 @@
     margin-right: 13px;
   }
 
-  .floatRight {
-    float: right;
-    margin-right: 0;
+  .reload {
+    position: absolute;
+    top: -20px;
+    right: 0;
   }
 }
