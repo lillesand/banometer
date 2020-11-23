@@ -9,6 +9,10 @@ export const activities = {
     type: 'stretch',
     displayName: 'Tøying'
   },
+  strength: {
+    type: 'strength',
+    displayName: 'Styrke'
+  },
   taichi: {
     type: 'taichi',
     displayName: 'Tai Chi'
@@ -36,7 +40,15 @@ export const people: ExerciseConfig[] = [
       },
       {
         type: activities.stretch,
-        icon: '🧘‍♂️'
+        icon: '🧘‍'
+      },
+      {
+        type: activities.strength,
+        icon: '🏋️‍',
+        feelings: {
+          default: '😐',
+          options: ['💪😅', '😐', '😓', '🤬']
+        },
       },
       {
         type: activities.hike,
