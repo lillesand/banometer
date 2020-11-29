@@ -63,17 +63,25 @@ export const people: ExerciseConfig[] = [
     activities: [
       {
         type: activities.taichi,
-        icon: '🧘‍♀️',
+        icon: '🧘',
         durationMinutes: Array.from(Array(8)).map((_, index) => (index + 1) * 10)
       },
       {
         type: activities.run,
-        icon: '🏃‍♀️',
+        icon: '🏃',
         feelings: {
           default: '😊',
           options: ['😅', '😌', '😊', '😓', '😪', '🤕']
         },
         distance: Array.from(Array(8)).map((_, index) => (index + 3) * 1000)
+      },
+      {
+        type: activities.strength,
+        icon: '🏋️‍',
+        feelings: {
+          default: '😐',
+          options: ['💪😅', '😐', '😓', '🤬']
+        },
       },
       {
         type: activities.hike,
