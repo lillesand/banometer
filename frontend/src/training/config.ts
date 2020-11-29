@@ -36,7 +36,7 @@ export const people: ExerciseConfig[] = [
     activities: [
       {
         type: activities.run,
-        icon: '🏃‍♂️',
+        icon: '🏃‍',
         feelings: {
           default: '😊',
           options: ['😅', '😌', '😊', '😓', '😪', '🤕']
