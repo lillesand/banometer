@@ -7,8 +7,6 @@ interface OwnProps {
 }
 
 export const Button = (props: OwnProps & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
-
-
   return <button {...props}
                  className={classNames(styles.button, props.className, {
                    [styles.simple]: props.layout === 'simple'

@@ -6,6 +6,7 @@ import styles from './LinkItem.module.scss';
 interface OwnProps {
   emoji: string;
   text: string;
+  active?: boolean;
   className?: string;
 }
 
@@ -21,7 +22,11 @@ export type LinkItemProps = OnClickProps | LinkProps;
 
 export const LinkItem = (props: LinkItemProps) => {
   return (
-    <Link type="div" to={(props as LinkProps)?.to ?? '#'} onClick={(props as OnClickProps)?.onClick} className={classNames(styles.linkItem, props.className)}>
+    <Link type="div" to={(props as LinkProps)?.to ?? '#'}
+          onClick={(props as OnClickProps)?.onClick}
+          className={classNames(styles.linkItem, props.className, {
+            [styles.active]: props.active ?? false
+          })}>
       <span className={styles.linkEmoji}>{props.emoji}</span>
       <span className={styles.linkText}>{props.text}</span>
     </Link>

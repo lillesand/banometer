@@ -1,8 +1,13 @@
 .linkItem {
 
+  &.active {
+    background-color: beige;
+  }
+
   text-decoration: none;
   display: inline-block;
   text-align: center;
+  padding: 5px;
 
   :focus {
     outline: none;

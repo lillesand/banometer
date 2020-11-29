@@ -18,16 +18,16 @@ export const AddTraining = () => {
         return <div>Har ikke noe konfigurasjon for {params.name} :(</div>;
     }
 
-    const activity = config.activities.find(exercise => exercise.type.type === params.exercise) ?? config.activities[0];
+    const currentActivity = config.activities.find(exercise => exercise.type.type === params.exercise) ?? config.activities[0];
 
     return <>
-        <TopBarNavigation title={{ capitalized: `${params.name}`, rest: "trener" }}>
+        <TopBarNavigation title={{ capitalized: `${params.name}`, rest: currentActivity.type.verb }}>
             {
                 config.activities.map(activity =>
-                  <LinkItem key={'activity-' + activity.type.type} emoji={activity.icon} text={activity.type.displayName} to={`/add_training/${params.name}/${activity.type.type}`} />
+                  <LinkItem active={currentActivity === activity} key={'activity-' + activity.type.type} emoji={activity.icon} text={activity.type.displayName} to={`/add_training/${params.name}/${activity.type.type}`} />
                 )
             }
         </TopBarNavigation>
-        <AddActivityForm activity={activity} person={params.name} />
+        <AddActivityForm activity={currentActivity} person={params.name} />
     </>
 };

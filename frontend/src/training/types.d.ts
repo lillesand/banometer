@@ -1,6 +1,7 @@
 interface Activity {
   type: string;
   displayName: string;
+  verb: string;
 }
 
 interface FeelingConfig {

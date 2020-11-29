@@ -3,23 +3,28 @@ import { ExerciseConfig } from './types';
 export const activities = {
   run: {
     type: 'run',
-    displayName: 'Løping'
+    displayName: 'Løping',
+    verb: 'løper'
   },
   stretch: {
     type: 'stretch',
-    displayName: 'Tøying'
+    displayName: 'Tøying',
+    verb: 'tøyer'
   },
   strength: {
     type: 'strength',
-    displayName: 'Styrke'
+    displayName: 'Styrke',
+    verb: 'styrker'
   },
   taichi: {
     type: 'taichi',
-    displayName: 'Tai Chi'
+    displayName: 'Tai Chi',
+    verb: 'taichier',
   },
   hike: {
     type: 'hike',
-    displayName: 'Gåtur'
+    displayName: 'Gåtur',
+    verb: 'rusler'
   }
 };
 
