@@ -1,10 +1,10 @@
-import { SavedExercise } from './types';
+import { SavedExercise } from '../types';
 import styles from './TrainingTable.module.scss';
-import { isoDayString, prettyDate } from '../utils/date';
+import { isoDayString, prettyDate } from '../../utils/date';
 import classNames from 'classnames';
-import { prettyExerciseName } from './config';
-import { prettyMinutes } from '../utils/time';
-import { unique } from '../utils/collections';
+import { prettyExerciseName } from '../config';
+import { prettyMinutes } from '../../utils/time';
+import { unique } from '../../utils/collections';
 import React from 'react';
 
 interface OwnProps {

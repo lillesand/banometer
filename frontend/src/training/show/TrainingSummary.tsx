@@ -1,6 +1,6 @@
 import React from 'react';
-import { SavedExercise } from './types';
-import { activities } from './config';
+import { SavedExercise } from '../types';
+import { activities } from '../config';
 
 interface OwnProps {
   exercises: SavedExercise[];
@@ -11,7 +11,7 @@ const assertUnreachable = (x: never) => {
   throw new Error('plz cover all cases');
 };
 
-export const TrainingSummaryRow = (props: OwnProps) => {
+export const TrainingSummary = (props: OwnProps) => {
   const activitySummaries = Object.values(activities).map(activityType => {
     const exercisesOfType = props.exercises.filter(exercise => exercise.type === activityType.type);
     if (exercisesOfType.length === 0) {

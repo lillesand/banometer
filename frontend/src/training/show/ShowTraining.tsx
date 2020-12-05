@@ -1,7 +1,7 @@
-import { datesBetween, prettyDate, prettyWeeksAgo } from '../utils/date';
+import { datesBetween, prettyDate, prettyWeeksAgo } from '../../utils/date';
 import React from 'react';
-import { SavedExercise } from './types';
-import { TrainingSummaryRow } from './TrainingSummaryRow';
+import { SavedExercise } from '../types';
+import { TrainingSummary } from './TrainingSummary';
 import { TrainingTable } from './TrainingTable';
 
 interface OwnProps {
@@ -9,7 +9,7 @@ interface OwnProps {
   className?: string;
 }
 
-export const TrainingWeeks = (props: OwnProps) => {
+export const ShowTraining = (props: OwnProps) => {
   const { trainingData } = props;
 
   const datesWithActivity = (trainingData?.map(trainingData => trainingData.date) ?? []).sort((a, b) => b.localeCompare(a));
@@ -40,7 +40,7 @@ export const TrainingWeeks = (props: OwnProps) => {
           return (
             <div key={`training-week-${prettyDate(startDate)}`}>
               <h2>{prettyWeeksAgo(i)}</h2>
-              <TrainingSummaryRow date={prettyDate(startDate)} exercises={exercises}/>
+              <TrainingSummary date={prettyDate(startDate)} exercises={exercises}/>
               <TrainingTable trainingData={exercises} />
             </div>
           )

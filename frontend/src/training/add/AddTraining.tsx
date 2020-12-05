@@ -1,9 +1,9 @@
 import React from 'react';
-import { LinkItem } from '../menu/LinkItem';
+import { LinkItem } from '../../menu/LinkItem';
 import { useParams } from 'react-router';
-import { people } from './config';
+import { people } from '../config';
 import { AddActivityForm } from './AddActivityForm';
-import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
+import { TopBarNavigation } from '../../topBarNavigation/TopBarNavigation';
 
 interface OwnParams {
     name: string;

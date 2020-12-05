@@ -5,7 +5,7 @@ import { LinkItem } from '../menu/LinkItem';
 import { people } from './config';
 import { useParams } from 'react-router';
 import { ErrorBar } from '../useApi/errorBar/ErrorBar';
-import { TrainingWeeks } from './TrainingWeeks';
+import { ShowTraining } from './show/ShowTraining';
 import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
 
 interface ApiResponse {
@@ -21,7 +21,7 @@ interface OwnParams {
   person: string;
 }
 
-export const ShowTraining = () => {
+export const Training = () => {
   const params = useParams<OwnParams>();
 
   const [response, setData] = useState<ApiResponse>({ loading: true });
@@ -70,7 +70,7 @@ export const ShowTraining = () => {
     </TopBarNavigation>
     <div>
       { trainingData.length === 0 && <div>Ikke noe treningsdata registrert. På tide å komme seg ut!</div> }
-      { trainingData.length > 0 && <TrainingWeeks trainingData={trainingData} /> }
+      { trainingData.length > 0 && <ShowTraining trainingData={trainingData} /> }
     </div>
   </>;
 };
