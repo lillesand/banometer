@@ -2,7 +2,7 @@ import { ActivityConfig, SavedExercise } from './types';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import database from '../firebase-storage/config';
-import { lastWeek } from '../date/date-utils';
+import { lastWeek } from '../utils/date';
 import React, { useState } from 'react';
 import { HighlightedRadioButton } from '../form/HighlightedRadioButton';
 import { ErrorBar } from '../useApi/errorBar/ErrorBar';

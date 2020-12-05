@@ -35,7 +35,7 @@ export const prettyDate = (date: Date) => {
   return Intl.DateTimeFormat('no', { day: 'numeric', month: 'short'}).format(date).slice(0, -1);
 };
 
-export const datesBetween = (start: Date, end: Date) => {
+export const datesBetween = (start: Date, end: Date): Date[] => {
   const days = [];
   for(const day = start; day <= end; day.setDate(day.getDate() +1 )) {
     days.push(new Date(day));
@@ -43,3 +43,14 @@ export const datesBetween = (start: Date, end: Date) => {
 
   return days;
 };
+
+export const prettyWeeksAgo = (weeksAgo: number) => {
+  switch(weeksAgo) {
+    case 0:
+      return 'Siste 7 dager';
+    case 1:
+      return 'Forrige uke';
+    default:
+      return `${weeksAgo} uker siden`;
+  }
+}
