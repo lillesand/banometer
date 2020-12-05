@@ -1,0 +1,17 @@
+.trainingSummary {
+
+  li {
+    display: inline-block;
+    font-size: 0.8em;
+    text-transform: lowercase;
+
+    &:not(:last-of-type) {
+      margin-right: 0.5em;
+
+      &:after {
+        content: ',';
+      }
+    }
+  }
+
+}

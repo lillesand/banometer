@@ -3,6 +3,7 @@ import React from 'react';
 import { SavedExercise } from '../types';
 import { TrainingSummary } from './TrainingSummary';
 import { TrainingTable } from './TrainingTable';
+import styles from './ShowTraining.module.scss';
 
 interface OwnProps {
   trainingData: SavedExercise[];
@@ -38,7 +39,7 @@ export const ShowTraining = (props: OwnProps) => {
           const exercises = activitiesByWeek.get(startDate)!!;
 
           return (
-            <div key={`training-week-${prettyDate(startDate)}`}>
+            <div key={`training-week-${prettyDate(startDate)}`} className={styles.showTraining}>
               <h2>{prettyWeeksAgo(i)}</h2>
               <TrainingSummary date={prettyDate(startDate)} exercises={exercises}/>
               <TrainingTable trainingData={exercises} />
