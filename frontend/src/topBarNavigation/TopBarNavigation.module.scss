@@ -1,0 +1,18 @@
+.topBar {
+  display: flex;
+
+  .capitalized {
+    text-transform: capitalize;
+  }
+
+  .title {
+    flex-grow: 1;
+    margin: 10px;
+    align-self: center;
+  }
+
+  nav {
+    justify-self: flex-end;
+  }
+
+}

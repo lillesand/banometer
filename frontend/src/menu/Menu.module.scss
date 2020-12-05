@@ -1,6 +1,7 @@
 .mainNavigation {
 
-  padding: 3px 20px;
+  position: relative;
+  padding: 3px 0;
   background-color: white;
 
   ul {
@@ -12,12 +13,11 @@
 
   li {
     float: left;
-    margin-right: 13px;
-    text-align: center;
   }
 
-  .floatRight {
-    float: right;
-    margin-right: 0;
+  .reload {
+    position: absolute;
+    top: -20px;
+    right: 0;
   }
 }

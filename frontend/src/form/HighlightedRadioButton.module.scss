@@ -1,0 +1,48 @@
+.highlightedRadioButton {
+
+  margin-right: 5px;
+  margin-bottom: 10px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  &.styleEmojiSelector {
+
+    label {
+      font-size: 30px;
+      padding: 5px 8px;
+      background-clip: padding-box;
+      display: inline-block;
+    }
+
+  }
+
+  &.styleEmojiSelector:first-of-type {
+    label {
+      padding-left: 0;
+    }
+  }
+
+  &.styleText {
+
+    label {
+      font-size: 10px;
+      padding: 10px 10px;
+      background-clip: padding-box;
+      border: lightgrey solid 1px;
+      display: inline-block;
+    }
+
+  }
+
+  .radioButton {
+    display: none;
+  }
+
+  input:checked + label {
+    background-color: beige;
+  }
+
+}
+

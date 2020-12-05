@@ -9,6 +9,8 @@ import { Dragscroll } from './utils/dragscroll/Dragscroll';
 import { Winesync } from './winesync/WinesyncView';
 import { SleepView } from './sleep/SleepView';
 import { realtimeNavigation, realtimeRoutes } from './realtime/navigation';
+import { AddTraining } from './training/add/AddTraining';
+import { Training } from './training/Training';
 import './App.scss';
 
 function App() {
@@ -41,6 +43,12 @@ function App() {
                     <ForecastView />
                   </Route>
                   { realtimeRoutes }
+                  <Route path="/add_training/:name/:exercise?">
+                    <AddTraining />
+                  </Route>
+                  <Route path="/show_training/:person">
+                    <Training />
+                  </Route>
                 </Switch>
               </Dragscroll>
             </section>

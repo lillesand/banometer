@@ -1,0 +1,49 @@
+.table {
+
+  border-collapse: collapse;
+  width: 100%;
+
+  td {
+    padding: 4px 0 2px 0;
+  }
+
+  .lastDateRow:last-of-type {
+    border-bottom: none;
+  }
+
+  .lastDateRow {
+    border-bottom: 1px solid grey;
+
+    td {
+      padding-bottom: 10px;
+    }
+  }
+
+  .firstDateRow {
+    td {
+      padding-top: 10px;
+    }
+  }
+
+}
+
+.date {
+  font-size: 1.2em;
+}
+
+.exercise {
+
+  .type {
+
+  }
+
+  .distanceOrDuration {
+
+  }
+
+  .feeling {
+
+  }
+}
+
+
