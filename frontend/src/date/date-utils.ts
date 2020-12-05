@@ -11,10 +11,13 @@ export const lastWeek = () => {
   });
 };
 
-export const prettyDate = (isoDate: string) => {
+export const isoDayString = (date: Date) => {
+  return ISO_DATETIME_FORMAT.format(date);
+};
+
+export const prettyDate = (date: Date) => {
   const today = Date.now();
-  const date = Date.parse(isoDate);
-  const daysBetween = Math.trunc((today - date) / (1000 * 60 * 60 * 24));
+  const daysBetween = Math.trunc((today - date.getDate()) / (1000 * 60 * 60 * 24));
 
   if (daysBetween < 0) {
     throw new Error('We only support past dates 🤷‍♂️');
@@ -30,4 +33,13 @@ export const prettyDate = (isoDate: string) => {
   }
 
   return Intl.DateTimeFormat('no', { day: 'numeric', month: 'short'}).format(date).slice(0, -1);
+};
+
+export const datesBetween = (start: Date, end: Date) => {
+  const days = [];
+  for(const day = start; day <= end; day.setDate(day.getDate() +1 )) {
+    days.push(new Date(day));
+  }
+
+  return days;
 };

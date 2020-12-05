@@ -1,7 +1,11 @@
+export type ActivitySummary = 'distance' | 'count';
+export type ActivityType = 'run' | 'stretch' | 'strength' | 'taichi' | 'hike';
+
 interface Activity {
-  type: string;
+  type: ActivityType;
   displayName: string;
   verb: string;
+  summary: ActivitySummary;
 }
 
 interface FeelingConfig {
@@ -16,7 +20,6 @@ interface ActivityConfig {
   feelings?: FeelingConfig;
   distance?: number[];
   durationMinutes?: number[];
-
 }
 
 interface ExerciseConfig {
@@ -32,6 +35,6 @@ export interface SavedExercise {
   month: number;
   year: number;
   feeling?: string;
-  distanceMeters?: number;
+  distanceMeters?: string;
   durationMinutes?: number;
 }

@@ -6,8 +6,8 @@ import { lastWeek } from '../date/date-utils';
 import React, { useState } from 'react';
 import { HighlightedRadioButton } from '../form/HighlightedRadioButton';
 import { ErrorBar } from '../useApi/errorBar/ErrorBar';
-import styles from './AddActivityForm.module.scss';
 import { prettyMinutes } from '../utils/time';
+import styles from './AddActivityForm.module.scss';
 
 interface FormData {
   type: string;

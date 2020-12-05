@@ -24,6 +24,6 @@ export const HighlightedRadioButton = React.forwardRef<HTMLInputElement, OwnProp
   const id = `radio-${name}-${value}`;
   return <span className={styles.highlightedRadioButton + ' ' + buttonStyle}>
     <input className={styles.radioButton} id={id} name={name} value={value} type="radio" defaultChecked={defaultChecked} ref={ref} />
-    <label className={styles.highlightedLabel} htmlFor={id}>{label}</label>
+    <label htmlFor={id}>{label}</label>
   </span>;
 });

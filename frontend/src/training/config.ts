@@ -1,32 +1,38 @@
-import { ExerciseConfig } from './types';
+import { Activity, ActivityType, ExerciseConfig } from './types';
 
-export const activities = {
+export const activities : { [activityType in ActivityType]: Activity } = {
   run: {
     type: 'run',
     displayName: 'Løping',
-    verb: 'løper'
+    verb: 'løper',
+    summary: 'distance',
+  },
+  hike: {
+    type: 'hike',
+    displayName: 'Gåtur',
+    verb: 'rusler',
+    summary: 'distance',
   },
   stretch: {
     type: 'stretch',
     displayName: 'Tøying',
-    verb: 'tøyer'
+    verb: 'tøyer',
+    summary: 'count',
   },
   strength: {
     type: 'strength',
     displayName: 'Styrke',
-    verb: 'styrker'
+    verb: 'styrker',
+    summary: 'count',
   },
   taichi: {
     type: 'taichi',
     displayName: 'Tai Chi',
     verb: 'taichier',
-  },
-  hike: {
-    type: 'hike',
-    displayName: 'Gåtur',
-    verb: 'rusler'
+    summary: 'count',
   }
 };
+
 
 
 export const people: ExerciseConfig[] = [
