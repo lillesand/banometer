@@ -5,9 +5,8 @@ import { LinkItem } from '../menu/LinkItem';
 import { people } from './config';
 import { useParams } from 'react-router';
 import { ErrorBar } from '../useApi/errorBar/ErrorBar';
-import { TrainingTable } from './TrainingTable';
+import { TrainingWeeks } from './TrainingWeeks';
 import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
-import styles from './ShowTraining.module.scss';
 
 interface ApiResponse {
   data?: {
@@ -67,11 +66,11 @@ export const ShowTraining = () => {
 
   return <>
     <TopBarNavigation title={{capitalized: `${params.person}s`, rest: "treningslogg"}}>
-      <LinkItem className={styles.addTraining} to={`/add_training/${config.id}`} emoji="➕" text="Ny" />
+      <LinkItem to={`/add_training/${config.id}`} emoji="➕" text="Ny" />
     </TopBarNavigation>
-    <div className={styles.mainContent}>
+    <div>
       { trainingData.length === 0 && <div>Ikke noe treningsdata registrert. På tide å komme seg ut!</div> }
-      { trainingData.length > 0 && <TrainingTable trainingData={trainingData} /> }
+      { trainingData.length > 0 && <TrainingWeeks trainingData={trainingData} /> }
     </div>
   </>;
 };
