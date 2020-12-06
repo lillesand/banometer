@@ -1,10 +1,12 @@
 .linkItem {
 
   &.active {
-    background-color: beige;
+    background-color: #aaaaaa;
+    color: black;
   }
 
   text-decoration: none;
+  color: black;
   display: inline-block;
   text-align: center;
   padding: 5px;
