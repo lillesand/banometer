@@ -36,13 +36,17 @@ export const ShowTraining = (props: OwnProps) => {
     <>
       {
         weeks.map((startDate, i) => {
-          const exercises = activitiesByWeek.get(startDate)!!;
+          const exercises = activitiesByWeek.get(startDate);
 
           return (
             <div key={`training-week-${prettyDate(startDate)}`} className={styles.showTraining}>
               <h2>{prettyWeeksAgo(i)}</h2>
-              <TrainingSummary date={prettyDate(startDate)} exercises={exercises}/>
-              <TrainingTable trainingData={exercises} />
+              { exercises && <>
+                  <TrainingSummary date={prettyDate(startDate)} exercises={exercises}/>
+                  <TrainingTable trainingData={exercises} />
+              </> }
+              { !exercises && <div className={styles.emptyWeek}>Tomt! :(</div> }
+
             </div>
           )
         })
