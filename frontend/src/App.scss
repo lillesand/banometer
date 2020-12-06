@@ -16,7 +16,7 @@
   &.touch-enabled {
     cursor: none;
 
-    a {
+    a, input[type="radio" i] {
       // Needs extra specificity to override user agent default
       cursor: none;
     }
