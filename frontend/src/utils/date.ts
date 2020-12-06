@@ -17,7 +17,7 @@ export const isoDayString = (date: Date) => {
 
 export const prettyDate = (date: Date) => {
   const today = Date.now();
-  const daysBetween = Math.trunc((today - date.getDate()) / (1000 * 60 * 60 * 24));
+  const daysBetween = Math.trunc((today - date.getTime()) / (1000 * 60 * 60 * 24));
 
   if (daysBetween < 0) {
     throw new Error('We only support past dates 🤷‍♂️');
@@ -28,7 +28,7 @@ export const prettyDate = (date: Date) => {
     return words;
   }
 
-  if (daysBetween < 8) {
+  if (daysBetween < 7) {
     return daysBetween + ' dager siden';
   }
 
