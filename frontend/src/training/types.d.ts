@@ -1,5 +1,5 @@
 export type ActivitySummary = 'distance' | 'count';
-export type ActivityType = 'run' | 'stretch' | 'strength' | 'taichi' | 'hike';
+export type ActivityType = 'run' | 'stretch' | 'strength' | 'taichi' | 'hike' | 'skiing' | 'shoveling';
 
 interface Activity {
   type: ActivityType;

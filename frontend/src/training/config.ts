@@ -30,7 +30,19 @@ export const activities : { [activityType in ActivityType]: Activity } = {
     displayName: 'Tai Chi',
     verb: 'taichier',
     summary: 'count',
-  }
+  },
+  skiing: {
+    type: 'skiing',
+    displayName: 'Ski',
+    verb: 'går på ski',
+    summary: 'distance',
+  },
+  shoveling: {
+    type: 'shoveling',
+    displayName: 'Måking',
+    verb: 'måker snø',
+    summary: 'count',
+  },
 };
 
 
@@ -50,6 +62,15 @@ export const people: ExerciseConfig[] = [
         distance: Array.from(Array(10)).map((_, index) => (index + 5) * 1000)
       },
       {
+        type: activities.skiing,
+        icon: '⛷',
+        feelings: {
+          default: '😊',
+          options: ['😅', '😌', '😊', '😓', '😪', '🤕']
+        },
+        distance: Array.from(Array(25)).map((_, index) => (index + 5) * 1000)
+      },
+      {
         type: activities.stretch,
         icon: '🧘‍'
       },
@@ -66,6 +87,15 @@ export const people: ExerciseConfig[] = [
         icon: '🏔',
         distance: Array.from(Array(10)).map((_, index) => (index + 5) * 1000)
       },
+      {
+        type: activities.shoveling,
+        icon: '☃️',
+        feelings: {
+          default: '',
+          options: ['💪', '😊', '😥']
+        },
+        durationMinutes: Array.from(Array(6)).map((_, index) => (index + 1) * 10)
+      }
     ]
   },
   {
@@ -99,6 +129,16 @@ export const people: ExerciseConfig[] = [
         icon: '🏔',
         distance: Array.from(Array(10)).map((_, index) => (index + 3) * 1000)
       },
+      {
+        type: activities.shoveling,
+        icon: '☃️',
+        feelings: {
+          default: '',
+          options: ['💪', '😊', '😥']
+        },
+        durationMinutes: Array.from(Array(6)).map((_, index) => (index + 1) * 10)
+      }
+
     ]
   }
 ]
