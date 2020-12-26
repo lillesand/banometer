@@ -6,8 +6,8 @@ import { GridRowEntry } from '../number-grid/GridRowEntry';
 import { toMillis } from '../utils/time';
 import { LoaderWrapper } from '../useApi/LoaderWrapper';
 
-const renderMeasurement = (name: string, measurement: Measurement) => {
-  return <GridRow heading={name}>
+const renderMeasurement = (measurement: Measurement) => {
+  return <GridRow heading={measurement.name} key={`measurement-${measurement.name}`}>
     <GridRowEntry fieldName="Luftfuktighet">{measurement.humidity}%</GridRowEntry>
     <GridRowEntry fieldName="Temp">{measurement.temperature}°c</GridRowEntry>
   </GridRow>;
@@ -20,9 +20,9 @@ export const NetatmoView = () => {
 
   return <LoaderWrapper response={response}>
     <div className="temperature number-grid">
-      { data?.nydalen?.indoor && renderMeasurement('Inne', data.nydalen?.indoor) }
-      { data?.nydalen?.outdoor && renderMeasurement('Ute', data.nydalen?.outdoor) }
-      { data?.ski?.indoor && renderMeasurement('Vinkjeller', data.ski?.indoor) }
+      {
+        data?.sensors?.map(renderMeasurement)
+      }
     </div>
   </LoaderWrapper>
 };

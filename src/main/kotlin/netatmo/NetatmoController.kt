@@ -14,28 +14,20 @@ class NetatmoController {
     fun temperature(): Sensors {
         val weather = netatmoService.getMeasurements()
 
-        val nydalen = weather.body.devices.filter { device -> device.dashboard_data != null }.map(json).find { device -> device.indoor.sensorName == "Indoor" }
-        val ski = weather.body.devices.filter { device -> device.dashboard_data != null }.map(json).find { device -> device.indoor.sensorName == "Kjelleren" }
-        return Sensors(nydalen, ski)
+        return Sensors(weather.body.devices.map(json).flatten())
     }
 
     private val json = { mainModule: NetatmoWeatherResponse.Body.Device ->
-        val indoor = SensorData(mainModule.module_name, mainModule.dashboard_data!!.Temperature, mainModule.dashboard_data.Humidity)
+        val main = if (mainModule.dashboard_data != null) SensorData(mainModule.module_name, mainModule.dashboard_data.Temperature, mainModule.dashboard_data.Humidity) else null
 
-        val outdoor = mainModule.modules.find { it.type == "NAModule1" }?.let {
-            if (it.dashboard_data != null) {
-                SensorData(it.module_name ?: "Den andre", it.dashboard_data.Temperature, it.dashboard_data.Humidity)
-            } else {
-                null
-            }
+        val modules = mainModule.modules.filter { it.dashboard_data != null }.map {
+            SensorData(it.module_name ?: "${mainModule.station_name} (${it.type})", it.dashboard_data!!.Temperature, it.dashboard_data.Humidity)
         }
 
-        SensorPair(indoor, outdoor)
+        listOfNotNull(main) + modules
     }
 
-    data class Sensors(val nydalen: SensorPair?, val ski: SensorPair?)
+    data class Sensors(val sensors: List<SensorData>)
 
-    data class SensorPair(val indoor: SensorData, val outdoor: SensorData?)
-
-    data class SensorData(val sensorName: String, val temperature: Double, val humidity: Int)
+    data class SensorData(val name: String, val temperature: Double, val humidity: Int)
 }
