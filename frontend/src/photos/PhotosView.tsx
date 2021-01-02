@@ -1,18 +1,8 @@
 import React from 'react';
 import styles from './PhotosView.module.scss';
-import { LinkItem } from '../menu/LinkItem';
 import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
-import { makeRequest } from '../http/makeRequest';
 import { useFirebasePhotos } from './useFirebasePhotos';
-
-const requestPhoto = async () => {
-  try {
-    await makeRequest('/request_photo', {method: 'post'});
-  } catch (e) {
-    console.log(e);
-    alert('Klarte ikke be om bilde :(');
-  }
-}
+import { RequestPhotoMenuItem } from './RequestPhotoMenuItem';
 
 export const PhotosView = () => {
   const [photos, loading, error] = useFirebasePhotos(`/test/banometer/photos/jorbu/`);
@@ -29,7 +19,7 @@ export const PhotosView = () => {
 
   return <div className={styles.photosView}>
     <TopBarNavigation title={{capitalized: "Bilder fra hytta"}}>
-      <LinkItem onClick={requestPhoto} emoji="📸" text="Ta bilde" />
+      <RequestPhotoMenuItem />
     </TopBarNavigation>
     {
       sortedPhotos.map(photo =>
