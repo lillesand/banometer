@@ -5,7 +5,7 @@ import styles from './TopBarNavigation.module.scss';
 interface OwnProps {
   title: {
     capitalized: string;
-    rest: string;
+    rest?: string;
   };
   children: React.ReactElement<LinkItemProps> | React.ReactElement<LinkItemProps>[];
 }

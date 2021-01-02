@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './PhotosView.module.scss';
 import database from '../firebase-storage/config';
+import { LinkItem } from '../menu/LinkItem';
+import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
+import { makeRequest } from '../http/makeRequest';
 
 interface PhotoResponse {
   requested_at: string;
@@ -14,6 +17,15 @@ interface ApiResponse {
   };
   error?: string;
   loading: boolean;
+}
+
+const requestPhoto = async () => {
+  try {
+    await makeRequest('/request_photo', {method: 'post'});
+  } catch (e) {
+    console.log(e);
+    alert('Klarte ikke be om bilde :(');
+  }
 }
 
 export const PhotosView = () => {
@@ -48,7 +60,9 @@ export const PhotosView = () => {
 
   const sortedResponse = response.data.result.sort((a, b) => b.requested_at.localeCompare(a.requested_at));
   return <div className={styles.photosView}>
-    <h2>Bilder fra hytta</h2>
+    <TopBarNavigation title={{capitalized: "Bilder fra hytta"}}>
+      <LinkItem onClick={requestPhoto} emoji="📸" text="Ta bilde" />
+    </TopBarNavigation>
     {
       sortedResponse.map(photo =>
         <div className={styles.photoBlock} key={`photo-${photo.requested_at}`}>
