@@ -30,12 +30,13 @@ const requestPhoto = async () => {
 
 export const PhotosView = () => {
 
-  const [response, setData] = useState<ApiResponse>({ loading: true });
+  const [existingPhotosResponse, setExistingPhotosResponse] = useState<ApiResponse>({ loading: true });
+  const [newPhotos, setNewPhotos] = useState<PhotoResponse[]>([]);
 
   const fetchPhotos = async () => {
     const res = await database.ref(`/test/banometer/photos/jorbu/`).limitToLast(10).orderByKey().once('value');
     const data = await res.val() ? Object.values(res.val()) : [];
-    setData({
+    setExistingPhotosResponse({
       loading: false,
       data: {
         result: data as PhotoResponse[],
@@ -46,25 +47,37 @@ export const PhotosView = () => {
   useEffect(() => {
     fetchPhotos().catch((error) => {
       console.error(error);
-      setData({ loading: false, error: error.toString()})
+      setExistingPhotosResponse({ loading: false, error: error.toString()})
     });
   }, []);
 
-  if (!response.data) {
+  useEffect(() => {
+    database.ref(`/test/banometer/photos/jorbu/`)
+      .on('child_changed', (res) => {
+        const newPhoto = res.val() as PhotoResponse;
+        if (newPhoto.status === 'DONE') {
+          setNewPhotos([newPhoto, ...newPhotos]);
+        }
+      })
+  }, [newPhotos]);
+
+  if (!existingPhotosResponse.data) {
     return <div>laddar…</div>;
   }
 
-  if (response.error) {
-    return <div>Feilet: {response.error}</div>
+  if (existingPhotosResponse.error) {
+    return <div>Feilet: {existingPhotosResponse.error}</div>
   }
 
-  const sortedResponse = response.data.result.sort((a, b) => b.requested_at.localeCompare(a.requested_at));
+  const sortedExistingPhotos = existingPhotosResponse.data.result.sort((a, b) => b.requested_at.localeCompare(a.requested_at));
+  const allPhotos = newPhotos.concat(sortedExistingPhotos);
+
   return <div className={styles.photosView}>
     <TopBarNavigation title={{capitalized: "Bilder fra hytta"}}>
       <LinkItem onClick={requestPhoto} emoji="📸" text="Ta bilde" />
     </TopBarNavigation>
     {
-      sortedResponse.map(photo =>
+      allPhotos.map(photo =>
         <div className={styles.photoBlock} key={`photo-${photo.requested_at}`}>
           {
             photo.url
