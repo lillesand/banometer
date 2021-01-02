@@ -1,0 +1,21 @@
+.photosView {
+
+  margin: 0 10px;
+
+  img {
+    width: 100%;
+    -webkit-user-drag: none;
+  }
+
+  .requestedAt {
+    font-size: 0.8em;
+    float: right;
+    display: block;
+  }
+
+  .photoBlock {
+    margin-bottom: 30px;
+    clear: both;
+  }
+
+}

@@ -51,6 +51,7 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.1'
     runtime group: 'com.fasterxml.jackson.module', name: 'jackson-modules-java8', version: '2.11.1', ext: 'pom'
 
+    compile group: 'com.google.firebase', name: 'firebase-admin', version: '7.1.0'
 
     compileOnly("org.springframework.boot:spring-boot-devtools:$spring_boot_version")
 
