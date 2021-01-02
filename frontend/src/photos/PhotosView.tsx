@@ -3,6 +3,7 @@ import styles from './PhotosView.module.scss';
 import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
 import { useFirebasePhotos } from './useFirebasePhotos';
 import { RequestPhotoMenuItem } from './RequestPhotoMenuItem';
+import { prettyDate, prettyTime } from '../utils/date';
 
 export const PhotosView = () => {
   const [photos, loading, error] = useFirebasePhotos(`/test/banometer/photos/jorbu/`);
@@ -22,15 +23,17 @@ export const PhotosView = () => {
       <RequestPhotoMenuItem />
     </TopBarNavigation>
     {
-      sortedPhotos.map(photo =>
-        <div className={styles.photoBlock} key={`photo-${photo.requested_at}`}>
-          {
-            photo.url
-              ? <img src={photo.url} alt={`Bilde fra ${photo.requested_at}`}/>
-              : <span>Har ikke noe bilde :( </span>
-          }
-          <span className={styles.requestedAt}>{photo.requested_at}</span>
-        </div>
+      sortedPhotos.map(photo => {
+        const date = new Date(Date.parse(photo.requested_at));
+        return <div className={styles.photoBlock} key={`photo-${photo.requested_at}`}>
+            {
+              photo.url
+                ? <img src={photo.url} alt={`Bilde fra ${photo.requested_at}`}/>
+                : <span>Har ikke noe bilde :( </span>
+            }
+            <span className={styles.requestedAt}>{prettyDate(date)}, klokka {prettyTime(date)}</span>
+          </div>;
+        }
       )
     }
   </div>;
