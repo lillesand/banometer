@@ -54,7 +54,7 @@ class WineAnalyzerTest {
         assertEquals(1, mostCollected.size)
         assertEquals("winery1", mostCollected[0].winery)
         assertEquals("wine1", mostCollected[0].name)
-        assertEquals("2011: 1, 2012: 2, 2013: 3", mostCollected[0].vintages)
+        assertEquals(listOf("2011: 1", "2012: 2", "2013: 3"), mostCollected[0].vintages)
     }
 
     @Test
@@ -70,10 +70,10 @@ class WineAnalyzerTest {
         assertEquals(2, mostCollected.size)
         assertEquals("winery2", mostCollected[0].winery)
         assertEquals("wine2", mostCollected[0].name)
-        assertEquals("2011: 1, 2012: 15", mostCollected[0].vintages)
+        assertEquals(listOf("2011: 1", "2012: 15"), mostCollected[0].vintages)
         assertEquals("winery1", mostCollected[1].winery)
         assertEquals("wine1", mostCollected[1].name)
-        assertEquals("2011: 8, 2012: 2, 2013: 3", mostCollected[1].vintages)
+        assertEquals(listOf("2011: 8", "2012: 2", "2013: 3"), mostCollected[1].vintages)
     }
 
     data class RatedWine(val name: String, override val rating: Double) : IRatedWine

@@ -35,6 +35,10 @@ export const prettyDate = (date: Date) => {
   return Intl.DateTimeFormat('no', { day: 'numeric', month: 'short'}).format(date).slice(0, -1);
 };
 
+export const prettyTime = (date: Date) => {
+  return Intl.DateTimeFormat('no', { hour: 'numeric', minute: 'numeric'}).format(date);
+};
+
 export const datesBetween = (start: Date, end: Date): Date[] => {
   const days = [];
   for(const day = start; day <= end; day.setDate(day.getDate() +1 )) {

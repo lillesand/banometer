@@ -12,6 +12,7 @@ import { realtimeNavigation, realtimeRoutes } from './realtime/navigation';
 import { AddTraining } from './training/add/AddTraining';
 import { Training } from './training/Training';
 import './App.scss';
+import { PhotosView } from './photos/PhotosView';
 
 function App() {
   const touchCssClass = navigator.userAgent.includes('X11') ? 'touch-enabled' : '';
@@ -41,6 +42,9 @@ function App() {
                   </Route>
                   <Route path="/forecast">
                     <ForecastView />
+                  </Route>
+                  <Route path="/photos">
+                    <PhotosView />
                   </Route>
                   { realtimeRoutes }
                   <Route path="/add_training/:name/:exercise?">

@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import photos.PhotosController
 import weather.MetController
 import weather.YrProxyController
 import winesync.WineController
@@ -23,7 +24,8 @@ import winesync.WineController
     MetController::class,
     NetatmoController::class,
     CinemaController::class,
-    WineController::class
+    WineController::class,
+    PhotosController::class
 ])
 @EnableScheduling
 @Configuration

@@ -8,6 +8,7 @@ interface OwnProps {
   text: string;
   active?: boolean;
   className?: string;
+  disabled?: boolean
 }
 
 interface OnClickProps extends OwnProps {
@@ -21,9 +22,12 @@ interface LinkProps extends OwnProps {
 export type LinkItemProps = OnClickProps | LinkProps;
 
 export const LinkItem = (props: LinkItemProps) => {
+  const to = props.disabled ? '#' : (props as LinkProps)?.to ?? '#';
+  const onClick = props.disabled ? undefined : (props as OnClickProps)?.onClick
+
   return (
-    <Link type="div" to={(props as LinkProps)?.to ?? '#'}
-          onClick={(props as OnClickProps)?.onClick}
+    <Link type="div" to={to}
+          onClick={onClick}
           className={classNames(styles.linkItem, props.className, {
             [styles.active]: props.active ?? false
           })}>
