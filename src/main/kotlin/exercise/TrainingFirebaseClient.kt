@@ -4,7 +4,7 @@ import com.google.firebase.database.FirebaseDatabase
 import firebase.FirebaseConfig
 import java.util.concurrent.TimeUnit.SECONDS
 
-class FirebaseTrainingClient {
+class TrainingFirebaseClient {
 
     fun createTraining(person: String, training: Training) {
         val database = FirebaseDatabase.getInstance(FirebaseConfig.firebaseApp)
@@ -15,7 +15,7 @@ class FirebaseTrainingClient {
 }
 
 fun main(args: Array<String>) {
-    FirebaseTrainingClient().createTraining("jøran", Training(
+    TrainingFirebaseClient().createTraining("jøran", Training(
         "lol", 10, 10000, 2, 1, 2021, "👍", "skiing"
     ))
 }
