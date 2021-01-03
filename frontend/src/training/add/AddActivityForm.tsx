@@ -8,6 +8,7 @@ import { HighlightedRadioButton } from '../../form/HighlightedRadioButton';
 import { ErrorBar } from '../../useApi/errorBar/ErrorBar';
 import { prettyMinutes } from '../../utils/time';
 import styles from './AddActivityForm.module.scss';
+import { makeRequest } from '../../http/makeRequest';
 
 interface FormData {
   type: string;
@@ -37,7 +38,13 @@ export const AddActivityForm = (props: OwnProps) => {
       ...datas
     };
 
-    database.ref(`users/${person}/exercises`).push(toSave)
+    makeRequest(`/training/${person}`, {
+      method: 'POST',
+      body: JSON.stringify(toSave),
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
       .then(() => {
         reset();
         history.push(`/show_training/${person}`);

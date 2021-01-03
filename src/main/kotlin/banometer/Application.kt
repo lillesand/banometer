@@ -1,6 +1,7 @@
 package banometer
 
 import entur.realtime.EnturController
+import exercise.TrainingController
 import netatmo.NetatmoController
 import odeon.CinemaController
 import org.springframework.boot.SpringApplication
@@ -25,7 +26,8 @@ import winesync.WineController
     NetatmoController::class,
     CinemaController::class,
     WineController::class,
-    PhotosController::class
+    PhotosController::class,
+    TrainingController::class
 ])
 @EnableScheduling
 @Configuration
