@@ -4,9 +4,10 @@ import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
 import { useFirebasePhotos } from './useFirebasePhotos';
 import { RequestPhotoMenuItem } from './RequestPhotoMenuItem';
 import { prettyDate, prettyTime } from '../utils/date';
+import { photosPath } from '../firebase-storage/firebase-config';
 
 export const PhotosView = () => {
-  const [photos, loading, error] = useFirebasePhotos(`/test/banometer/photos/jorbu/`);
+  const [photos, loading, error] = useFirebasePhotos(photosPath);
 
   if (loading) {
     return <div>laddar…</div>;
