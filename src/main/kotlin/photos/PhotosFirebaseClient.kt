@@ -20,14 +20,11 @@ class PhotosFirebaseClient() {
         firebaseApp = FirebaseApp.initializeApp(options)
     }
 
-
     fun requestPhoto(requestedAt: LocalDateTime) {
         val database = FirebaseDatabase.getInstance(firebaseApp)
         val allPhotosRef = database.getReference("/test/banometer/photos/jorbu/")
-        val newPhotoRequest = allPhotosRef.push()
-        newPhotoRequest.setValueAsync(PhotoRequest(requestedAt.toString()))
+        allPhotosRef.push().setValueAsync(PhotoRequest(requestedAt.toString()))
     }
-
 }
 
 fun main(args: Array<String>) {
