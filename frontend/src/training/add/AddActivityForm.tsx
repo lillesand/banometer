@@ -6,8 +6,8 @@ import React, { useState } from 'react';
 import { HighlightedRadioButton } from '../../form/HighlightedRadioButton';
 import { ErrorBar } from '../../useApi/errorBar/ErrorBar';
 import { prettyMinutes } from '../../utils/time';
-import styles from './AddActivityForm.module.scss';
 import { makeRequest } from '../../http/makeRequest';
+import styles from './AddActivityForm.module.scss';
 
 interface FormData {
   type: string;
