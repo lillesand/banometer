@@ -1,7 +1,7 @@
 import { ActivityConfig, SavedExercise } from '../types';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { lastWeek } from '../../utils/date';
+import { lastNDays } from '../../utils/date';
 import React, { useState } from 'react';
 import { HighlightedRadioButton } from '../../form/HighlightedRadioButton';
 import { ErrorBar } from '../../useApi/errorBar/ErrorBar';
@@ -55,7 +55,7 @@ export const AddActivityForm = (props: OwnProps) => {
       });
   });
 
-  const dates = lastWeek();
+  const dates = lastNDays(21);
   return <>
     { errorMessage && <ErrorBar>{errorMessage}</ErrorBar> }
     <form onSubmit={onSubmit} className={styles.addActivityForm}>
