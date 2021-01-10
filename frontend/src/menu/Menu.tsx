@@ -12,6 +12,7 @@ export const Menu = (props: OwnProps) => {
     <LinkItem to="/wines" emoji="🍷" text="Vin"/>,
     <LinkItem to="/temperature" emoji="🌡️️" text="Temp"/>,
     <LinkItem to="/forecast" emoji="🌦" text="Vær"/>,
+    <LinkItem to="/photos" emoji="📷" text="Hytta"/>,
     <LinkItem to="/show_training/jøran" emoji="🏃‍" text="Jøran"/>,
     <LinkItem to="/show_training/linda" emoji="🤸‍️" text="Linda"/>,
   ];

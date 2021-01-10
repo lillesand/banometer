@@ -11,8 +11,8 @@ import { SleepView } from './sleep/SleepView';
 import { realtimeNavigation, realtimeRoutes } from './realtime/navigation';
 import { AddTraining } from './training/add/AddTraining';
 import { Training } from './training/Training';
-import './App.scss';
 import { PhotosView } from './photos/PhotosView';
+import './App.scss';
 
 function App() {
   const touchCssClass = navigator.userAgent.includes('X11') ? 'touch-enabled' : '';

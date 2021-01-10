@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import database from '../firebase-storage/config';
+import { database, trainingPath } from '../firebase-storage/firebase-config';
 import { ExerciseConfig, SavedExercise } from './types';
 import { LinkItem } from '../menu/LinkItem';
 import { people } from './config';
@@ -27,7 +27,7 @@ export const Training = () => {
   const [response, setData] = useState<ApiResponse>({ loading: true });
 
   const fetchExercise = async (config: ExerciseConfig) => {
-    const res = await database.ref(`users/${config.databaseId}/exercises`).orderByKey().once('value');
+    const res = await database.ref(trainingPath(config.databaseId)).orderByKey().once('value');
     const data = await res.val() ? Object.values(res.val()) : [];
     setData({
       loading: false,

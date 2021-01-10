@@ -1,12 +1,12 @@
 import { ActivityConfig, SavedExercise } from '../types';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import database from '../../firebase-storage/config';
 import { lastWeek } from '../../utils/date';
 import React, { useState } from 'react';
 import { HighlightedRadioButton } from '../../form/HighlightedRadioButton';
 import { ErrorBar } from '../../useApi/errorBar/ErrorBar';
 import { prettyMinutes } from '../../utils/time';
+import { makeRequest } from '../../http/makeRequest';
 import styles from './AddActivityForm.module.scss';
 
 interface FormData {
@@ -37,7 +37,13 @@ export const AddActivityForm = (props: OwnProps) => {
       ...datas
     };
 
-    database.ref(`users/${person}/exercises`).push(toSave)
+    makeRequest(`/training/${person}`, {
+      method: 'POST',
+      body: JSON.stringify(toSave),
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
       .then(() => {
         reset();
         history.push(`/show_training/${person}`);

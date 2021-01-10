@@ -11,6 +11,9 @@ const firebaseConfig = {
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-const database = firebaseApp.database();
 
-export default database;
+export const database = firebaseApp.database();
+export const photosPath = "/photos/jorbu";
+export const trainingPath = (person: string) => {
+  return `/users/${person}/exercises`;
+};

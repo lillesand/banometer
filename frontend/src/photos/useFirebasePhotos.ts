@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import database from '../firebase-storage/config';
+import { database } from '../firebase-storage/firebase-config';
 
 export interface PhotoResponse {
   requested_at: string;

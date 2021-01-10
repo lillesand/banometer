@@ -1,35 +1,21 @@
-package exercise
+package photos
 
-import com.google.auth.oauth2.GoogleCredentials
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
 import com.google.firebase.database.FirebaseDatabase
+import firebase.FirebaseConfig
 import java.time.LocalDateTime
+import java.util.concurrent.TimeUnit.SECONDS
 
-class PhotosFirebaseClient() {
-
-    private val firebaseApp: FirebaseApp
-
-    private val serviceAccount = this.javaClass.getResourceAsStream("/.secret/banometer-firebase-adminsdk.json");
-    private val options = FirebaseOptions.builder()
-        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-        .setDatabaseUrl("https://banometer.firebaseio.com")
-        .build();
-
-    init {
-        firebaseApp = FirebaseApp.initializeApp(options)
-    }
+class PhotosFirebaseClient {
 
     fun requestPhoto(requestedAt: LocalDateTime) {
-        val database = FirebaseDatabase.getInstance(firebaseApp)
-        val allPhotosRef = database.getReference("/test/banometer/photos/jorbu/")
-        allPhotosRef.push().setValueAsync(PhotoRequest(requestedAt.toString()))
+        val database = FirebaseDatabase.getInstance(FirebaseConfig.firebaseApp)
+        val allPhotosRef = database.getReference(FirebaseConfig.PHOTOS_PATH)
+        allPhotosRef.push().setValueAsync(PhotoRequest(requestedAt.toString())).get(5, SECONDS)
     }
 }
 
 fun main(args: Array<String>) {
     PhotosFirebaseClient().requestPhoto(LocalDateTime.now())
-    Thread.sleep(5000)
 }
 
 data class PhotoRequest (
