@@ -94,7 +94,7 @@ export const people: ExerciseConfig[] = [
           default: '',
           options: ['💪', '😊', '😥']
         },
-        durationMinutes: Array.from(Array(6)).map((_, index) => (index + 1) * 10)
+        durationMinutes: Array.from(Array(15)).map((_, index) => (index + 1) * 10)
       }
     ]
   },
@@ -145,7 +145,7 @@ export const people: ExerciseConfig[] = [
           default: '',
           options: ['💪', '😊', '😥']
         },
-        durationMinutes: Array.from(Array(6)).map((_, index) => (index + 1) * 10)
+        durationMinutes: Array.from(Array(15)).map((_, index) => (index + 1) * 10)
       }
 
     ]
