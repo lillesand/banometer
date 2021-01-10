@@ -3,14 +3,16 @@ import styles from './Dragscroll.module.scss';
 import classNames from 'classnames';
 
 interface OwnProps {
-    horizontal?: boolean;
-    vertical?: boolean;
+    direction?: 'horizontal' | 'vertical' | 'both';
     scrollSpeed?: number;
     children: React.ReactElement[] | React.ReactElement;
 }
 
 export const Dragscroll = (props: OwnProps) => {
-    const { children, horizontal = false, vertical = true, scrollSpeed = 1.4 } = props;
+    const { children, direction = 'vertical', scrollSpeed = 1.4 } = props;
+    const vertical = direction === 'vertical' || direction === 'both';
+    const horizontal = direction === 'horizontal' || direction === 'both';
+
     let isDown = false, startY = 0, startX = 0, scrollTop = 0, scrollLeft = 0;
     const dragscrollable = createRef<HTMLDivElement>();
 
