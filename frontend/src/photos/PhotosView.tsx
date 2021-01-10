@@ -29,7 +29,7 @@ export const PhotosView = () => {
         return <div className={styles.photoBlock} key={`photo-${photo.requested_at}`}>
             {
               photo.url
-                ? <img src={photo.url} alt={`Bilde fra ${photo.requested_at}`}/>
+                ? <img draggable={false} src={photo.url} alt={`Bilde fra ${photo.requested_at}`}/>
                 : <span>Har ikke noe bilde :( </span>
             }
             <span className={styles.requestedAt}>{prettyDate(date)}, klokka {prettyTime(date)}</span>
