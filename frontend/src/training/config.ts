@@ -108,6 +108,15 @@ export const people: ExerciseConfig[] = [
         durationMinutes: Array.from(Array(15)).map((_, index) => (index + 1) * 10)
       },
       {
+        type: activities.skiing,
+        icon: '⛷',
+        feelings: {
+          default: '😊',
+          options: ['😅', '😌', '😊', '😓', '😪', '🤕']
+        },
+        distance: Array.from(Array(20)).map((_, index) => (index + 3) * 1000)
+      },
+      {
         type: activities.run,
         icon: '🏃',
         feelings: {
