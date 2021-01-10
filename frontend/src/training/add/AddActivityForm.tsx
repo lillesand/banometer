@@ -8,6 +8,7 @@ import { ErrorBar } from '../../useApi/errorBar/ErrorBar';
 import { prettyMinutes } from '../../utils/time';
 import { makeRequest } from '../../http/makeRequest';
 import styles from './AddActivityForm.module.scss';
+import { Dragscroll } from '../../utils/dragscroll/Dragscroll';
 
 interface FormData {
   type: string;
@@ -77,9 +78,11 @@ export const AddActivityForm = (props: OwnProps) => {
 
       {activity.distance && <fieldset>
         <legend>Hvor langt ble det?</legend>
-        {activity.distance.map(distance =>
-          <HighlightedRadioButton displayStyle="styleText" key={'distance-input-' + distance} name="distanceMeters" label={distance / 1000 + 'km'} value={distance.toString()} ref={register}/>
-        )}
+        <Dragscroll vertical={false} horizontal={true}>
+          {activity.distance.map(distance =>
+            <HighlightedRadioButton displayStyle="styleText" key={'distance-input-' + distance} name="distanceMeters" label={distance / 1000 + 'km'} value={distance.toString()} ref={register}/>
+          )}
+        </Dragscroll>
       </fieldset>}
 
       {activity.durationMinutes && <fieldset>

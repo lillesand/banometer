@@ -1,0 +1,17 @@
+.dragscroll {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  &.vertical {
+    height: 100%;
+    overflow-y: hidden;
+  }
+
+  &.horizontal {
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+
+}
