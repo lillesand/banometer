@@ -29,7 +29,10 @@ export const PhotosView = () => {
         return <div className={styles.photoBlock} key={`photo-${photo.requested_at}`}>
             {
               photo.url
-                ? <img draggable={false} src={photo.url} alt={`Bilde fra ${photo.requested_at}`}/>
+                ? <img draggable={false}
+                       onDragStart={(e) => { e.preventDefault && e.preventDefault() }} // Meh. No sane drag and drop prevention works in Firefox. This does, tho!
+                       src={photo.url}
+                       alt={`Bilde fra ${photo.requested_at}`}/>
                 : <span>Har ikke noe bilde :( </span>
             }
             <span className={styles.requestedAt}>{prettyDate(date)}, klokka {prettyTime(date)}</span>
