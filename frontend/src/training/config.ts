@@ -105,7 +105,7 @@ export const people: ExerciseConfig[] = [
       {
         type: activities.taichi,
         icon: '🧘',
-        durationMinutes: Array.from(Array(15)).map((_, index) => (index + 1) * 10)
+        durationMinutes: Array.from(Array(42)).map((_, index) => (index + 1) * 10)
       },
       {
         type: activities.skiing,
@@ -114,7 +114,7 @@ export const people: ExerciseConfig[] = [
           default: '😊',
           options: ['😅', '😌', '😊', '😓', '😪', '🤕']
         },
-        distance: Array.from(Array(20)).map((_, index) => (index + 3) * 1000)
+        distance: Array.from(Array(30)).map((_, index) => (index + 3) * 1000)
       },
       {
         type: activities.run,
