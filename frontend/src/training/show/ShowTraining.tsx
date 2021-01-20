@@ -36,7 +36,7 @@ export const ShowTraining = (props: OwnProps) => {
     <>
       {
         weeks.map((startDate, i) => {
-          const exercises = activitiesByWeek.get(startDate);
+          const exercises = activitiesByWeek.get(startDate)?.sort((a, b) => a.date.localeCompare(b.date));
 
           return (
             <div key={`training-week-${prettyDate(startDate)}`} className={styles.showTraining}>

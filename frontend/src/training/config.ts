@@ -59,7 +59,7 @@ export const people: ExerciseConfig[] = [
           default: '😊',
           options: ['😅', '😌', '😊', '😓', '😪', '🤕']
         },
-        distance: Array.from(Array(10)).map((_, index) => (index + 5) * 1000)
+        distance: Array.from(Array(38)).map((_, index) => (index + 5) * 1000)
       },
       {
         type: activities.skiing,
@@ -68,7 +68,7 @@ export const people: ExerciseConfig[] = [
           default: '😊',
           options: ['😅', '😌', '😊', '😓', '😪', '🤕']
         },
-        distance: Array.from(Array(25)).map((_, index) => (index + 5) * 1000)
+        distance: Array.from(Array(50)).map((_, index) => (index + 5) * 1000)
       },
       {
         type: activities.stretch,
@@ -94,7 +94,7 @@ export const people: ExerciseConfig[] = [
           default: '',
           options: ['💪', '😊', '😥']
         },
-        durationMinutes: Array.from(Array(6)).map((_, index) => (index + 1) * 10)
+        durationMinutes: Array.from(Array(15)).map((_, index) => (index + 1) * 10)
       }
     ]
   },
@@ -105,7 +105,16 @@ export const people: ExerciseConfig[] = [
       {
         type: activities.taichi,
         icon: '🧘',
-        durationMinutes: Array.from(Array(8)).map((_, index) => (index + 1) * 10)
+        durationMinutes: Array.from(Array(15)).map((_, index) => (index + 1) * 10)
+      },
+      {
+        type: activities.skiing,
+        icon: '⛷',
+        feelings: {
+          default: '😊',
+          options: ['😅', '😌', '😊', '😓', '😪', '🤕']
+        },
+        distance: Array.from(Array(20)).map((_, index) => (index + 3) * 1000)
       },
       {
         type: activities.run,
@@ -114,7 +123,7 @@ export const people: ExerciseConfig[] = [
           default: '😊',
           options: ['😅', '😌', '😊', '😓', '😪', '🤕']
         },
-        distance: Array.from(Array(8)).map((_, index) => (index + 3) * 1000)
+        distance: Array.from(Array(15)).map((_, index) => (index + 3) * 1000)
       },
       {
         type: activities.strength,
@@ -127,7 +136,7 @@ export const people: ExerciseConfig[] = [
       {
         type: activities.hike,
         icon: '🏔',
-        distance: Array.from(Array(10)).map((_, index) => (index + 3) * 1000)
+        distance: Array.from(Array(30)).map((_, index) => (index + 3) * 1000)
       },
       {
         type: activities.shoveling,
@@ -136,7 +145,7 @@ export const people: ExerciseConfig[] = [
           default: '',
           options: ['💪', '😊', '😥']
         },
-        durationMinutes: Array.from(Array(6)).map((_, index) => (index + 1) * 10)
+        durationMinutes: Array.from(Array(15)).map((_, index) => (index + 1) * 10)
       }
 
     ]
