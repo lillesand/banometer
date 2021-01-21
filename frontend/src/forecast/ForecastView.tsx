@@ -21,7 +21,7 @@ const forecastRow = (forecast: Forecast, index: number) => {
       }
       <tr key={forecast.instant + ''}>
         <td>
-          <img className="weather-symbol" src={require(`./symbols/${forecast.symbol}.svg`)} alt={forecast.symbol}/>
+          <img className="weather-symbol" src={require(`./symbols/${forecast.symbol}.svg`).default} alt={forecast.symbol}/>
         </td>
         <td>
           {forecast.time}
