@@ -3,10 +3,23 @@ import React, { useState } from 'react';
 import { PhotoResponse } from './useFirebasePhotos';
 import styles from './PhotoView.module.scss';
 import { Button } from '../button/Button';
+import { makeRequest } from '../http/makeRequest';
 
 interface OwnProps {
   photo: PhotoResponse;
 }
+
+const hidePhoto = (id: string) => {
+  makeRequest(`/photo/delete/${id}`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+  }).catch((error) => {
+    alert('Klarte ikke slette bilde :(');
+    console.error(error);
+  });
+};
 
 export const PhotoView = (props: OwnProps) => {
   const { photo } = props;
@@ -21,21 +34,25 @@ export const PhotoView = (props: OwnProps) => {
                onDragStart={(e) => {
                  e.preventDefault && e.preventDefault()
                }} // Meh. No sane drag and drop prevention works in Firefox. This does, tho!
-               onClick={() => {
-                 setShowActionOverlay(true)
-               }}
                src={photo.url}
                alt={`Bilde fra ${photo.requested_at}`}/>
         : <span>Har ikke noe bilde :( </span>
     }
+
+    <Button className={styles.toggleOverlay} layout="simple"
+            onMouseUp={() => {
+              setShowActionOverlay(!showActionOverlay)
+            }}>
+      ⚙️
+    </Button>
+
     { showActionOverlay &&
-      <div className={styles.actionOverlay} onClick={() => {
-        setShowActionOverlay(false)
-      }}>
+      <div className={styles.actionOverlay}>
           <Button className={styles.deleteButton} onClick={() => {
             const confirmed = window.confirm('Er du sikker på at du vil skjule bildet? 😱');
             if (confirmed) {
-              console.log('delete');
+              console.log(`deleting ${photo.id}`, photo);
+              hidePhoto(photo.id)
             }
           }}>
               🗑

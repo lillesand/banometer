@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { database } from '../firebase-storage/firebase-config';
 
 export interface PhotoResponse {
+  id: string;
   requested_at: string;
   status: 'REQUESTED' | 'PROCESSING' | 'DONE';
   url?: string;
+  hidden: boolean;
 }
 
 export const useFirebasePhotos = (firebasePath: string) : [PhotoResponse[], boolean, Error?] => {
@@ -13,10 +15,12 @@ export const useFirebasePhotos = (firebasePath: string) : [PhotoResponse[], bool
   const [photos, setPhotos] = useState<PhotoResponse[]>([]);
 
   const fetchPhotos = useCallback(async () => {
-    const res = await database.ref(firebasePath).limitToLast(10).orderByKey().once('value');
-    const data = await res.val() ? Object.values(res.val()) : [];
+    const res = await database.ref(firebasePath).limitToLast(20).orderByKey().once('value');
+    const data = await res.val() ? Object.entries(res.val()) : [];
+    const mappedData = data.map(([key, value]) => {return { id: key, ...(value as PhotoResponse) }})
+
+    setPhotos(mappedData.filter(photo => !photo.hidden));
     setLoading(false);
-    setPhotos(data as PhotoResponse[]);
   }, [firebasePath]);
 
   useEffect(() => {
@@ -30,9 +34,13 @@ export const useFirebasePhotos = (firebasePath: string) : [PhotoResponse[], bool
   useEffect(() => {
     database.ref(firebasePath)
       .on('child_changed', (res) => {
-        const newPhoto = res.val() as PhotoResponse;
-        if (newPhoto.status === 'DONE') {
-          setPhotos([newPhoto, ...photos]);
+        const changed = { id: res.key, ...(res.val() as PhotoResponse)};
+        if (changed.status === 'DONE' && !changed.hidden) {
+          setPhotos([changed, ...photos]);
+        }
+
+        if (changed.hidden) {
+          setPhotos(photos.filter(photo => photo.id !== changed.id));
         }
       })
   }, [photos, firebasePath]);
