@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './PhotosView.module.scss';
 import { TopBarNavigation } from '../topBarNavigation/TopBarNavigation';
 import { useFirebasePhotos } from './useFirebasePhotos';
 import { RequestPhotoMenuItem } from './RequestPhotoMenuItem';
-import { prettyDate, prettyTime } from '../utils/date';
 import { photosPath } from '../firebase-storage/firebase-config';
+import { PhotoView } from './PhotoView';
+import styles from './PhotosView.module.scss';
 
 export const PhotosView = () => {
   const [photos, loading, error] = useFirebasePhotos(photosPath);
@@ -23,22 +23,6 @@ export const PhotosView = () => {
     <TopBarNavigation title={{capitalized: "Bilder fra hytta"}}>
       <RequestPhotoMenuItem />
     </TopBarNavigation>
-    {
-      sortedPhotos.map(photo => {
-        const date = new Date(Date.parse(photo.requested_at));
-        return <div className={styles.photoBlock} key={`photo-${photo.requested_at}`}>
-            {
-              photo.url
-                ? <img draggable={false}
-                       onDragStart={(e) => { e.preventDefault && e.preventDefault() }} // Meh. No sane drag and drop prevention works in Firefox. This does, tho!
-                       src={photo.url}
-                       alt={`Bilde fra ${photo.requested_at}`}/>
-                : <span>Har ikke noe bilde :( </span>
-            }
-            <span className={styles.requestedAt}>{prettyDate(date)}, klokka {prettyTime(date)}</span>
-          </div>;
-        }
-      )
-    }
+    { sortedPhotos.map(photo => <PhotoView photo={photo} key={`photo-${photo.requested_at}`} />) }
   </div>;
 };
