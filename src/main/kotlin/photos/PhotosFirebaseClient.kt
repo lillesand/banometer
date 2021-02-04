@@ -15,7 +15,6 @@ class PhotosFirebaseClient(val env: String = "") {
 
     fun hidePhoto(id: String) {
         val database = FirebaseDatabase.getInstance(FirebaseConfig.firebaseApp)
-        println(FirebaseConfig.photoPath(env, id))
         database.getReference(FirebaseConfig.photoPath(env, id))
             .updateChildrenAsync(mapOf(Pair("hidden", true))).get(5, SECONDS)
     }
