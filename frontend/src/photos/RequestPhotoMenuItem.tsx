@@ -4,7 +4,7 @@ import { makeRequest } from '../http/makeRequest';
 import { useCooldown } from './useCooldown';
 
 const requestPhoto = (madeRequest: () => void) => {
-  makeRequest('/request_photo', {method: 'post'}).catch((error) => {
+  makeRequest('/photo/request', {method: 'post'}).catch((error) => {
     console.log(error);
     alert('Klarte ikke be om bilde :(');
   });

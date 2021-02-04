@@ -8,7 +8,15 @@ sealed class FirebaseConfig {
 
     companion object {
 
-        const val PHOTOS_PATH: String = "/photos/jorbu"
+        fun photosPath(env: String): String {
+            val envPrefix = if(env == "prod") "" else "/${env}"
+            return "${envPrefix}/photos/jorbu"
+        }
+
+        fun photoPath(env: String, photoId: String): String {
+            return "${photosPath(env)}/${photoId}"
+        }
+
 
         fun trainingPath(person: String): String {
             return "/users/${person}/exercises"
