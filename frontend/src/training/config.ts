@@ -7,6 +7,12 @@ export const activities : { [activityType in ActivityType]: Activity } = {
     verb: 'løper',
     summary: 'distance',
   },
+  bicycle: {
+    type: 'bicycle',
+    displayName: 'Sykling',
+    verb: 'sykler',
+    summary: 'distance',
+  },
   hike: {
     type: 'hike',
     displayName: 'Gåtur',
@@ -62,6 +68,15 @@ export const people: ExerciseConfig[] = [
         distance: Array.from(Array(38)).map((_, index) => (index + 5) * 1000)
       },
       {
+        type: activities.bicycle,
+        icon: '🚴‍♂️',
+        feelings: {
+          default: '😊',
+          options: ['😁', '😅', '😊', '😓', '😪', '🤕']
+        },
+        distance: Array.from(Array(70)).map((_, index) => (index + 5) * 1000)
+      },
+      {
         type: activities.skiing,
         icon: '⛷',
         feelings: {
@@ -87,15 +102,6 @@ export const people: ExerciseConfig[] = [
         icon: '🏔',
         distance: Array.from(Array(10)).map((_, index) => (index + 5) * 1000)
       },
-      {
-        type: activities.shoveling,
-        icon: '☃️',
-        feelings: {
-          default: '',
-          options: ['💪', '😊', '😥']
-        },
-        durationMinutes: Array.from(Array(15)).map((_, index) => (index + 1) * 10)
-      }
     ]
   },
   {
