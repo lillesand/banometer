@@ -69,7 +69,7 @@ export const people: ExerciseConfig[] = [
       },
       {
         type: activities.bicycle,
-        icon: '🚴‍♂️',
+        icon: '🚴‍️',
         feelings: {
           default: '😊',
           options: ['😁', '😅', '😊', '😓', '😪', '🤕']
@@ -100,7 +100,7 @@ export const people: ExerciseConfig[] = [
       {
         type: activities.hike,
         icon: '🏔',
-        distance: Array.from(Array(10)).map((_, index) => (index + 5) * 1000)
+        distance: Array.from(Array(40)).map((_, index) => (index + 5) * 1000)
       },
     ]
   },
